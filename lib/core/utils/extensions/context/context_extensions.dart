@@ -2,8 +2,6 @@ import 'package:campus_hub/config/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 extension ContextExtension on BuildContext {
-  // ── Ekran Boyutları ──
-
   /// Ekran boyutları
   Size get screenSize => MediaQuery.of(this).size;
 

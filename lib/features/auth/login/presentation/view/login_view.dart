@@ -19,6 +19,7 @@ class _LoginViewState extends State<LoginView>
 
   static const _tabCount = 2;
   static const _tabBarBottomGap = AppSize.v16;
+  static const _animDuration = Duration(milliseconds: 300);
 
   @override
   void initState() {
@@ -34,13 +35,22 @@ class _LoginViewState extends State<LoginView>
 
   @override
   Widget build(BuildContext context) {
+    final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         body: SafeArea(
           child: Column(
             children: [
-              const LoginHeader(),
+              // Klavye durumuna göre logo animasyonlu açılıp kapanır
+              AnimatedSize(
+                duration: _animDuration,
+                curve: Curves.easeInOut,
+                child: isKeyboardOpen
+                    ? const SizedBox.shrink()
+                    : const LoginHeader(),
+              ),
               LoginTabBar(controller: _tabController),
               const SizedBox(height: _tabBarBottomGap),
               Expanded(

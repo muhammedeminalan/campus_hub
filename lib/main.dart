@@ -1,14 +1,13 @@
-import 'package:campus_hub/config/init/app_bloc_observer.dart';
+import 'package:campus_hub/config/init/app_init.dart';
 import 'package:campus_hub/config/init/injection_container.dart';
-import 'package:campus_hub/features/login/presentation/bloc/login_bloc.dart';
-import 'package:campus_hub/features/login/presentation/view/login_view.dart';
+import 'package:campus_hub/config/providers/bloc_providers.dart';
+import 'package:campus_hub/core/constants/app_strings.dart';
+import 'package:campus_hub/features/auth/login/presentation/view/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  Bloc.observer = AppBlocObserver();
-  await initializeDependencies();
+  AppInit.init();
   runApp(const MyApp());
 }
 
@@ -18,9 +17,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (_) => sl<LoginBloc>())],
+      providers: BlocProviders.providers,
       child: MaterialApp(
-        title: 'CampusHub',
+        title: AppStrings.appName,
         theme: sl<ThemeData>(),
         debugShowCheckedModeBanner: false,
         home: const LoginView(),

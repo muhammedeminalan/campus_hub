@@ -21,8 +21,7 @@ class MyApp extends StatelessWidget {
       providers: [BlocProvider(create: (_) => sl<LoginBloc>())],
       child: MaterialApp(
         title: 'CampusHub',
-        theme: .light(),
-        themeMode: .light,
+        theme: sl<ThemeData>(),
         debugShowCheckedModeBanner: false,
         home: const LoginView(),
       ),

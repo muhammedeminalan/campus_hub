@@ -1,5 +1,6 @@
-import 'package:campus_hub/core/utils/index.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../core/utils/index.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -13,15 +14,8 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Login')),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/app_logo/campushub_icon.png',
-            height: 100,
-            width: 100,
-          ).center,
-        ],
+      body: Center(
+        child: Text('Login View', style: context.textTheme.headlineMedium),
       ),
     );
   }

@@ -26,6 +26,10 @@ dependencies:
   # --- Local Storage ---
   shared_preferences: ^2.5.4
 
+  # --- Form ---
+  flutter_form_builder: ^10.3.0+2
+  form_builder_validators: ^11.3.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

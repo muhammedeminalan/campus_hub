@@ -9,28 +9,18 @@ extension SizeExtensions on num {
   SizedBox get w => SizedBox(width: toDouble());
 
   /// Eski isimlendirme (geriye uyumluluk)
-  SizedBox get height =>
-      SizedBox(height: toDouble());
-  SizedBox get width =>
-      SizedBox(width: toDouble());
+  SizedBox get height => SizedBox(height: toDouble());
+  SizedBox get width => SizedBox(width: toDouble());
 
   /// EdgeInsets helpers
-  EdgeInsets get all =>
-      EdgeInsets.all(toDouble());
-  EdgeInsets get horizontal =>
-      EdgeInsets.symmetric(
-        horizontal: toDouble(),
-      );
-  EdgeInsets get vertical =>
-      EdgeInsets.symmetric(vertical: toDouble());
+  EdgeInsets get all => EdgeInsets.all(toDouble());
+  EdgeInsets get horizontal => EdgeInsets.symmetric(horizontal: toDouble());
+  EdgeInsets get vertical => EdgeInsets.symmetric(vertical: toDouble());
 
   /// BorderRadius helper
-  BorderRadius get radius =>
-      BorderRadius.circular(toDouble());
+  BorderRadius get radius => BorderRadius.circular(toDouble());
 
   /// Duration helpers
-  Duration get ms =>
-      Duration(milliseconds: toInt());
-  Duration get seconds =>
-      Duration(seconds: toInt());
+  Duration get ms => Duration(milliseconds: toInt());
+  Duration get seconds => Duration(seconds: toInt());
 }

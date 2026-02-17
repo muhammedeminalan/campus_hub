@@ -6,7 +6,9 @@ final class AppStrings {
 
   // App
   static const appName = 'CampusHub';
-
+  //role
+  static const student = 'Öğrenci';
+  static const teacher = 'Öğretmen';
   // Common
   static const ok = 'Tamam';
   static const cancel = 'İptal';

@@ -1,7 +1,6 @@
 import 'package:campus_hub/core/constants/app_strings.dart';
-import 'package:campus_hub/core/utils/index.dart';
-import 'package:campus_hub/core/utils/widgets/buttons/costum_button.dart';
 import 'package:flutter/material.dart';
+import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
 class TeacherLoginView extends StatefulWidget {
   const TeacherLoginView({super.key});

@@ -1,5 +1,5 @@
 import 'package:campus_hub/features/auth/login/presentation/bloc/login_bloc.dart';
-import 'package:campus_hub/features/botton_navigation/cubit/navigation_cubit.dart';
+import 'package:campus_hub/features/bottom_navigation/cubit/navigation_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../init/injection_container.dart';

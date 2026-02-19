@@ -1,10 +1,10 @@
 import 'package:campus_hub/core/constants/app_sizes.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:campus_hub/core/ui/widgets/custom_text_field.dart';
-import 'package:campus_hub/features/botton_navigation/view/bottom_navigation_view.dart';
+import 'package:campus_hub/features/bottom_navigation/view/bottom_navigation_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:wonzy_core_utils/core_utils.dart';
+import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
 class StudentInformation extends StatefulWidget {
   const StudentInformation({super.key});
@@ -43,7 +43,7 @@ class _StudentInformationState extends State<StudentInformation> {
             crossAxisAlignment: CrossAxisAlignment.start,
             spacing: AppSize.v28,
           )
-          .paddingSymmetric(h: 16, v: 24)
+          .paddingSymmetric(h: AppSize.v16, v: AppSize.v24)
           .paddingOnly(bottom: MediaQuery.of(context).viewInsets.bottom),
     );
   }
@@ -60,39 +60,39 @@ class _StudentInformationState extends State<StudentInformation> {
           spacing: AppSize.v16,
           children: [
             CustomTextField(
-              name: AppStrings.name,
+              name: 'name',
               label: AppStrings.name,
               required: true,
             ),
             CustomTextField(
-              name: AppStrings.surname,
+              name: 'surname',
               label: AppStrings.surname,
               required: true,
             ),
             CustomTextField(
-              name: AppStrings.studentNumber,
+              name: 'studentNo',
               type: CustomFieldType.studentNumber,
               label: AppStrings.studentNo,
               required: true,
               keyboardType: TextInputType.number,
             ),
             CustomTextField(
-              name: AppStrings.studentUniversity,
+              name: 'university',
               label: AppStrings.studentUniversity,
               required: true,
             ),
             CustomTextField(
-              name: AppStrings.studentFaculty,
+              name: 'faculty',
               label: AppStrings.studentFaculty,
               required: true,
             ),
             CustomTextField(
-              name: AppStrings.studentDepartment,
+              name: 'department',
               label: AppStrings.studentDepartment,
               required: true,
             ),
             CustomTextField(
-              name: AppStrings.studentClass,
+              name: 'class',
               label: AppStrings.studentClass,
               required: true,
               keyboardType: TextInputType.number,

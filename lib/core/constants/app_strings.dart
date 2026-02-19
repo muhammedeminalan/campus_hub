@@ -61,6 +61,9 @@ final class AppStrings {
   static const studentInfo = 'Öğrenci Bilgileri';
   static const profileSettings = 'Profil Ayarları';
   static const notifications = 'Bildirimler';
+  static const takenCourses = 'Alınan Dersler';
+  static const quickMenu = 'Hızlı Menü';
+  static const examResults = 'Sınav Sonuçları';
   static const studentNumber = "Öğrenci Numarası";
   static const teacherNumber = "Öğretmen Numarası";
 }

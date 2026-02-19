@@ -1,6 +1,7 @@
 import 'package:campus_hub/core/constants/app_sizes.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:campus_hub/core/ui/widgets/custom_text_field.dart';
+import 'package:campus_hub/features/botton_navigation/view/bottom_navigation_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:wonzy_core_utils/core_utils.dart';
@@ -20,6 +21,7 @@ class _StudentInformationState extends State<StudentInformation> {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       final values = _formKey.currentState!.value;
       '$values'.infoLog(name: "STUDENT_INFO SAVED");
+      context.pushAndRemoveUntilPage(const BottomNavigationView());
     }
   }
 

@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: AppStrings.appName,
         theme: sl<ThemeData>(),
+
         debugShowCheckedModeBanner: false,
         home: const LoginView(),
       ),

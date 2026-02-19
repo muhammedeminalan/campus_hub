@@ -1,6 +1,7 @@
 import 'package:campus_hub/config/theme/app_theme.dart';
 import 'package:campus_hub/core/cache/shared_prefs_service.dart';
 import 'package:campus_hub/features/auth/login/presentation/bloc/login_bloc.dart';
+import 'package:campus_hub/features/botton_navigation/cubit/navigation_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -21,4 +22,7 @@ Future<void> initializeDependencies() async {
 
   // --- Bloc ---
   sl.registerFactory<LoginBloc>(() => LoginBloc());
+
+  // --- Cubit ---
+  sl.registerFactory<NavigationCubit>(() => NavigationCubit());
 }

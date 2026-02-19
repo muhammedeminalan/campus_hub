@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main() async {
-  AppInit.init();
+  await AppInit.init();
   runApp(const MyApp());
 }
 
@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: AppStrings.appName,
         theme: sl<ThemeData>(),
-
         debugShowCheckedModeBanner: false,
         home: const LoginView(),
       ),

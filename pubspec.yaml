@@ -11,37 +11,46 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # --- UI ---
+  # ──────────── UI ────────────
   cupertino_icons: ^1.0.8
 
-  # --- State Management ---
+  # ──────────── State Management ────────────
   flutter_bloc: ^9.1.1
   equatable: ^2.0.8
 
-  # --- Dependency Injection ---
+  # ──────────── Dependency Injection ────────────
   get_it: ^9.2.0
 
-  # --- Network ---
+  # ──────────── Network ────────────
   dio: ^5.9.1
 
-  # --- Local Storage ---
+  # ──────────── Local Storage ────────────
   shared_preferences: ^2.5.4
 
-  # --- Form ---
+  # ──────────── Form ────────────
   flutter_form_builder: ^10.3.0+2
   form_builder_validators: ^11.3.0
 
-  # --- Core Utils ---
+  # ──────────── Firebase ────────────
+  firebase_core: ^4.4.0
+  firebase_auth: ^6.1.4
+  cloud_firestore: ^6.1.2
+  firebase_storage: ^13.0.6
+
+  # ──────────── Media ────────────
+  image_picker: ^1.2.1
+
+  # ──────────── Core Utils ────────────
   wonzy_core_utils:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  # --- Linting ---
+  # ──────────── Linting ────────────
   flutter_lints: ^6.0.0
 
-  # --- Code Generation ---
+  # ──────────── Code Generation ────────────
   flutter_launcher_icons: ^0.14.2
   flutter_native_splash: ^2.4.4
   build_runner: ^2.11.1

@@ -1,4 +1,6 @@
+import 'package:campus_hub/core/constants/app_sizes.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
+import 'package:campus_hub/features/student_information/presentation/view/student_information.dart';
 import 'package:flutter/material.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
@@ -18,19 +20,27 @@ class _StudentLoginViewState extends State<StudentLoginView>
   Widget build(BuildContext context) {
     super.build(context);
     return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       children: [
         const TextField(
-          decoration: InputDecoration(labelText: 'Öğrenci Numarası'),
+          decoration: InputDecoration(labelText: AppStrings.studentNumber),
         ),
-        16.height,
+        AppSize.v16.height,
         const TextField(
-          decoration: InputDecoration(labelText: 'Şifre'),
+          decoration: InputDecoration(labelText: AppStrings.password),
           obscureText: true,
         ),
-        24.height,
-        CostumButton(text: AppStrings.login, onPressed: () {}),
+        AppSize.v24.height,
+        CostumButton(
+          text: AppStrings.login,
+          onPressed: () async {
+            FocusManager.instance.primaryFocus?.unfocus();
+            await context.pushAndRemoveUntilPage(const StudentInformation());
+            if (mounted) {
+              FocusManager.instance.primaryFocus?.unfocus();
+            }
+          },
+        ),
       ],
-    );
+    ).paddingSymmetric(h: AppSize.v24, v: AppSize.v16);
   }
 }

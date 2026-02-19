@@ -1,3 +1,4 @@
+import 'package:campus_hub/core/constants/app_sizes.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
@@ -18,19 +19,18 @@ class _TeacherLoginViewState extends State<TeacherLoginView>
   Widget build(BuildContext context) {
     super.build(context);
     return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       children: [
         const TextField(
-          decoration: InputDecoration(labelText: 'Öğretmen Numarası'),
+          decoration: InputDecoration(labelText: AppStrings.teacherNumber),
         ),
-        16.height,
+        AppSize.v24.height,
         const TextField(
-          decoration: InputDecoration(labelText: 'Şifre'),
+          decoration: InputDecoration(labelText: AppStrings.password),
           obscureText: true,
         ),
-        24.height,
+        AppSize.v24.height,
         CostumButton(text: AppStrings.login, onPressed: () {}),
       ],
-    );
+    ).paddingSymmetric(h: AppSize.v24, v: AppSize.v16);
   }
 }

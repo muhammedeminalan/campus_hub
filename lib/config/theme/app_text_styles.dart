@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 /// CampusHub uygulama text stilleri.
 /// Tüm text stilleri buradan okunur.
+
 abstract final class AppTextStyles {
   // ── Display ──
   static const TextStyle displayLarge = TextStyle(

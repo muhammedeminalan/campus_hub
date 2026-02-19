@@ -41,4 +41,25 @@ final class AppStrings {
   // Errors
   static const genericError = 'Bir hata oluştu';
   static const noInternet = 'İnternet bağlantısı yok';
+
+  // TextField'ler için
+  static const name = "Ad";
+  static const surname = "Soyad";
+  static const studentNo = "Öğrenci Numarası";
+  static const studentClass = "Sınıf";
+  static const studentDepartment = "Bölüm";
+  static const studentFaculty = "Fakülte";
+  static const studentUniversity = "Üniversite";
+  static const studentPhone = "Telefon Numarası";
+  static const studentEmail = "E-posta Adresi";
+  static const studentPassword = "Şifre";
+
+  //Strings
+  static const welcome = 'Hoşgeldiniz';
+  static const home = 'Ana Sayfa';
+  static const settings = 'Ayarlar';
+  static const profileSettings = 'Profil Ayarları';
+  static const notifications = 'Bildirimler';
+  static const studentNumber = "Öğrenci Numarası";
+  static const teacherNumber = "Öğretmen Numarası";
 }

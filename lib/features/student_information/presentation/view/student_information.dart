@@ -19,78 +19,93 @@ class _StudentInformationState extends State<StudentInformation> {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       final values = _formKey.currentState!.value;
-      debugPrint('Form values: $values');
+      '$values'.infoLog(name: "STUDENT_INFO SAVED");
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-      bottomNavigationBar:
-          CostumButton(text: AppStrings.save, onPressed: _onSave)
-              .paddingSymmetric(h: AppSize.v16, v: AppSize.v8)
-              .safeArea()
-              .paddingOnly(bottom: MediaQuery.of(context).viewInsets.bottom),
-      body: SingleChildScrollView(
-        child:
-            [
-                  'Öğrenci Bilgileri'.text
-                      .titleLarge(context)
-                      .color(context.primaryColor)
-                      .center,
-                  FormBuilder(
-                    key: _formKey,
-                    child: const Column(
-                      spacing: AppSize.v16,
-                      children: [
-                        CustomTextField(
-                          name: 'name',
-                          label: AppStrings.name,
-                          required: true,
-                        ),
-                        CustomTextField(
-                          name: 'surname',
-                          label: AppStrings.surname,
-                          required: true,
-                        ),
-                        CustomTextField(
-                          name: 'studentNo',
-                          type: CustomFieldType.studentNumber,
-                          label: AppStrings.studentNo,
-                          required: true,
-                        ),
-                        CustomTextField(
-                          name: 'university',
-                          label: AppStrings.studentUniversity,
-                          required: true,
-                        ),
-                        CustomTextField(
-                          name: 'faculty',
-                          label: AppStrings.studentFaculty,
-                          required: true,
-                        ),
-                        CustomTextField(
-                          name: 'department',
-                          label: AppStrings.studentDepartment,
-                          required: true,
-                        ),
-                        CustomTextField(
-                          name: 'class',
-                          label: AppStrings.studentClass,
-                          required: true,
-                        ),
-                      ],
-                    ),
-                  ),
-                ]
-                .column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: AppSize.v24,
-                )
-                .paddingSymmetric(h: 16, v: 24),
-      ).safeArea(),
+      resizeToAvoidBottomInset: false,
+      bottomNavigationBar: _savedButton(),
+      body: _buildBody(context).safeArea(),
     ).onTap(() => FocusScope.of(context).unfocus());
+  }
+
+  SingleChildScrollView _buildBody(BuildContext context) {
+    return SingleChildScrollView(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
+      child: _forms(context)
+          .column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: AppSize.v28,
+          )
+          .paddingSymmetric(h: 16, v: 24)
+          .paddingOnly(bottom: MediaQuery.of(context).viewInsets.bottom),
+    );
+  }
+
+  List<Widget> _forms(BuildContext context) {
+    return [
+      AppStrings.studentInfo.text
+          .titleLarge(context)
+          .color(context.primaryColor)
+          .center,
+      FormBuilder(
+        key: _formKey,
+        child: const Column(
+          spacing: AppSize.v16,
+          children: [
+            CustomTextField(
+              name: AppStrings.name,
+              label: AppStrings.name,
+              required: true,
+            ),
+            CustomTextField(
+              name: AppStrings.surname,
+              label: AppStrings.surname,
+              required: true,
+            ),
+            CustomTextField(
+              name: AppStrings.studentNumber,
+              type: CustomFieldType.studentNumber,
+              label: AppStrings.studentNo,
+              required: true,
+              keyboardType: TextInputType.number,
+            ),
+            CustomTextField(
+              name: AppStrings.studentUniversity,
+              label: AppStrings.studentUniversity,
+              required: true,
+            ),
+            CustomTextField(
+              name: AppStrings.studentFaculty,
+              label: AppStrings.studentFaculty,
+              required: true,
+            ),
+            CustomTextField(
+              name: AppStrings.studentDepartment,
+              label: AppStrings.studentDepartment,
+              required: true,
+            ),
+            CustomTextField(
+              name: AppStrings.studentClass,
+              label: AppStrings.studentClass,
+              required: true,
+              keyboardType: TextInputType.number,
+            ),
+          ],
+        ),
+      ),
+    ];
+  }
+
+  Widget _savedButton() {
+    return CostumButton(
+      text: AppStrings.save,
+      textStyle: context.textTheme.labelLarge?.copyWith(fontWeight: .bold),
+      onPressed: _onSave,
+    ).paddingSymmetric(h: AppSize.v16, v: AppSize.v8).safeArea();
   }
 }

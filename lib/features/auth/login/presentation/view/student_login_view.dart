@@ -30,17 +30,22 @@ class _StudentLoginViewState extends State<StudentLoginView>
           obscureText: true,
         ),
         AppSize.v24.height,
-        CostumButton(
-          text: AppStrings.login,
-          onPressed: () async {
-            FocusManager.instance.primaryFocus?.unfocus();
-            await context.pushAndRemoveUntilPage(const StudentInformation());
-            if (mounted) {
-              FocusManager.instance.primaryFocus?.unfocus();
-            }
-          },
-        ),
+        _loginButton(context),
       ],
     ).paddingSymmetric(h: AppSize.v24, v: AppSize.v16);
+  }
+
+  CostumButton _loginButton(BuildContext context) {
+    return CostumButton(
+      text: AppStrings.login,
+      textStyle: context.textTheme.labelLarge?.copyWith(fontWeight: .bold),
+      onPressed: () async {
+        FocusManager.instance.primaryFocus?.unfocus();
+        await context.pushAndRemoveUntilPage(const StudentInformation());
+        if (mounted) {
+          FocusManager.instance.primaryFocus?.unfocus();
+        }
+      },
+    );
   }
 }

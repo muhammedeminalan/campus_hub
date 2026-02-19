@@ -58,6 +58,7 @@ final class AppStrings {
   static const welcome = 'Hoşgeldiniz';
   static const home = 'Ana Sayfa';
   static const settings = 'Ayarlar';
+  static const studentInfo = 'Öğrenci Bilgileri';
   static const profileSettings = 'Profil Ayarları';
   static const notifications = 'Bildirimler';
   static const studentNumber = "Öğrenci Numarası";

@@ -1,7 +1,8 @@
 import 'package:campus_hub/core/constants/app_sizes.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
-import 'package:campus_hub/features/student_information/presentation/view/student_information.dart';
+import 'package:campus_hub/features/auth/login/presentation/bloc/login_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
 class StudentLoginView extends StatefulWidget {
@@ -13,21 +14,36 @@ class StudentLoginView extends StatefulWidget {
 
 class _StudentLoginViewState extends State<StudentLoginView>
     with AutomaticKeepAliveClientMixin {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return ListView(
       children: [
-        const TextField(
-          decoration: InputDecoration(labelText: AppStrings.studentNumber),
+        CustomTextField(
+          name: 'studentEmail',
+          type: CustomFieldType.email,
+          controller: _emailController,
+          label: AppStrings.studentNumber,
         ),
         AppSize.v16.height,
-        const TextField(
-          decoration: InputDecoration(labelText: AppStrings.password),
-          obscureText: true,
+        CustomTextField(
+          name: 'studentPassword',
+          type: CustomFieldType.password,
+          controller: _passwordController,
+          label: AppStrings.password,
         ),
         AppSize.v24.height,
         _loginButton(context),
@@ -35,17 +51,26 @@ class _StudentLoginViewState extends State<StudentLoginView>
     ).paddingSymmetric(h: AppSize.v24, v: AppSize.v16);
   }
 
-  CostumButton _loginButton(BuildContext context) {
-    return CostumButton(
-      text: AppStrings.login,
-      textStyle: context.textTheme.labelLarge?.copyWith(fontWeight: .bold),
-      onPressed: () async {
-        FocusManager.instance.primaryFocus?.unfocus();
-        await context.pushAndRemoveUntilPage(const StudentInformation());
-        if (mounted) {
-          FocusManager.instance.primaryFocus?.unfocus();
-        }
+  Widget _loginButton(BuildContext context) {
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, state) {
+        return CostumButton(
+          isLoading: state is LoginLoading,
+          text: AppStrings.login,
+          textStyle: context.textTheme.labelLarge?.copyWith(fontWeight: .bold),
+          onPressed: _onLogin,
+        );
       },
+    );
+  }
+
+  void _onLogin() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    context.read<LoginBloc>().add(
+      LoginRequested(
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+      ),
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:campus_hub/core/constants/app_sizes.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
-import 'package:campus_hub/core/ui/widgets/custom_text_field.dart';
 import 'package:campus_hub/features/bottom_navigation/view/bottom_navigation_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -39,8 +38,8 @@ class _StudentInformationState extends State<StudentInformation> {
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
       child: _forms(context)
           .column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: .center,
+            crossAxisAlignment: .start,
             spacing: AppSize.v28,
           )
           .paddingSymmetric(h: AppSize.v16, v: AppSize.v24)

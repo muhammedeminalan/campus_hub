@@ -1,7 +1,9 @@
 import 'package:campus_hub/core/constants/app_sizes.dart';
+import 'package:campus_hub/features/auth/login/presentation/bloc/login_bloc.dart';
 import 'package:campus_hub/features/auth/login/presentation/view/student_login_view.dart';
 import 'package:campus_hub/features/auth/login/presentation/view/teacher_login_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
 import '../widgets/login_header.dart';
@@ -46,9 +48,34 @@ class _LoginViewState extends State<LoginView>
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(body: _buildBody(isKeyboardOpen, context)),
+      child: Scaffold(
+        body: BlocListener<LoginBloc, LoginState>(
+          listener: _onLoginStateChanged,
+          child: _buildBody(isKeyboardOpen, context),
+        ),
+      ),
     );
   }
+
+  // ──────────── Bloc Listener ────────────
+
+  void _onLoginStateChanged(BuildContext context, LoginState state) {
+    switch (state) {
+      case LoginSuccess():
+        // AuthGate stream'i otomatik yönlendirir; burada sadece klavye kapatılır.
+        FocusManager.instance.primaryFocus?.unfocus();
+
+      case LoginFailure(:final message):
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(SnackBar(content: Text(message)));
+
+      default:
+        break;
+    }
+  }
+
+  // ──────────── Build ────────────
 
   Widget _buildBody(bool isKeyboardOpen, BuildContext context) {
     return [

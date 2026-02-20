@@ -1,9 +1,10 @@
 import 'package:campus_hub/core/constants/app_sizes.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
-import 'package:campus_hub/features/bottom_navigation/view/bottom_navigation_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
+
+import '../../../bottom_navigation/view/bottom_navigation_view.dart';
 
 class StudentInformation extends StatefulWidget {
   const StudentInformation({super.key});
@@ -14,15 +15,6 @@ class StudentInformation extends StatefulWidget {
 
 class _StudentInformationState extends State<StudentInformation> {
   final _formKey = GlobalKey<FormBuilderState>();
-
-  void _onSave() {
-    FocusScope.of(context).unfocus();
-    if (_formKey.currentState?.saveAndValidate() ?? false) {
-      final values = _formKey.currentState!.value;
-      '$values'.infoLog(name: "STUDENT_INFO SAVED");
-      context.pushAndRemoveUntilPage(const BottomNavigationView());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,5 +100,18 @@ class _StudentInformationState extends State<StudentInformation> {
       textStyle: context.textTheme.labelLarge?.copyWith(fontWeight: .bold),
       onPressed: _onSave,
     ).paddingSymmetric(h: AppSize.v16, v: AppSize.v8).safeArea();
+  }
+
+  void _onSave() {
+    FocusScope.of(context).unfocus();
+    /**
+      TODO: Form doğrulaması ve kaydetme işlemi eklenecek. Şimdilik doğrudan ana sayfaya yönlendiriliyor.
+     * if (_formKey.currentState?.saveAndValidate() ?? false) {
+      final values = _formKey.currentState!.value;
+      '$values'.infoLog(name: "STUDENT_INFO SAVED");
+      context.pushAndRemoveUntilPage(const BottomNavigationView());
+    }
+     */
+    context.pushAndRemoveUntilPage(const BottomNavigationView());
   }
 }

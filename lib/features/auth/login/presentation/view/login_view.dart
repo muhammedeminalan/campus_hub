@@ -68,7 +68,7 @@ class _LoginViewState extends State<LoginView>
       case LoginFailure(:final message):
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
-          ..showSnackBar(SnackBar(content: Text(message)));
+          ..showSnackBar(SnackBar(content: message.text));
 
       default:
         break;

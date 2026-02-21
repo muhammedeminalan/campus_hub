@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// CampusHub uygulama teması.
 /// Light tema tanımı — tüm widget theme'leri buradan yapılandırılır.
 abstract final class AppTheme {
-  static ThemeData get light => ThemeData(
+  static final ThemeData light = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
 

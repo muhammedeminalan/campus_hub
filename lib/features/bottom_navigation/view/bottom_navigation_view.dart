@@ -1,5 +1,5 @@
 import 'package:campus_hub/features/courses/presentation/courses_view.dart';
-import 'package:campus_hub/features/home/presentation/home_view.dart';
+import 'package:campus_hub/features/home/presentation/view/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';

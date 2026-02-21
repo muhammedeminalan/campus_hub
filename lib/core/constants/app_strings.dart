@@ -66,4 +66,15 @@ final class AppStrings {
   static const examResults = 'Sınav Sonuçları';
   static const studentNumber = "Öğrenci Numarası";
   static const teacherNumber = "Öğretmen Numarası";
+
+  //Student Card
+  static const studentCardName = "Muhammed Emin Alan";
+  static const studentCardNo = "2402131041";
+  static const studentCardUniversity = "Gümüşhane Üniversitesi";
+  static const studentCardDepartment = "Yönetim Bilişim Sistemleri";
+  static const studentCardClass = "3";
+  static const studentCardFaculty = "İktisadi ve İdari Bilimler Fakültesi";
+  static const studentCardDateTime = "20.10.2024";
+  static const studentCardANO = "2.45";
+  static const studentCardAGNO = "2.50";
 }

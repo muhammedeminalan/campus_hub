@@ -3,6 +3,7 @@
 final class AppAssets {
   AppAssets._();
 
-  static const _base = 'assets/app_logo';
-  static const appLogo = '$_base/campushub_icon.png';
+  static const _base = 'assets';
+  static const appLogo = '$_base/app_logo/campushub_icon.png';
+  static const avatar = '$_base/profil/avatar.jpeg';
 }

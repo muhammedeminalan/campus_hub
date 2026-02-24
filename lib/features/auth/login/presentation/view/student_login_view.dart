@@ -36,7 +36,7 @@ class _StudentLoginViewState extends State<StudentLoginView>
           name: 'studentEmail',
           type: CustomFieldType.email,
           controller: _emailController,
-          label: AppStrings.studentNumber,
+          label: AppStrings.studentNo,
         ),
         AppSize.v16.height,
         CustomTextField(

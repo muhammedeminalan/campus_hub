@@ -1,7 +1,7 @@
 import 'package:campus_hub/config/init/injection_container.dart';
 import 'package:campus_hub/core/contracts/auth/auth_base.dart';
 import 'package:campus_hub/features/auth/login/presentation/view/login_view.dart';
-import 'package:campus_hub/features/student_information/presentation/view/student_information.dart';
+import 'package:campus_hub/features/bottom_navigation/view/bottom_navigation_view.dart';
 import 'package:flutter/material.dart';
 
 /// Auth durumunu anlık dinler.
@@ -21,7 +21,7 @@ class AuthGate extends StatelessWidget {
           );
         }
         final uid = snapshot.data;
-        return uid != null ? const StudentInformation() : const LoginView();
+        return uid != null ? const BottomNavigationView() : const LoginView();
       },
     );
   }

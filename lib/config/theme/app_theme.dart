@@ -1,10 +1,18 @@
 import 'package:campus_hub/config/theme/app_colors.dart';
 import 'package:campus_hub/config/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// CampusHub uygulama teması.
 /// Light tema tanımı — tüm widget theme'leri buradan yapılandırılır.
 abstract final class AppTheme {
+  /// Status bar stili — tüm ekranlar için tek kaynak.
+  static const SystemUiOverlayStyle statusBarStyle = SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+    statusBarBrightness: Brightness.light,
+  );
+
   static final ThemeData light = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
@@ -34,6 +42,7 @@ abstract final class AppTheme {
       centerTitle: true,
       backgroundColor: AppColors.primary,
       foregroundColor: AppColors.onPrimary,
+      systemOverlayStyle: AppTheme.statusBarStyle,
       titleTextStyle: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.w600,

@@ -8,8 +8,8 @@ class CalendarEventCard extends StatelessWidget {
   final String month;
   final String title;
 
-  // İsteğe bağlı — görsel özelleştirme ve tarih aralığı
-  final String? dateRange;
+  // İsteğe bağlı — görsel özelleştirme
+  final String dateRange;
   final Color? accentColor;
   final void Function() onPressed;
 
@@ -19,7 +19,7 @@ class CalendarEventCard extends StatelessWidget {
     required this.month,
     required this.title,
     required this.onPressed,
-    this.dateRange,
+    required this.dateRange,
     this.accentColor,
   });
 
@@ -30,7 +30,7 @@ class CalendarEventCard extends StatelessWidget {
       _buildDateBox(context),
       AppSize.v16.w,
       // Sağ — başlık ve tarih aralığı
-      _buildContent(context),
+      Expanded(child: _buildContent(context)),
     ].row().asCard().onTap(onPressed);
   }
 
@@ -51,10 +51,8 @@ class CalendarEventCard extends StatelessWidget {
   Widget _buildContent(BuildContext context) {
     return [
       title.text.titleMedium(context),
-      if (dateRange != null) ...[
-        AppSize.v4.h,
-        dateRange!.text.bodyMedium(context),
-      ],
+      AppSize.v4.h,
+      dateRange.text.bodyMedium(context),
     ].column(crossAxisAlignment: .start, mainAxisAlignment: .center);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:campus_hub/core/ui/widgets/menu_item_card.dart';
-import 'package:campus_hub/features/home/presentation/model/menu_item.dart';
+import 'package:campus_hub/features/home/presentation/model/academic_calendar_model.dart';
+import 'package:campus_hub/features/home/presentation/model/menu_item_model.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:wonzy_core_utils/core_utils.dart';
@@ -36,34 +37,7 @@ class HomeView extends StatelessWidget {
                     icon: Icons.event_note,
                     onPressed: () {},
                   ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: [
-                      CalendarEventCard(
-                        day: '12',
-                        month: 'Eylül',
-                        title: 'Ders Kayıtları Başlıyor',
-                        dateRange: '12 Eylül - 20 Eylül',
-                        onPressed: () {},
-                      ),
-                      AppSize.v16.w,
-                      CalendarEventCard(
-                        day: '25',
-                        month: 'Eylül',
-                        title: 'Öğrenci Meclisi Seçimleri',
-                        onPressed: () {},
-                      ),
-                      AppSize.v16.w,
-                      CalendarEventCard(
-                        day: '5',
-                        month: 'Ekim',
-                        title: 'Kampüs Festivali',
-                        dateRange: '5 Ekim - 7 Ekim',
-
-                        onPressed: () {},
-                      ),
-                    ].row(),
-                  ),
+                  _buildCalendarEvents(context),
                 ]
                 .column(
                   crossAxisAlignment: .start,
@@ -75,12 +49,29 @@ class HomeView extends StatelessWidget {
     );
   }
 
+  Widget _buildCalendarEvents(BuildContext context) {
+    return ListView.builder(
+      scrollDirection: .horizontal,
+      itemCount: AcademicCalendarModel.calendarEvents.length,
+      itemBuilder: (context, index) {
+        final item = AcademicCalendarModel.calendarEvents[index];
+        return CalendarEventCard(
+          day: item.day,
+          month: item.monthName,
+          title: item.title,
+          dateRange: item.dateRange,
+          onPressed: () {},
+        ).sized(width: context.width * 0.9);
+      },
+    ).sized(height: AppSize.v96);
+  }
+
   ListView _buildQuickMenuList() {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: MenuItem.quickMenuItems.length,
+      itemCount: MenuItemModel.quickMenuItems.length,
       itemBuilder: (context, index) {
-        MenuItem item = MenuItem.quickMenuItems[index];
+        MenuItemModel item = MenuItemModel.quickMenuItems[index];
         return AspectRatio(
           aspectRatio: 1.3,
           child: MenuitemCard(

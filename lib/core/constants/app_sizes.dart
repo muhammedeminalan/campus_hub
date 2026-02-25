@@ -2,7 +2,10 @@
 /// Amaç: magic number (16, 200, 420...) yazmayı bırakmak.
 final class AppSize {
   AppSize._();
-
+  // Special values
+  static const double infinite = double.infinity;
+  static const double min = double.minPositive;
+  static const double max = double.maxFinite;
   // Small scale
   static const double v0 = 0;
   static const double v2 = 2;

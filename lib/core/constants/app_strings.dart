@@ -67,6 +67,22 @@ final class AppStrings {
   static const quickMenu = 'Hızlı Menü';
   static const examResults = 'Sınav Sonuçları';
 
+  // ── Hızlı Menü Öğeleri ───────────────────────────────────────────────────────
+  // Not: takenCourses ve examResults yukarıda zaten tanımlı, onlar kullanılır.
+  static const attendance = 'Yoklama';
+  static const examSchedule = 'Sınav Takvimi';
+  static const academicCalendar = 'Akademik Takvim';
+  static const termAverages = 'Dönem Ortalamaları';
+  static const transcript = 'Transkript';
+  static const courseSchedule = 'Ders Programı';
+  static const tuitionInfo = 'Harç Bilgileri';
+  static const absenceStatus = 'Devamsızlık Durumu';
+  static const academicStatus = 'Akademik Durum';
+  static const curriculum = 'Müfredat';
+  static const todos = 'Yapılacaklar';
+  static const academicAdvisor = 'Akademik Danışman';
+  static const preparatoryInfo = 'Hazırlık Bilgileri';
+
   // ── Profil Kartı – İstatistik Etiketleri ─────────────────────────────────────
   // Not: Sınıf etiketi için AppStrings.studentClass kullanılır.
   static const ano = 'ANO';

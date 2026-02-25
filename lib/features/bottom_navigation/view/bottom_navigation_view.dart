@@ -31,7 +31,7 @@ class BottomNavigationView extends StatelessWidget {
   Widget _buildBody() {
     return BlocBuilder<NavigationCubit, NavigationTab>(
       builder: (_, state) => switch (state) {
-        NavigationTab.home => HomeView(),
+        NavigationTab.home => const HomeView(),
         NavigationTab.courses => const CoursesView(),
         NavigationTab.examResults => const ExamResults(),
         NavigationTab.quickMenu => const QuickMenu(),

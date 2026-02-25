@@ -1,95 +1,95 @@
 import 'package:campus_hub/core/constants/app_strings.dart';
+import 'package:campus_hub/core/ui/widgets/menu_item_card.dart';
 import 'package:campus_hub/features/home/presentation/model/menu_item.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:wonzy_core_utils/core_utils.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 import '../../data/model/student_card_model.dart';
+import '../widgets/calendar_event_card.dart';
+import '../widgets/labeled_icon_row.dart';
 import '../widgets/profil_card.dart';
 
 class HomeView extends StatelessWidget {
-  HomeView({super.key});
-  // Veri modelini tanımla
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Şimdilik mock veri; ileride BLoC / repository'den çekilir
     return Scaffold(
-      /* appBar: CostumAppBar(
-        title: 'Ana Sayfa',
-        titleStyle: context.textTheme.titleMedium?.copyWith(
-          fontWeight: .bold,
-          color: context.colorScheme.onSecondary,
-        ),
-      ),*/
       body: SingleChildScrollView(
+        dragStartBehavior: DragStartBehavior.down,
         child:
             [
-              ProfilCard(
-                student: StudentCardModel.mock(),
-                width: double.infinity,
-              ),
-              _labeledIconRow(
-                AppStrings.quickMenu,
-                Icons.dashboard_outlined,
-                () {},
-                context,
-              ),
-              SizedBox(
-                height: 120,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: MenuItem.quickMenuItems.length,
-                  itemBuilder: (context, index) {
-                    var item = MenuItem.quickMenuItems[index];
-                    return AspectRatio(
-                      aspectRatio: 1.3,
-                      child: _menuCard(item.label, item.icon, () {}, context),
-                    );
-                  },
-                ),
-              ),
-            ].column(
-              crossAxisAlignment: .start,
-              mainAxisAlignment: .start,
-              spacing: AppSize.v24,
-            ),
+                  ProfilCard(
+                    student: StudentCardModel.mock(),
+                    width: double.infinity,
+                  ),
+                  LabeledIconRow(
+                    lable: AppStrings.quickMenu,
+                    icon: Icons.dashboard_outlined,
+                    onPressed: () {},
+                  ),
+                  _buildQuickMenuList().sized(height: AppSize.v128),
+                  LabeledIconRow(
+                    lable: AppStrings.academicCalendar,
+                    icon: Icons.event_note,
+                    onPressed: () {},
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: [
+                      CalendarEventCard(
+                        day: '12',
+                        month: 'Eylül',
+                        title: 'Ders Kayıtları Başlıyor',
+                        dateRange: '12 Eylül - 20 Eylül',
+                        onPressed: () {},
+                      ),
+                      AppSize.v16.w,
+                      CalendarEventCard(
+                        day: '25',
+                        month: 'Eylül',
+                        title: 'Öğrenci Meclisi Seçimleri',
+                        onPressed: () {},
+                      ),
+                      AppSize.v16.w,
+                      CalendarEventCard(
+                        day: '5',
+                        month: 'Ekim',
+                        title: 'Kampüs Festivali',
+                        dateRange: '5 Ekim - 7 Ekim',
+
+                        onPressed: () {},
+                      ),
+                    ].row(),
+                  ),
+                ]
+                .column(
+                  crossAxisAlignment: .start,
+                  mainAxisAlignment: .start,
+                  spacing: AppSize.v24,
+                )
+                .paddingOnly(bottom: AppSize.v32),
       ).safeArea(),
     );
   }
 
-  Widget _labeledIconRow(
-    String lable,
-    IconData icon,
-    void Function()? onPressed,
-    BuildContext context,
-  ) {
-    return [
-          lable.text.bold.alignLeft,
-          CostumIconButton(
-            onPressed: onPressed,
-            iconData: icon,
-            size: AppSize.v24,
+  ListView _buildQuickMenuList() {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: MenuItem.quickMenuItems.length,
+      itemBuilder: (context, index) {
+        MenuItem item = MenuItem.quickMenuItems[index];
+        return AspectRatio(
+          aspectRatio: 1.3,
+          child: MenuitemCard(
+            label: item.label,
+            icon: item.icon,
+            onPressed: () => context.pushPage(item.page),
           ),
-        ]
-        .row(crossAxisAlignment: .center, mainAxisAlignment: .spaceBetween)
-        .paddingSymmetric(h: AppSize.v16);
-  }
-
-  Widget _menuCard(
-    String label,
-    IconData icon,
-    void Function() onPressed,
-    BuildContext context,
-  ) {
-    return [
-          Icon(icon, size: AppSize.v28),
-          AppSize.v8.h,
-          label.text.alignCenter.labelMedium(context).fontSize(AppSize.v12),
-        ]
-        .column(crossAxisAlignment: .center, mainAxisAlignment: .center)
-        .paddingAll(AppSize.v12)
-        .asCard()
-        .onTap(onPressed);
+        );
+      },
+    );
   }
 }

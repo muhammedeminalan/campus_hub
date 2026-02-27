@@ -37,6 +37,7 @@ class HomeView extends StatelessWidget {
                     icon: Icons.event_note,
                     onPressed: () {},
                   ),
+
                   _buildCalendarEvents(context),
                 ]
                 .column(

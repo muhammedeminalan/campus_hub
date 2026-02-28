@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wonzy_core_utils/core_utils.dart';
 
 import '../../../core/constants/app_sizes.dart';
+import '../../../core/ui/widgets/course_card.dart';
 
 class CoursesView extends StatefulWidget {
   const CoursesView({super.key});
@@ -27,13 +28,28 @@ class _CoursesViewState extends State<CoursesView> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return [_periodField(context)]
-        .column(
-          crossAxisAlignment: .start,
-          mainAxisAlignment: .start,
-          spacing: AppSize.v24,
-        )
-        .paddingAll(AppSize.v16);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _periodField(context).paddingAll(AppSize.v16),
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: AppSize.v16),
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return const CourseCard(
+                title: 'Yazılım Mühendisliği',
+                grade: 'AA',
+                classInfo: '2.Sınıf - YBS 208 (1)',
+                instructor: 'Dr. Öğr. Üyesi Ahmet Yılmaz',
+                credit: 3,
+                akts: 5,
+              ).paddingOnly(bottom: AppSize.v16);
+            },
+          ),
+        ),
+      ],
+    );
   }
 
   CustomTextField _periodField(BuildContext context) {

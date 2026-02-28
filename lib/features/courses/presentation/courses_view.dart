@@ -37,13 +37,16 @@ class _CoursesViewState extends State<CoursesView> {
             padding: const EdgeInsets.symmetric(horizontal: AppSize.v16),
             itemCount: 10,
             itemBuilder: (context, index) {
-              return const CourseCard(
+              return CourseCard(
                 title: 'Yazılım Mühendisliği',
-                grade: 'AA',
+                grade: 'FF',
                 classInfo: '2.Sınıf - YBS 208 (1)',
                 instructor: 'Dr. Öğr. Üyesi Ahmet Yılmaz',
                 credit: 3,
                 akts: 5,
+                onTap: () {
+                  "CourseCard $index tıklandı".infoLog();
+                },
               ).paddingOnly(bottom: AppSize.v16);
             },
           ),

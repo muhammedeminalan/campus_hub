@@ -1,4 +1,7 @@
+import 'package:campus_hub/config/theme/app_colors.dart';
+import 'package:campus_hub/core/constants/app_sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
 class CourseCard extends StatelessWidget {
   final String title;
@@ -17,104 +20,60 @@ class CourseCard extends StatelessWidget {
     required this.credit,
     required this.akts,
   });
-
+  //
   @override
   Widget build(BuildContext context) {
     return Card(
-      // Hafif gölge ile kart görünümü
-      margin: EdgeInsets.zero,
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Üst başlık alanı — koyu mavi arka plan
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            decoration: const BoxDecoration(
-              color: Color(0xFF2E6DA4),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-            ),
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-
-          // Alt sarı çizgi — tasarımda ince bir ayraç var
-          Container(height: 3, color: const Color(0xFFE8A838)),
-
-          // İçerik alanı
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                // Not dairesi — not yoksa "--" gösterir
-                Container(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: const Color(0xFFE8A838),
-                      width: 2.5,
-                    ),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    grade,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF333333),
-                    ),
-                  ),
-                ),
-
-                const SizedBox(width: 16),
-
-                // Ders bilgileri
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        classInfo,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFF333333),
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        instructor,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFF333333),
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      // Kredi ve AKTS yan yana
-                      Text(
-                        'Kredi : $credit    AKTS : $akts',
-                        style: const TextStyle(
-                          fontSize: 13,
-                          color: Color(0xFF555555),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+      margin: .zero,
+      clipBehavior: .antiAlias,
+      child: [
+        _buildHeader(context),
+        context.divider(color: context.onSurfaceColor),
+        //AppSize.v4.h.container(color: context.onPrimaryColor),
+        _buildContent(),
+      ].column(crossAxisAlignment: .stretch),
     );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return title.text
+        .color(context.onPrimaryColor)
+        .fontSize(AppSize.v16)
+        .semiBold
+        .paddingSymmetric(h: AppSize.v16, v: AppSize.v14)
+        .container(color: context.primaryColor);
+  }
+
+  Widget _buildContent() {
+    return [
+      _buildGradeCircle(),
+      AppSize.v16.w,
+      _buildInfoColumn().expanded(),
+    ].row().paddingAll(AppSize.v16);
+  }
+
+  Widget _buildGradeCircle() {
+    return grade.text
+        .fontSize(AppSize.v16)
+        .bold
+        .color(AppColors.textPrimary)
+        .center
+        .sized(width: AppSize.v64, height: AppSize.v64)
+        .container(
+          shape: BoxShape.circle,
+          border: Border.all(color: AppColors.warning, width: 2.5),
+        );
+  }
+
+  Widget _buildInfoColumn() {
+    return [
+      classInfo.text.fontSize(AppSize.v14).color(AppColors.textPrimary),
+      AppSize.v4.h,
+      instructor.text.fontSize(AppSize.v14).color(AppColors.textPrimary),
+      AppSize.v4.h,
+      'Kredi : $credit    AKTS : $akts'.text
+          .fontSize(AppSize.v12)
+          .color(AppColors.textSecondary),
+    ].column(crossAxisAlignment: .start);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 import 'network_exceptions.dart';
 
@@ -26,14 +27,16 @@ class DioService {
     _dio.options.connectTimeout = const Duration(seconds: 15);
     _dio.options.receiveTimeout = const Duration(seconds: 15);
 
-    /// Logging interceptor
-    _dio.interceptors.add(
-      LogInterceptor(
-        requestBody: true,
-        responseBody: true,
-        requestHeader: true,
-      ),
-    );
+    /// Logging interceptor — yalnızca debug build'lerde aktif
+    if (kDebugMode) {
+      _dio.interceptors.add(
+        LogInterceptor(
+          requestBody: true,
+          responseBody: true,
+          requestHeader: true,
+        ),
+      );
+    }
   }
 
   /// GET isteği

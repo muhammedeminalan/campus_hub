@@ -31,8 +31,10 @@ final class FirebaseAuthService implements AuthBase {
         email: email,
         password: password,
       );
-      "Giriş yapıldı : ${result.user!.email}".infoLog();
-      return result.user?.uid ?? '';
+      final user = result.user;
+      if (user == null) throw const AuthException('Kimlik doğrulama başarısız.');
+      "Giriş yapıldı : ${user.email}".infoLog();
+      return user.uid;
     } on FirebaseAuthException catch (e) {
       throw AuthException(_mapErrorCode(e.code));
     }

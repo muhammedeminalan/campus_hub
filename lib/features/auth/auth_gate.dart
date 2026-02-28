@@ -20,6 +20,11 @@ class AuthGate extends StatelessWidget {
             body: Center(child: CircularProgressIndicator()),
           );
         }
+        if (snapshot.hasError) {
+          return const Scaffold(
+            body: Center(child: Icon(Icons.error_outline, size: 48)),
+          );
+        }
         final uid = snapshot.data;
         return uid != null ? const BottomNavigationView() : const LoginView();
       },

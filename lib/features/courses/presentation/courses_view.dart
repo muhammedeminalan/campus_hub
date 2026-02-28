@@ -26,6 +26,7 @@ class _CoursesViewState extends State<CoursesView> {
   List<PeriodModel> _periods = [];
   List<CourseModel> _courses = [];
   bool _isLoading = true;
+  bool _hasError = false;
 
   @override
   void initState() {
@@ -34,13 +35,22 @@ class _CoursesViewState extends State<CoursesView> {
   }
 
   Future<void> _loadData() async {
-    final periods = await _service.getPeriods();
-    final courses = await _service.getAll();
-    setState(() {
-      _periods = periods;
-      _courses = courses;
-      _isLoading = false;
-    });
+    try {
+      final periods = await _service.getPeriods();
+      final courses = await _service.getAll();
+      if (!mounted) return;
+      setState(() {
+        _periods = periods;
+        _courses = courses;
+        _isLoading = false;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _isLoading = false;
+        _hasError = true;
+      });
+    }
   }
 
   // Seçili döneme göre filtrelenmiş dersler
@@ -55,12 +65,47 @@ class _CoursesViewState extends State<CoursesView> {
   }
 
   Widget _buildBody(BuildContext context) {
+    if (_hasError) return _buildErrorView(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildPeriodSelector(context).paddingAll(AppSize.v16),
         _buildCourseList(),
       ],
+    );
+  }
+
+  Widget _buildErrorView(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.error_outline,
+            size: 64,
+            color: context.onSurfaceColor.withValues(alpha: 0.4),
+          ),
+          AppSize.v16.h,
+          'Veriler yüklenemedi'.text.titleMedium(context).center,
+          AppSize.v8.h,
+          'Lütfen tekrar deneyin.'.text
+              .bodySmall(context)
+              .color(context.onSurfaceColor.withValues(alpha: 0.5))
+              .center,
+          AppSize.v24.h,
+          TextButton.icon(
+            onPressed: () {
+              setState(() {
+                _isLoading = true;
+                _hasError = false;
+              });
+              _loadData();
+            },
+            icon: const Icon(Icons.refresh),
+            label: const Text('Yeniden Dene'),
+          ),
+        ],
+      ),
     );
   }
 

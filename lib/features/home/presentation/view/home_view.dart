@@ -1,4 +1,5 @@
 import 'package:campus_hub/core/constants/app_strings.dart';
+import 'package:campus_hub/core/ui/widgets/app_list_view.dart';
 import 'package:campus_hub/core/ui/widgets/menu_item_card.dart';
 import 'package:campus_hub/features/home/presentation/model/academic_calendar_model.dart';
 import 'package:campus_hub/features/home/presentation/model/menu_item_model.dart';
@@ -51,37 +52,31 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _buildCalendarEvents(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: .horizontal,
-      itemCount: AcademicCalendarModel.calendarEvents.length,
-      itemBuilder: (context, index) {
-        final item = AcademicCalendarModel.calendarEvents[index];
-        return CalendarEventCard(
-          day: item.day,
-          month: item.monthName,
-          title: item.title,
-          dateRange: item.dateRange,
-          onPressed: () {},
-        ).sized(width: context.width * 0.9);
-      },
+    return AppListView<AcademicCalendarModel>(
+      items: AcademicCalendarModel.calendarEvents,
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (context, item, index) => CalendarEventCard(
+        day: item.day,
+        month: item.monthName,
+        title: item.title,
+        dateRange: item.dateRange,
+        onPressed: () {},
+      ).sized(width: context.width * 0.9),
     ).sized(height: AppSize.v96);
   }
 
-  ListView _buildQuickMenuList() {
-    return ListView.builder(
+  Widget _buildQuickMenuList() {
+    return AppListView<MenuItemModel>(
+      items: MenuItemModel.quickMenuItems,
       scrollDirection: Axis.horizontal,
-      itemCount: MenuItemModel.quickMenuItems.length,
-      itemBuilder: (context, index) {
-        MenuItemModel item = MenuItemModel.quickMenuItems[index];
-        return AspectRatio(
-          aspectRatio: 1.3,
-          child: MenuitemCard(
-            label: item.label,
-            icon: item.icon,
-            onPressed: () => context.pushPage(item.page),
-          ),
-        );
-      },
+      itemBuilder: (context, item, index) => AspectRatio(
+        aspectRatio: 1.3,
+        child: MenuitemCard(
+          label: item.label,
+          icon: item.icon,
+          onPressed: () => context.pushPage(item.page),
+        ),
+      ),
     );
   }
 }

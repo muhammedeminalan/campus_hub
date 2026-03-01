@@ -5,7 +5,9 @@ class SharedPrefsService {
 
   static final SharedPrefsService instance = SharedPrefsService._();
 
-  late SharedPreferencesWithCache _prefs;
+  SharedPreferencesWithCache? _prefs;
+
+  bool get isInitialized => _prefs != null;
 
   Future<void> init() async {
     _prefs = await SharedPreferencesWithCache.create(
@@ -13,45 +15,43 @@ class SharedPrefsService {
     );
   }
 
+  SharedPreferencesWithCache get _safePrefs {
+    assert(
+      _prefs != null,
+      'SharedPrefsService.init() çağrılmadan önce veri okunamaz/yazılamaz.',
+    );
+    return _prefs!;
+  }
+
   /// Bool değer oku
   /// [key] -> okunacak anahtar
   /// [defaultValue] -> key yoksa dönecek varsayılan değer
   bool getBool(String key, {bool defaultValue = false}) =>
-      _prefs.getBool(key) ?? defaultValue;
+      _safePrefs.getBool(key) ?? defaultValue;
 
   /// Bool değer yaz
-  /// [key] -> kaydedilecek anahtar
-  /// [value] -> kaydedilecek değer
   Future<void> setBool(String key, bool value) async =>
-      await _prefs.setBool(key, value);
+      await _safePrefs.setBool(key, value);
 
   /// String değer oku
-  /// [key] -> okunacak anahtar
-  /// [defaultValue] -> key yoksa dönecek varsayılan değer
   String getString(String key, {String defaultValue = ''}) =>
-      _prefs.getString(key) ?? defaultValue;
+      _safePrefs.getString(key) ?? defaultValue;
 
   /// String değer yaz
-  /// [key] -> kaydedilecek anahtar
-  /// [value] -> kaydedilecek değer
   Future<void> setString(String key, String value) async =>
-      await _prefs.setString(key, value);
+      await _safePrefs.setString(key, value);
 
   /// Int değer oku
-  /// [key] -> okunacak anahtar
-  /// [defaultValue] -> key yoksa dönecek varsayılan değer
   int getInt(String key, {int defaultValue = 0}) =>
-      _prefs.getInt(key) ?? defaultValue;
+      _safePrefs.getInt(key) ?? defaultValue;
 
   /// Int değer yaz
-  /// [key] -> kaydedilecek anahtar
-  /// [value] -> kaydedilecek değer
   Future<void> setInt(String key, int value) async =>
-      await _prefs.setInt(key, value);
+      await _safePrefs.setInt(key, value);
 
   /// Belirli bir key'i sil
-  Future<void> remove(String key) async => await _prefs.remove(key);
+  Future<void> remove(String key) async => await _safePrefs.remove(key);
 
   /// Tüm SharedPreferences verilerini temizle
-  Future<void> clear() async => await _prefs.clear();
+  Future<void> clear() async => await _safePrefs.clear();
 }

@@ -6,14 +6,7 @@ import 'package:campus_hub/core/models/period_model.dart';
 ///
 /// [IService]'den [CourseModel] üzerinde temel CRUD operasyonlarını miras alır,
 /// dönem ve filtreleme metodlarını ekler.
-///
-/// Implementasyon örnekleri:
-/// ```dart
-/// class MockCourseService implements ICourseService { ... }
-/// class FirebaseCourseService implements ICourseService { ... }
-/// class RealtimeCourseService implements ICourseService { ... }
-/// ```
-abstract interface class ICourseService extends IService<CourseModel> {
+abstract interface class ICourseService implements IService<CourseModel> {
   /// Tüm dönemleri döner.
   Future<List<PeriodModel>> getPeriods();
 

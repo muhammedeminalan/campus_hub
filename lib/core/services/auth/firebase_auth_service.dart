@@ -1,12 +1,13 @@
 import 'package:campus_hub/core/contracts/auth/auth_base.dart';
 import 'package:campus_hub/core/contracts/auth/auth_exception.dart';
+import 'package:campus_hub/core/contracts/auth/i_token_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
 /// [AuthBase] sözleşmesinin Firebase Authentication implementasyonu.
 /// FirebaseAuth bağımlılığı yalnızca bu sınıfta kalır;
 /// Bloc/UI katmanı yalnızca [AuthBase] arayüzünü görür.
-final class FirebaseAuthService implements AuthBase {
+final class FirebaseAuthService implements AuthBase, ITokenProvider {
   final FirebaseAuth _auth;
 
   FirebaseAuthService({FirebaseAuth? auth})
@@ -32,7 +33,9 @@ final class FirebaseAuthService implements AuthBase {
         password: password,
       );
       final user = result.user;
-      if (user == null) throw const AuthException('Kimlik doğrulama başarısız.');
+      if (user == null) {
+        throw const AuthException('Kimlik doğrulama başarısız.');
+      }
       "Giriş yapıldı : ${user.email}".infoLog();
       return user.uid;
     } on FirebaseAuthException catch (e) {
@@ -40,21 +43,23 @@ final class FirebaseAuthService implements AuthBase {
     }
   }
 
-  // ──────────── SignUp (henüz aktif değil) ────────────
+  // ──────────── Token ────────────
 
+  /// Firebase ID token'u döndürür; oturum kapalıysa `null`.
+  /// Token süresi dolmuşsa Firebase otomatik yeniler.
   @override
-  Future<String> signUpWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
-    throw UnimplementedError('SignUp henüz implemente edilmedi.');
-  }
+  Future<String?> getAccessToken() async =>
+      await _auth.currentUser?.getIdToken();
 
   // ──────────── SignOut ────────────
 
   @override
   Future<void> signOut() async {
-    await _auth.signOut();
+    try {
+      await _auth.signOut();
+    } on FirebaseAuthException catch (e) {
+      throw AuthException(_mapErrorCode(e.code));
+    }
   }
 
   // ──────────── Hata eşleme ────────────

@@ -12,7 +12,7 @@
 /// abstract interface class ICourseService extends IService<CourseModel> { ... }
 /// class FirebaseCourseService implements ICourseService { ... }
 /// ```
-abstract class IService<T> {
+abstract interface class IService<T> {
   /// Tüm kayıtları döner.
   Future<List<T>> getAll();
 

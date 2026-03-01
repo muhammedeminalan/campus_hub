@@ -1,7 +1,7 @@
 import 'package:campus_hub/core/constants/app_sizes.dart';
+import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:campus_hub/features/auth/login/presentation/bloc/login_bloc.dart';
-import 'package:campus_hub/features/auth/login/presentation/view/student_login_view.dart';
-import 'package:campus_hub/features/auth/login/presentation/view/teacher_login_view.dart';
+import 'package:campus_hub/features/auth/login/presentation/widgets/login_form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
@@ -100,10 +100,17 @@ class _LoginViewState extends State<LoginView>
     return TabBarView(
       controller: _tabController,
       children: const [
-        // ─── Öğrenci Tab İçeriği ───
-        StudentLoginView(),
-        // ─── Öğretmen Tab İçeriği ───
-        TeacherLoginView(),
+        // ─── Öğrenci Tab ───
+        LoginFormWidget(
+          emailFieldName: 'studentEmail',
+          emailLabel: AppStrings.studentNo,
+        ),
+        // ─── Öğretmen Tab ───
+        LoginFormWidget(
+          emailFieldName: 'teacherEmail',
+          emailLabel: AppStrings.email,
+          emailKeyboardType: TextInputType.emailAddress,
+        ),
       ],
     ).expanded();
   }

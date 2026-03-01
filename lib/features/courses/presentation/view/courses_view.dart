@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wonzy_core_utils/core_utils.dart';
 
-import '../../../core/constants/app_sizes.dart';
-import '../../../core/models/course_model.dart';
-import '../../../core/models/period_model.dart';
-import '../../../core/ui/widgets/app_list_view.dart';
-import '../../../core/ui/widgets/course_card.dart';
-import 'widgets/period_list_tile.dart';
+import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/models/course_model.dart';
+import '../../../../core/models/period_model.dart';
+import '../../../../core/ui/widgets/app_list_view.dart';
+import '../../../../core/ui/widgets/course_card.dart';
+import '../widgets/period_list_tile.dart';
 
 class CoursesView extends StatelessWidget {
   const CoursesView({super.key});
@@ -45,31 +45,26 @@ class _CoursesBody extends StatelessWidget {
   }
 
   Widget _buildError(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.error_outline,
-            size: 64,
-            color: context.onSurfaceColor.withValues(alpha: 0.4),
-          ),
-          AppSize.v16.h,
-          'Veriler yüklenemedi'.text.titleMedium(context).center,
-          AppSize.v8.h,
-          'Lütfen tekrar deneyin.'.text
-              .bodySmall(context)
-              .color(context.onSurfaceColor.withValues(alpha: 0.5))
-              .center,
-          AppSize.v24.h,
-          TextButton.icon(
-            onPressed: () => context.read<CoursesCubit>().loadData(),
-            icon: const Icon(Icons.refresh),
-            label: const Text('Yeniden Dene'),
-          ),
-        ],
+    return [
+      Icon(
+        Icons.error_outline,
+        size: 64,
+        color: context.onSurfaceColor.withValues(alpha: 0.4),
       ),
-    );
+      AppSize.v16.h,
+      'Veriler yüklenemedi'.text.titleMedium(context).center,
+      AppSize.v8.h,
+      'Lütfen tekrar deneyin.'.text
+          .bodySmall(context)
+          .color(context.onSurfaceColor.withValues(alpha: 0.5))
+          .center,
+      AppSize.v24.h,
+      TextButton.icon(
+        onPressed: () => context.read<CoursesCubit>().loadData(),
+        icon: const Icon(Icons.refresh),
+        label: const Text('Yeniden Dene'),
+      ),
+    ].column(mainAxisAlignment: .center).center;
   }
 
   Widget _buildContent(BuildContext context, CoursesLoaded state) {

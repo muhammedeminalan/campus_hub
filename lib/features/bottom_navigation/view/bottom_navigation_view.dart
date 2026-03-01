@@ -1,13 +1,13 @@
 import 'package:campus_hub/config/theme/app_theme.dart';
-import 'package:campus_hub/features/courses/presentation/courses_view.dart';
+import 'package:campus_hub/features/courses/presentation/view/courses_view.dart';
 import 'package:campus_hub/features/home/presentation/view/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
-import '../../exam_results/presentation/exam_results.dart';
-import '../../quick_menu/presentation/quick_menu.dart';
+import '../../exam_results/presentation/view/exam_results.dart';
+import '../../quick_menu/presentation/view/quick_menu_view.dart';
 import '../cubit/navigation_cubit.dart';
 import '../enum/page_type.dart';
 import '../widgets/custom_bottom_nav.dart';
@@ -36,7 +36,7 @@ class BottomNavigationView extends StatelessWidget {
           HomeView(),
           CoursesView(),
           ExamResults(),
-          QuickMenu(),
+          QuickMenuView(),
         ],
       ),
     );

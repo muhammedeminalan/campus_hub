@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class QuickMenu extends StatefulWidget {
-  const QuickMenu({super.key});
+class QuickMenuView extends StatefulWidget {
+  const QuickMenuView({super.key});
 
   @override
-  State<QuickMenu> createState() => _QuickMenuState();
+  State<QuickMenuView> createState() => _QuickMenuViewState();
 }
 
-class _QuickMenuState extends State<QuickMenu> {
+class _QuickMenuViewState extends State<QuickMenuView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

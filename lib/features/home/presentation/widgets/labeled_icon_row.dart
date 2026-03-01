@@ -6,17 +6,17 @@ import '../../../../core/constants/app_sizes.dart';
 class LabeledIconRow extends StatelessWidget {
   const LabeledIconRow({
     super.key,
-    required this.lable,
+    required this.label,
     required this.icon,
     this.onPressed,
   });
-  final String lable;
+  final String label;
   final IconData icon;
   final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return [
-          lable.text.bold.alignLeft,
+          label.text.bold.alignLeft,
           CostumIconButton(
             onPressed: onPressed,
             iconData: icon,

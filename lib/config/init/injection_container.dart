@@ -2,6 +2,7 @@ import 'package:campus_hub/config/theme/app_theme.dart';
 import 'package:campus_hub/core/cache/shared_prefs_service.dart';
 import 'package:campus_hub/core/contracts/auth/auth_base.dart';
 import 'package:campus_hub/core/services/auth/firebase_auth_service.dart';
+import 'package:campus_hub/core/services/network/dio_service.dart';
 import 'package:campus_hub/features/auth/login/presentation/bloc/login_bloc.dart';
 import 'package:campus_hub/features/bottom_navigation/cubit/navigation_cubit.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,9 @@ Future<void> initializeDependencies() async {
   final sharedPrefsService = SharedPrefsService.instance;
   await sharedPrefsService.init();
   sl.registerLazySingleton<SharedPrefsService>(() => sharedPrefsService);
+
+  // --- Network ---
+  sl.registerLazySingleton<DioService>(() => DioService());
 
   // --- Auth ---
   sl.registerLazySingleton<AuthBase>(() => FirebaseAuthService());

@@ -28,13 +28,13 @@ class HomeView extends StatelessWidget {
                     width: double.infinity,
                   ),
                   LabeledIconRow(
-                    lable: AppStrings.quickMenu,
+                    label: AppStrings.quickMenu,
                     icon: Icons.dashboard_outlined,
                     onPressed: () {},
                   ),
                   _buildQuickMenuList().sized(height: AppSize.v128),
                   LabeledIconRow(
-                    lable: AppStrings.academicCalendar,
+                    label: AppStrings.academicCalendar,
                     icon: Icons.event_note,
                     onPressed: () {},
                   ),

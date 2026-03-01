@@ -141,7 +141,7 @@ class _CoursesBody extends StatelessWidget {
     // Cubit'i bottom sheet açılmadan önce yakala —
     // modal route kendi context'ini oluşturduğundan dışarıdan alınır.
     final cubit = context.read<CoursesCubit>();
-    return CostumBottomSheet.show(
+    return CustomBottomSheet.show(
       context,
       title: 'Dönem Seçiniz',
       titleColor: context.primaryColor,
@@ -190,7 +190,7 @@ class _CoursesBody extends StatelessWidget {
       items: state.periods,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      separatorBuilder: (context, _) => context.divider(),
+      separatorBuilder: (context, _) => const Divider(),
       itemBuilder: (context, period, index) {
         return PeriodListTile(
           period: period.name,

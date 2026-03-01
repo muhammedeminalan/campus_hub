@@ -55,7 +55,7 @@ class _TeacherLoginViewState extends State<TeacherLoginView>
   Widget _loginButton(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
-        return CostumButton(
+        return CustomButton(
           text: AppStrings.login,
           textStyle: context.textTheme.labelLarge?.copyWith(fontWeight: .bold),
           isLoading: state is LoginLoading,

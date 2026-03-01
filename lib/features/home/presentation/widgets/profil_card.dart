@@ -166,7 +166,8 @@ class ProfilCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: style.elevation,
-      shadowColor: style.shadowColor ??
+      shadowColor:
+          style.shadowColor ??
           context.primaryColor.withValues(alpha: style.shadowAlpha),
       shape: RoundedRectangleBorder(
         borderRadius: style.cardBorderRadius.radius,
@@ -178,16 +179,20 @@ class ProfilCard extends StatelessWidget {
           final avatarSize = (w * 0.28).clamp(88.0, AppSize.v112);
           final headerHeight = (w * 0.40).clamp(128.0, AppSize.v160);
           return [
-            _header(context, headerHeight: headerHeight, avatarSize: avatarSize),
+            _header(
+              context,
+              headerHeight: headerHeight,
+              avatarSize: avatarSize,
+            ),
             (avatarSize / 2).h,
             [
               _studentInfo(context),
               AppSize.v16.h,
-              context.divider(),
+              const Divider(),
               AppSize.v16.h,
               _statsRow(context),
               AppSize.v16.h,
-              context.divider(),
+              const Divider(),
               AppSize.v10.h,
               _cardFooter(context),
               AppSize.v14.h,
@@ -207,7 +212,8 @@ class ProfilCard extends StatelessWidget {
     required double headerHeight,
     required double avatarSize,
   }) {
-    final gradientColors = style.headerGradientColors ??
+    final gradientColors =
+        style.headerGradientColors ??
         [
           context.primaryColor,
           context.primaryColor.withValues(alpha: style.headerGradientEndAlpha),
@@ -226,7 +232,9 @@ class ProfilCard extends StatelessWidget {
       headerBg = headerBg.stack([
         SizedBox.square(dimension: style.decorativeLargeCircleSize)
             .container(
-              color: Colors.white.withValues(alpha: style.decorativeLargeCircleAlpha),
+              color: AppColors.onPrimary.withValues(
+                alpha: style.decorativeLargeCircleAlpha,
+              ),
               shape: BoxShape.circle,
             )
             .marginOnly(right: AppSize.v12)
@@ -234,7 +242,9 @@ class ProfilCard extends StatelessWidget {
             .alignRight,
         SizedBox.square(dimension: style.decorativeSmallCircleSize)
             .container(
-              color: Colors.white.withValues(alpha: style.decorativeSmallCircleAlpha),
+              color: AppColors.onPrimary.withValues(
+                alpha: style.decorativeSmallCircleAlpha,
+              ),
               shape: BoxShape.circle,
             )
             .marginOnly(right: AppSize.v72, bottom: AppSize.v20)
@@ -334,7 +344,9 @@ class ProfilCard extends StatelessWidget {
         .container(
           color: color.withValues(alpha: style.chipBgAlpha),
           borderRadius: style.chipBorderRadius,
-          border: Border.all(color: color.withValues(alpha: style.chipBorderAlpha)),
+          border: Border.all(
+            color: color.withValues(alpha: style.chipBorderAlpha),
+          ),
         );
   }
 
@@ -422,8 +434,9 @@ class ProfilCard extends StatelessWidget {
 
   /// Tarih (sol) ve uygulama adı (sağ) – ikonlu ve soluk.
   Widget _cardFooter(BuildContext context) {
-    final subtleColor =
-        context.onSurfaceColor.withValues(alpha: style.footerOpacity);
+    final subtleColor = context.onSurfaceColor.withValues(
+      alpha: style.footerOpacity,
+    );
     return [
       [
         Icon(
@@ -435,7 +448,11 @@ class ProfilCard extends StatelessWidget {
         student.date.text.color(subtleColor).labelSmall(context),
       ].row(mainAxisSize: MainAxisSize.min),
       [
-        Icon(Icons.hub_outlined, size: style.footerIconSize, color: subtleColor),
+        Icon(
+          Icons.hub_outlined,
+          size: style.footerIconSize,
+          color: subtleColor,
+        ),
         AppSize.v4.w,
         AppStrings.appName.text.color(subtleColor).labelSmall(context),
       ].row(mainAxisSize: MainAxisSize.min),

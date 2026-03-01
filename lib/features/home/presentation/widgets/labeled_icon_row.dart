@@ -17,7 +17,7 @@ class LabeledIconRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return [
           label.text.bold.alignLeft,
-          CostumIconButton(
+          CustomIconButton(
             onPressed: onPressed,
             iconData: icon,
             size: AppSize.v24,

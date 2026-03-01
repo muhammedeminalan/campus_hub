@@ -1246,10 +1246,10 @@ packages:
     dependency: "direct main"
     description:
       name: wonzy_core_utils
-      sha256: f2e4a69136424c942c466688ea1b571963c0e3cd20bffab9039127f9382391b4
+      sha256: "8670e2c1d09422aa4edb8871c0a0ed3a8226805aa0a8d13dd8883aeafd29eb8d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.1"
+    version: "0.3.0"
   xdg_directories:
     dependency: transitive
     description:

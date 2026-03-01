@@ -78,7 +78,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
       buildWhen: (prev, curr) =>
           (prev is LoginLoading) != (curr is LoginLoading),
       builder: (context, state) {
-        return CostumButton(
+        return CustomButton(
           isLoading: state is LoginLoading,
           text: AppStrings.login,
           textStyle: context.textTheme.labelLarge?.copyWith(

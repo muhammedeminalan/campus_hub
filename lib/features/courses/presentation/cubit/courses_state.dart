@@ -18,33 +18,42 @@ final class CoursesLoading extends CoursesState {
 final class CoursesLoaded extends CoursesState {
   final List<PeriodModel> periods;
   final List<CourseModel> courses;
+  final List<CourseModel> filteredCourses;
   final PeriodModel? selectedPeriod;
 
   const CoursesLoaded({
     required this.periods,
     required this.courses,
+    required this.filteredCourses,
     this.selectedPeriod,
   });
 
-  /// Seçili döneme göre filtrelenmiş dersler.
-  /// Dönem seçilmemişse tüm dersler döner.
-  List<CourseModel> get filteredCourses {
-    if (selectedPeriod == null) return courses;
-    return courses.where((c) => c.periodId == selectedPeriod!.id).toList();
-  }
-
-  CoursesLoaded copyWith({PeriodModel? selectedPeriod}) {
+  CoursesLoaded copyWith({
+    PeriodModel? selectedPeriod,
+    List<CourseModel>? filteredCourses,
+  }) {
     return CoursesLoaded(
       periods: periods,
       courses: courses,
+      filteredCourses: filteredCourses ?? this.filteredCourses,
       selectedPeriod: selectedPeriod ?? this.selectedPeriod,
     );
   }
 
   @override
-  List<Object?> get props => [periods, courses, selectedPeriod];
+  List<Object?> get props => [
+    periods,
+    courses,
+    filteredCourses,
+    selectedPeriod,
+  ];
 }
 
 final class CoursesError extends CoursesState {
-  const CoursesError();
+  final String? message;
+
+  const CoursesError({this.message});
+
+  @override
+  List<Object?> get props => [message];
 }

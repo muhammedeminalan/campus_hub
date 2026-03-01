@@ -33,7 +33,7 @@ class _CoursesBody extends StatelessWidget {
       body: BlocBuilder<CoursesCubit, CoursesState>(
         builder: (context, state) => switch (state) {
           CoursesInitial() || CoursesLoading() => _buildLoading(),
-          CoursesError() => _buildError(context),
+          CoursesError(:final message) => _buildError(context, message),
           CoursesLoaded() => _buildContent(context, state),
         },
       ),
@@ -44,7 +44,7 @@ class _CoursesBody extends StatelessWidget {
     return const Center(child: CircularProgressIndicator());
   }
 
-  Widget _buildError(BuildContext context) {
+  Widget _buildError(BuildContext context, String? message) {
     return [
       Icon(
         Icons.error_outline,
@@ -54,10 +54,16 @@ class _CoursesBody extends StatelessWidget {
       AppSize.v16.h,
       'Veriler yüklenemedi'.text.titleMedium(context).center,
       AppSize.v8.h,
-      'Lütfen tekrar deneyin.'.text
-          .bodySmall(context)
-          .color(context.onSurfaceColor.withValues(alpha: 0.5))
-          .center,
+      if (message != null)
+        message.text
+            .bodySmall(context)
+            .color(context.onSurfaceColor.withValues(alpha: 0.5))
+            .center
+      else
+        'Lütfen tekrar deneyin.'.text
+            .bodySmall(context)
+            .color(context.onSurfaceColor.withValues(alpha: 0.5))
+            .center,
       AppSize.v24.h,
       TextButton.icon(
         onPressed: () => context.read<CoursesCubit>().loadData(),

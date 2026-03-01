@@ -11,10 +11,8 @@ abstract class AuthBase {
     required String password,
   });
 
-  Future<String> signUpWithEmailAndPassword({
-    required String email,
-    required String password,
-  });
+  /// Kayıt akışı ilerleyen sürümlerde [ISignUpCapable] arayüzü ile
+  /// ayrı bir implementasyon olarak eklenecektir.
 
   Future<void> signOut();
 }

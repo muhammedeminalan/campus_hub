@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-/// Tüm Bloc/Cubit olaylarını loglayan global observer.
+/// Tüm Bloc/Cubit olay ve durumlarını loglayan global observer.
 /// Log'lar yalnızca debug build'lerde üretilir.
 class AppBlocObserver extends BlocObserver {
   @override
@@ -13,9 +13,17 @@ class AppBlocObserver extends BlocObserver {
   }
 
   @override
+  void onEvent(Bloc<dynamic, dynamic> bloc, Object? event) {
+    super.onEvent(bloc, event);
+    if (kDebugMode) log('onEvent: ${bloc.runtimeType} → $event', name: 'Bloc');
+  }
+
+  @override
   void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
     super.onChange(bloc, change);
-    if (kDebugMode) log('onChange: ${bloc.runtimeType} → $change', name: 'Bloc');
+    if (kDebugMode) {
+      log('onChange: ${bloc.runtimeType} → $change', name: 'Bloc');
+    }
   }
 
   @override

@@ -1,5 +1,8 @@
+import 'package:campus_hub/config/init/injection_container.dart';
 import 'package:campus_hub/config/theme/app_colors.dart';
+import 'package:campus_hub/features/courses/presentation/cubit/courses_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wonzy_core_utils/core_utils.dart';
 
 import '../../../core/constants/app_sizes.dart';
@@ -7,75 +10,41 @@ import '../../../core/models/course_model.dart';
 import '../../../core/models/period_model.dart';
 import '../../../core/ui/widgets/app_list_view.dart';
 import '../../../core/ui/widgets/course_card.dart';
-import '../../../core/contracts/courses/i_course_service.dart';
-import '../../../core/mock/mock_course_service.dart';
 import 'widgets/period_list_tile.dart';
 
-class CoursesView extends StatefulWidget {
+class CoursesView extends StatelessWidget {
   const CoursesView({super.key});
 
   @override
-  State<CoursesView> createState() => _CoursesViewState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => sl<CoursesCubit>()..loadData(),
+      child: const _CoursesBody(),
+    );
+  }
 }
 
-class _CoursesViewState extends State<CoursesView> {
-  // ── Servis — gerçek API'ye geçmek için bu satırı değiştir ────────────────
-  final ICourseService _service = MockCourseService();
-
-  PeriodModel? _selectedPeriod;
-  List<PeriodModel> _periods = [];
-  List<CourseModel> _courses = [];
-  bool _isLoading = true;
-  bool _hasError = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadData();
-  }
-
-  Future<void> _loadData() async {
-    try {
-      final periods = await _service.getPeriods();
-      final courses = await _service.getAll();
-      if (!mounted) return;
-      setState(() {
-        _periods = periods;
-        _courses = courses;
-        _isLoading = false;
-      });
-    } catch (_) {
-      if (!mounted) return;
-      setState(() {
-        _isLoading = false;
-        _hasError = true;
-      });
-    }
-  }
-
-  // Seçili döneme göre filtrelenmiş dersler
-  List<CourseModel> get _filteredCourses {
-    if (_selectedPeriod == null) return _courses;
-    return _courses.where((c) => c.periodId == _selectedPeriod!.id).toList();
-  }
+class _CoursesBody extends StatelessWidget {
+  const _CoursesBody();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: _buildBody(context)).safeArea();
+    return Scaffold(
+      body: BlocBuilder<CoursesCubit, CoursesState>(
+        builder: (context, state) => switch (state) {
+          CoursesInitial() || CoursesLoading() => _buildLoading(),
+          CoursesError() => _buildError(context),
+          CoursesLoaded() => _buildContent(context, state),
+        },
+      ),
+    ).safeArea();
   }
 
-  Widget _buildBody(BuildContext context) {
-    if (_hasError) return _buildErrorView(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildPeriodSelector(context).paddingAll(AppSize.v16),
-        _buildCourseList(),
-      ],
-    );
+  Widget _buildLoading() {
+    return const Center(child: CircularProgressIndicator());
   }
 
-  Widget _buildErrorView(BuildContext context) {
+  Widget _buildError(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -94,13 +63,7 @@ class _CoursesViewState extends State<CoursesView> {
               .center,
           AppSize.v24.h,
           TextButton.icon(
-            onPressed: () {
-              setState(() {
-                _isLoading = true;
-                _hasError = false;
-              });
-              _loadData();
-            },
+            onPressed: () => context.read<CoursesCubit>().loadData(),
             icon: const Icon(Icons.refresh),
             label: const Text('Yeniden Dene'),
           ),
@@ -109,22 +72,30 @@ class _CoursesViewState extends State<CoursesView> {
     );
   }
 
-  // Dönem seçim alanı
-  Widget _buildPeriodSelector(BuildContext context) {
+  Widget _buildContent(BuildContext context, CoursesLoaded state) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildPeriodSelector(context, state).paddingAll(AppSize.v16),
+        _buildCourseList(context, state),
+      ],
+    );
+  }
+
+  Widget _buildPeriodSelector(BuildContext context, CoursesLoaded state) {
     return CustomTextField(
       name: 'selectPeriod',
-      hint: _selectedPeriod?.name ?? 'Dönem Seçiniz',
+      hint: state.selectedPeriod?.name ?? 'Dönem Seçiniz',
       readOnly: true,
-      onTap: () => _showPeriodBottomSheet(context),
+      onTap: () => _showPeriodBottomSheet(context, state),
       suffixIcon: Icon(Icons.filter_list_alt, color: context.primaryColor),
     );
   }
 
-  // Ders kartı listesi
-  Widget _buildCourseList() {
+  Widget _buildCourseList(BuildContext context, CoursesLoaded state) {
     return AppListView<CourseModel>(
-      items: _filteredCourses,
-      isLoading: _isLoading,
+      items: state.filteredCourses,
+      isLoading: false,
       padding: AppSize.v16.horizontal,
       emptyWidget: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -148,7 +119,6 @@ class _CoursesViewState extends State<CoursesView> {
     ).expanded();
   }
 
-  // Tek bir ders kartı
   Widget _buildCourseCard(CourseModel course, int index) {
     return CourseCard(
       title: course.title,
@@ -158,19 +128,24 @@ class _CoursesViewState extends State<CoursesView> {
       credit: course.credit,
       akts: course.akts,
       onTap: () {
-        "CourseCard $index tıklandı".infoLog();
+        'CourseCard $index tıklandı'.infoLog();
       },
     );
   }
 
-  // Dönem seçim bottom sheet
-  Future<void> _showPeriodBottomSheet(BuildContext context) {
+  Future<void> _showPeriodBottomSheet(
+    BuildContext context,
+    CoursesLoaded state,
+  ) {
+    // Cubit'i bottom sheet açılmadan önce yakala —
+    // modal route kendi context'ini oluşturduğundan dışarıdan alınır.
+    final cubit = context.read<CoursesCubit>();
     return CostumBottomSheet.show(
       context,
       title: 'Dönem Seçiniz',
       titleColor: context.primaryColor,
       child: [
-        _buildPeriodList(),
+        _buildPeriodList(context, state, cubit),
       ].column(spacing: AppSize.v16, mainAxisSize: .min),
       showHandle: true,
       handleColor: AppColors.onSurface,
@@ -188,8 +163,11 @@ class _CoursesViewState extends State<CoursesView> {
     );
   }
 
-  // Bottom sheet içindeki dönem listesi
-  Widget _buildPeriodList() {
+  Widget _buildPeriodList(
+    BuildContext context,
+    CoursesLoaded state,
+    CoursesCubit cubit,
+  ) {
     return AppListView<PeriodModel>(
       emptyWidget: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -208,16 +186,16 @@ class _CoursesViewState extends State<CoursesView> {
               .center,
         ],
       ).paddingSymmetric(h: AppSize.v24, v: AppSize.v32),
-      items: _periods,
+      items: state.periods,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       separatorBuilder: (context, _) => context.divider(),
       itemBuilder: (context, period, index) {
         return PeriodListTile(
           period: period.name,
-          isSelected: period.id == _selectedPeriod?.id,
+          isSelected: period.id == state.selectedPeriod?.id,
           onTap: () {
-            setState(() => _selectedPeriod = period);
+            cubit.selectPeriod(period);
             context.pop();
           },
         );

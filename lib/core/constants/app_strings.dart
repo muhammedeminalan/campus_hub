@@ -59,7 +59,7 @@ final class AppStrings {
 
   // ── Ana Sayfa İçeriği ─────────────────────────────────────────────────────────
   static const announcements = 'Duyurular';
-  static const courses = 'Dersler';
+  static const courses = 'Alınan Dersler';
   static const grades = 'Notlar';
   static const studentInfo = 'Öğrenci Bilgileri';
   static const profileSettings = 'Profil Ayarları';
@@ -82,6 +82,16 @@ final class AppStrings {
   static const todos = 'Yapılacaklar';
   static const academicAdvisor = 'Akademik Danışman';
   static const preparatoryInfo = 'Hazırlık Bilgileri';
+
+  // ── Dersler ─────────────────────────────────────────────────────────────────
+  static const selectPeriod = 'Dönem Seçiniz';
+  static const coursesLoadError = 'Veriler yüklenemedi';
+  static const coursesLoadErrorSub = 'Lütfen tekrar deneyin.';
+  static const coursesRetry = 'Yeniden Dene';
+  static const courseNotFound = 'Ders Bulunamadı';
+  static const courseNotFoundSub = 'Seçili döneme ait ders kaydı mevcut değil.';
+  static const periodNotFound = 'Dönem Bulunamadı';
+  static const periodNotFoundSub = 'Kayıtlı dönem bilgisi mevcut değil.';
 
   // ── Profil Kartı – İstatistik Etiketleri ─────────────────────────────────────
   // Not: Sınıf etiketi için AppStrings.studentClass kullanılır.

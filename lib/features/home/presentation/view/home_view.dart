@@ -35,29 +35,30 @@ class _HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const CustomAppBar(title: AppStrings.home),
       body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) => switch (state) {
           HomeInitial() ||
-          HomeLoading() => const Center(child: CircularProgressIndicator()),
+          HomeLoading() => const CircularProgressIndicator().center,
           HomeError(:final message) => _buildError(context, message),
           HomeLoaded() => _buildContent(context, state),
         },
       ),
-    ).safeArea();
+    ).safeArea(top: false);
   }
 
   Widget _buildError(BuildContext context, String? message) {
     return [
-      const Icon(Icons.error_outline, size: 48),
+      const Icon(Icons.error_outline, size: AppSize.v48),
       AppSize.v16.h,
       (message ?? 'Veriler yüklenemedi').text.titleMedium(context).center,
       AppSize.v16.h,
       TextButton.icon(
         onPressed: () => context.read<HomeCubit>().loadHomeData(),
         icon: const Icon(Icons.refresh),
-        label: const Text('Yeniden Dene'),
+        label: 'Yeniden Dene'.text,
       ),
-    ].column(mainAxisAlignment: MainAxisAlignment.center).center;
+    ].column(mainAxisAlignment: .center).center;
   }
 
   Widget _buildContent(BuildContext context, HomeLoaded state) {

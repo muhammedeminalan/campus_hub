@@ -11,8 +11,8 @@ class _ExamResultsState extends State<ExamResults> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('ExamResults View')),
-      body: const Column(children: [Text('Welcome to the ExamResults View!')]),
+      appBar: AppBar(title: const Text('Exam Results')),
+      body: Container(),
     );
   }
 }

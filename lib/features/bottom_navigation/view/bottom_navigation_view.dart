@@ -1,8 +1,6 @@
-import 'package:campus_hub/config/theme/app_theme.dart';
 import 'package:campus_hub/features/courses/presentation/view/courses_view.dart';
 import 'package:campus_hub/features/home/presentation/view/home_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
@@ -17,14 +15,11 @@ class BottomNavigationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: AppTheme.statusBarStyle,
-      child: Scaffold(
-        body: _buildBody(),
-        bottomNavigationBar: const CustomBottomNav(),
-        floatingActionButton: _buildQrFab(context),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      ),
+    return Scaffold(
+      body: _buildBody(),
+      bottomNavigationBar: const CustomBottomNav(),
+      floatingActionButton: _buildQrFab(context),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
@@ -46,7 +41,7 @@ class BottomNavigationView extends StatelessWidget {
     return FloatingActionButton(
       onPressed: () {
         'QR kod tarama açıldı'.infoLog();
-        CustomBottomSheet.show(
+        CostumBottomSheet.show(
           context,
           title: 'QR Kod Tarama',
           isDraggable: true,

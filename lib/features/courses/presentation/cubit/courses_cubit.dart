@@ -22,6 +22,7 @@ class CoursesCubit extends Cubit<CoursesState> {
   /// Dönem ve ders verilerini yükler.
   Future<void> loadData() async {
     emit(const CoursesLoading());
+
     try {
       final results = await Future.wait([
         _service.getPeriods(),

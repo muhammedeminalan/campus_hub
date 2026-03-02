@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wonzy_core_utils/core_utils.dart';
 
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/models/course_model.dart';
 import '../../../../core/models/period_model.dart';
 import '../../../../core/ui/widgets/app_list_view.dart';
@@ -30,6 +31,7 @@ class _CoursesBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const CustomAppBar(title: AppStrings.courses),
       body: BlocBuilder<CoursesCubit, CoursesState>(
         builder: (context, state) => switch (state) {
           CoursesInitial() || CoursesLoading() => _buildLoading(),
@@ -37,22 +39,22 @@ class _CoursesBody extends StatelessWidget {
           CoursesLoaded() => _buildContent(context, state),
         },
       ),
-    ).safeArea();
+    ).safeArea(top: false);
   }
 
   Widget _buildLoading() {
-    return const Center(child: CircularProgressIndicator());
+    return const CircularProgressIndicator().center;
   }
 
   Widget _buildError(BuildContext context, String? message) {
     return [
       Icon(
         Icons.error_outline,
-        size: 64,
+        size: AppSize.v64,
         color: context.onSurfaceColor.withValues(alpha: 0.4),
       ),
       AppSize.v16.h,
-      'Veriler yüklenemedi'.text.titleMedium(context).center,
+      AppStrings.coursesLoadError.text.titleMedium(context).center,
       AppSize.v8.h,
       if (message != null)
         message.text
@@ -60,7 +62,7 @@ class _CoursesBody extends StatelessWidget {
             .color(context.onSurfaceColor.withValues(alpha: 0.5))
             .center
       else
-        'Lütfen tekrar deneyin.'.text
+        AppStrings.coursesLoadErrorSub.text
             .bodySmall(context)
             .color(context.onSurfaceColor.withValues(alpha: 0.5))
             .center,
@@ -68,25 +70,22 @@ class _CoursesBody extends StatelessWidget {
       TextButton.icon(
         onPressed: () => context.read<CoursesCubit>().loadData(),
         icon: const Icon(Icons.refresh),
-        label: const Text('Yeniden Dene'),
+        label: AppStrings.coursesRetry.text,
       ),
     ].column(mainAxisAlignment: .center).center;
   }
 
   Widget _buildContent(BuildContext context, CoursesLoaded state) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildPeriodSelector(context, state).paddingAll(AppSize.v16),
-        _buildCourseList(context, state),
-      ],
-    );
+    return [
+      _buildPeriodSelector(context, state).paddingAll(AppSize.v16),
+      _buildCourseList(context, state),
+    ].column(crossAxisAlignment: .start);
   }
 
   Widget _buildPeriodSelector(BuildContext context, CoursesLoaded state) {
     return CustomTextField(
       name: 'selectPeriod',
-      hint: state.selectedPeriod?.name ?? 'Dönem Seçiniz',
+      hint: state.selectedPeriod?.name ?? AppStrings.selectPeriod,
       readOnly: true,
       onTap: () => _showPeriodBottomSheet(context, state),
       suffixIcon: Icon(Icons.filter_list_alt, color: context.primaryColor),
@@ -98,23 +97,23 @@ class _CoursesBody extends StatelessWidget {
       items: state.filteredCourses,
       isLoading: false,
       padding: AppSize.v16.horizontal,
-      emptyWidget: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.menu_book_outlined,
-            size: 64,
-            color: context.onSurfaceColor.withValues(alpha: 0.3),
-          ),
-          AppSize.v16.h,
-          'Ders Bulunamadı'.text.titleMedium(context).center,
-          AppSize.v8.h,
-          'Seçili döneme ait ders kaydı mevcut değil.'.text
-              .bodySmall(context)
-              .color(context.onSurfaceColor.withValues(alpha: 0.5))
-              .center,
-        ],
-      ).paddingSymmetric(h: AppSize.v24, v: AppSize.v32),
+      emptyWidget:
+          [
+                Icon(
+                  Icons.menu_book_outlined,
+                  size: 64,
+                  color: context.onSurfaceColor.withValues(alpha: 0.3),
+                ),
+                AppSize.v16.h,
+                AppStrings.courseNotFound.text.titleMedium(context).center,
+                AppSize.v8.h,
+                AppStrings.courseNotFoundSub.text
+                    .bodySmall(context)
+                    .color(context.onSurfaceColor.withValues(alpha: 0.5))
+                    .center,
+              ]
+              .column(mainAxisAlignment: .center)
+              .paddingSymmetric(h: AppSize.v24, v: AppSize.v32),
       itemBuilder: (context, course, index) =>
           _buildCourseCard(course, index).paddingOnly(bottom: AppSize.v16),
     ).expanded();
@@ -143,7 +142,7 @@ class _CoursesBody extends StatelessWidget {
     final cubit = context.read<CoursesCubit>();
     return CustomBottomSheet.show(
       context,
-      title: 'Dönem Seçiniz',
+      title: AppStrings.selectPeriod,
       titleColor: context.primaryColor,
       child: [
         _buildPeriodList(context, state, cubit),
@@ -170,23 +169,23 @@ class _CoursesBody extends StatelessWidget {
     CoursesCubit cubit,
   ) {
     return AppListView<PeriodModel>(
-      emptyWidget: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.school_outlined,
-            size: AppSize.v64,
-            color: context.onSurfaceColor.withValues(alpha: 0.4),
-          ),
-          AppSize.v12.h,
-          'Dönem Bulunamadı'.text.titleMedium(context).center,
-          AppSize.v8.h,
-          'Kayıtlı dönem bilgisi mevcut değil.'.text
-              .bodySmall(context)
-              .color(context.onSurfaceColor.withValues(alpha: 0.6))
-              .center,
-        ],
-      ).paddingSymmetric(h: AppSize.v24, v: AppSize.v32),
+      emptyWidget:
+          [
+                Icon(
+                  Icons.school_outlined,
+                  size: AppSize.v64,
+                  color: context.onSurfaceColor.withValues(alpha: 0.4),
+                ),
+                AppSize.v12.h,
+                AppStrings.periodNotFound.text.titleMedium(context).center,
+                AppSize.v8.h,
+                AppStrings.periodNotFoundSub.text
+                    .bodySmall(context)
+                    .color(context.onSurfaceColor.withValues(alpha: 0.6))
+                    .center,
+              ]
+              .column(mainAxisAlignment: .center)
+              .paddingSymmetric(h: AppSize.v24, v: AppSize.v32),
       items: state.periods,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),

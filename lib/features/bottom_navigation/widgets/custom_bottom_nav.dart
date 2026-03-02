@@ -33,9 +33,17 @@ class CustomBottomNav extends StatelessWidget {
       shape: const CircularNotchedRectangle(),
       child: Row(
         children: [
-          ..._buildItems(context, _leftTabs, current),
+          ..._buildItems(
+            context,
+            _leftTabs,
+            current,
+          ).map((e) => Expanded(child: e)),
           const Spacer(),
-          ..._buildItems(context, _rightTabs, current),
+          ..._buildItems(
+            context,
+            _rightTabs,
+            current,
+          ).map((e) => Expanded(child: e)),
         ],
       ),
     );
@@ -78,11 +86,14 @@ class _NavItem extends StatelessWidget {
             color: color,
             size: AppSize.v24,
           ),
-
-          tab.label.text.style(TextStyle(fontSize: AppSize.v10, color: color)),
+          tab.label.text
+              .style(TextStyle(fontSize: AppSize.v10, color: color))
+              .ellipsis
+              .maxLine(1),
         ]
         .column(mainAxisSize: MainAxisSize.min, spacing: AppSize.v4)
-        .paddingSymmetric(h: AppSize.v8, v: AppSize.v4)
+        .paddingSymmetric(v: AppSize.v4)
+        .center
         .onTap(onTap);
   }
 

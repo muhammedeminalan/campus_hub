@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
-import '../../exam_results/presentation/view/exam_results.dart';
+import '../../exam_results/presentation/view/exam_results_view.dart';
 import '../../quick_menu/presentation/view/quick_menu_view.dart';
 import '../cubit/navigation_cubit.dart';
 import '../enum/page_type.dart';
@@ -17,6 +17,7 @@ class BottomNavigationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: _buildBody(),
       bottomNavigationBar: const CustomBottomNav(),
       floatingActionButton: _buildQrFab(context),
@@ -31,7 +32,7 @@ class BottomNavigationView extends StatelessWidget {
         children: const [
           HomeView(),
           CoursesView(),
-          ExamResults(),
+          ExamResultsView(),
           QuickMenuView(),
         ],
       ),

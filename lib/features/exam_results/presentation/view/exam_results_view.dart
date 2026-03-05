@@ -13,8 +13,8 @@ import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 // ─────────────────────────────────────────────────────────────────────────────
 // ExamResults — Sınav sonuçlarını dönem filtresiyle, ders bazında listeler.
 // ─────────────────────────────────────────────────────────────────────────────
-class ExamResults extends StatelessWidget {
-  const ExamResults({super.key});
+class ExamResultsView extends StatelessWidget {
+  const ExamResultsView({super.key});
 
   @override
   Widget build(BuildContext context) {

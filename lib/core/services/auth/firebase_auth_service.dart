@@ -67,12 +67,15 @@ final class FirebaseAuthService implements AuthBase, ITokenProvider {
   String _mapErrorCode(String code) {
     return switch (code) {
       'invalid-email' => 'Geçersiz e-posta adresi.',
-      'user-not-found' => 'Bu e-posta ile kayıtlı kullanıcı bulunamadı.',
-      'wrong-password' => 'Hatalı şifre girdiniz.',
+      // Kullanıcı enumeration açığını kapatmak için üç hata kodu
+      // tek mesajda birleştirildi; saldırgan hangi bilginin yanlış
+      // olduğunu ayırt edemez.
+      'user-not-found' ||
+      'wrong-password' ||
+      'invalid-credential' => 'E-posta veya şifre hatalı.',
       'too-many-requests' =>
         'Çok fazla deneme yaptınız. Lütfen daha sonra tekrar deneyin.',
       'user-disabled' => 'Bu hesap devre dışı bırakılmış.',
-      'invalid-credential' => 'Geçersiz kimlik bilgileri.',
       'network-request-failed' => 'İnternet bağlantınızı kontrol edin.',
       _ => 'Giriş sırasında bir hata oluştu.',
     };

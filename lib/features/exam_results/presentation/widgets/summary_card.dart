@@ -1,6 +1,7 @@
 import 'package:campus_hub/config/theme/app_colors.dart';
 import 'package:campus_hub/core/constants/app_sizes.dart';
-import 'package:campus_hub/features/exam_results/data/model/exam_result_model.dart';
+import 'package:campus_hub/core/constants/app_strings.dart';
+import 'package:campus_hub/core/models/exam_result_model.dart';
 import 'package:flutter/material.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
@@ -32,36 +33,39 @@ class SummaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return [
           [
-            Icon(Icons.assessment_outlined,
-                color: context.onPrimaryColor, size: AppSize.v20),
-            'Dönem Özeti'.text.semiBold
+            Icon(
+              Icons.assessment_outlined,
+              color: context.onPrimaryColor,
+              size: AppSize.v20,
+            ),
+            AppStrings.summaryTitle.text.semiBold
                 .fontSize(AppSize.v16)
                 .color(context.onPrimaryColor),
           ].row(spacing: AppSize.v8).paddingOnly(bottom: AppSize.v16),
           [
             _StatItem(
-              label: 'Toplam Ders',
+              label: AppStrings.summaryCourseCount,
               value: '$_courseCount',
               icon: Icons.menu_book_outlined,
               color: context.onPrimaryColor,
             ),
             _SummaryDivider(),
             _StatItem(
-              label: 'Geçti',
+              label: AppStrings.summaryPassed,
               value: '$_passedCount',
               icon: Icons.check_circle_outline,
               color: AppColors.successLight,
             ),
             _SummaryDivider(),
             _StatItem(
-              label: 'Kaldı',
+              label: AppStrings.summaryFailed,
               value: '$_failedCount',
               icon: Icons.cancel_outlined,
               color: AppColors.errorLight,
             ),
             _SummaryDivider(),
             _StatItem(
-              label: 'Ort. Puan',
+              label: AppStrings.summaryAvgScore,
               value: _average.toStringAsFixed(1),
               icon: Icons.bar_chart_rounded,
               color: AppColors.warningLight,
@@ -84,10 +88,10 @@ class SummaryCard extends StatelessWidget {
 class _SummaryDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
-        width: 1,
-        height: AppSize.v40,
-        color: AppColors.onPrimary.withValues(alpha: 0.3),
-      );
+    width: 1,
+    height: AppSize.v40,
+    color: AppColors.onPrimary.withValues(alpha: 0.3),
+  );
 }
 
 class _StatItem extends StatelessWidget {
@@ -108,9 +112,9 @@ class _StatItem extends StatelessWidget {
     return [
       Icon(icon, color: color, size: AppSize.v20),
       value.text.bold.fontSize(AppSize.v18).color(color),
-      label.text.fontSize(AppSize.v12).color(
-            AppColors.onPrimary.withValues(alpha: 0.75),
-          ),
+      label.text
+          .fontSize(AppSize.v12)
+          .color(AppColors.onPrimary.withValues(alpha: 0.75)),
     ].column(spacing: AppSize.v2);
   }
 }

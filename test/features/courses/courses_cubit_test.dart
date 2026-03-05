@@ -1,5 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:campus_hub/core/contracts/courses/i_course_service.dart';
+import 'package:campus_hub/features/courses/domain/i_course_service.dart';
 import 'package:campus_hub/core/models/course_model.dart';
 import 'package:campus_hub/core/models/period_model.dart';
 import 'package:campus_hub/features/courses/domain/usecases/filter_courses_by_period_use_case.dart';

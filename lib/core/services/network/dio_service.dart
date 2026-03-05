@@ -48,7 +48,7 @@ class DioService {
       _dio.interceptors.add(
         LogInterceptor(
           requestBody: false,
-          responseBody: true,
+          responseBody: false,
           requestHeader: false,
         ),
       );

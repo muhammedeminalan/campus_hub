@@ -1,10 +1,11 @@
 import 'package:campus_hub/config/init/injection_container.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
+import 'package:campus_hub/core/ui/widgets/app_error_view.dart';
 import 'package:campus_hub/core/ui/widgets/app_list_view.dart';
 import 'package:campus_hub/core/ui/widgets/menu_item_card.dart';
+import 'package:campus_hub/features/home/domain/academic_calendar_model.dart';
 import 'package:campus_hub/features/home/presentation/cubit/home_cubit.dart';
 import 'package:campus_hub/features/home/presentation/model/academic_calendar_display_x.dart';
-import 'package:campus_hub/features/home/presentation/model/academic_calendar_model.dart';
 import 'package:campus_hub/features/home/presentation/model/menu_item_model.dart';
 import 'package:campus_hub/features/quick_menu/navigation/quick_menu_navigator.dart';
 import 'package:flutter/gestures.dart';
@@ -23,14 +24,28 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => sl<HomeCubit>()..loadHomeData(),
+      create: (_) => sl<HomeCubit>(),
       child: const _HomeBody(),
     );
   }
 }
 
-class _HomeBody extends StatelessWidget {
+class _HomeBody extends StatefulWidget {
   const _HomeBody();
+
+  @override
+  State<_HomeBody> createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends State<_HomeBody> {
+  @override
+  void initState() {
+    super.initState();
+    // IndexedStack tüm sekmeleri baştan mount eder; loadData'yı
+    // initState'e taşıyarak yalnızca widget ağacına eklendiğinde
+    // veri çekimi başlatılır.
+    context.read<HomeCubit>().loadHomeData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,25 +55,14 @@ class _HomeBody extends StatelessWidget {
         builder: (context, state) => switch (state) {
           HomeInitial() ||
           HomeLoading() => const CircularProgressIndicator().center,
-          HomeError(:final message) => _buildError(context, message),
+          HomeError(:final message) => AppErrorView(
+            message: message,
+            onRetry: () => context.read<HomeCubit>().loadHomeData(),
+          ),
           HomeLoaded() => _buildContent(context, state),
         },
       ),
     ).safeArea(top: false);
-  }
-
-  Widget _buildError(BuildContext context, String? message) {
-    return [
-      const Icon(Icons.error_outline, size: AppSize.v48),
-      AppSize.v16.h,
-      (message ?? 'Veriler yüklenemedi').text.titleMedium(context).center,
-      AppSize.v16.h,
-      TextButton.icon(
-        onPressed: () => context.read<HomeCubit>().loadHomeData(),
-        icon: const Icon(Icons.refresh),
-        label: 'Yeniden Dene'.text,
-      ),
-    ].column(mainAxisAlignment: .center).center;
   }
 
   Widget _buildContent(BuildContext context, HomeLoaded state) {

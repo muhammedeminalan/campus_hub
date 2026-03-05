@@ -1,6 +1,6 @@
 import 'package:campus_hub/config/theme/app_colors.dart';
 import 'package:campus_hub/core/constants/app_sizes.dart';
-import 'package:campus_hub/features/exam_results/data/model/exam_result_model.dart';
+import 'package:campus_hub/core/models/exam_result_model.dart';
 import 'package:flutter/material.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
@@ -17,15 +17,15 @@ enum ExamType {
   final String label;
 
   Color chipColor(BuildContext context) => switch (this) {
-        ExamType.vize => AppColors.info,
-        ExamType.finalExam => context.primaryColor,
-        ExamType.butunleme => AppColors.warning,
-      };
+    ExamType.vize => AppColors.info,
+    ExamType.finalExam => context.primaryColor,
+    ExamType.butunleme => AppColors.warning,
+  };
 
   static ExamType fromLabel(String label) => ExamType.values.firstWhere(
-        (e) => e.label == label,
-        orElse: () => ExamType.vize,
-      );
+    (e) => e.label == label,
+    orElse: () => ExamType.vize,
+  );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -33,12 +33,12 @@ enum ExamType {
 // ─────────────────────────────────────────────────────────────────────────────
 mixin GradeColorMixin {
   Color gradeColor(String letterGrade) => switch (letterGrade) {
-        'AA' || 'BA' => AppColors.success,
-        'BB' || 'CB' => AppColors.primary,
-        'CC' || 'DC' => AppColors.warning,
-        'FF' => AppColors.error,
-        _ => AppColors.textHint,
-      };
+    'AA' || 'BA' => AppColors.success,
+    'BB' || 'CB' => AppColors.primary,
+    'CC' || 'DC' => AppColors.warning,
+    'FF' => AppColors.error,
+    _ => AppColors.textHint,
+  };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -100,8 +100,11 @@ class _ExamResultCardState extends State<ExamResultCard> with GradeColorMixin {
 
   Widget _buildHeader(BuildContext context) {
     return [
-          Icon(Icons.edit_document,
-                  color: context.onPrimaryColor, size: AppSize.v16)
+          Icon(
+                Icons.edit_document,
+                color: context.onPrimaryColor,
+                size: AppSize.v16,
+              )
               .paddingAll(AppSize.v6)
               .container(
                 color: context.onPrimaryColor.withValues(alpha: 0.18),
@@ -142,8 +145,9 @@ class _ExamResultCardState extends State<ExamResultCard> with GradeColorMixin {
 
   Widget _buildContent() {
     final color = _gradeColor;
-    final scoreText =
-        _active.score >= 0 ? _active.score.toStringAsFixed(0) : '--';
+    final scoreText = _active.score >= 0
+        ? _active.score.toStringAsFixed(0)
+        : '--';
 
     return [
       scoreText.text.bold
@@ -161,7 +165,8 @@ class _ExamResultCardState extends State<ExamResultCard> with GradeColorMixin {
           _GradeBadge(grade: _active.letterGrade, color: color),
           _CreditBadge(credit: _active.credit),
         ].row(spacing: AppSize.v8),
-        if (_active.score >= 0) _ProgressBar(score: _active.score, color: color),
+        if (_active.score >= 0)
+          _ProgressBar(score: _active.score, color: color),
       ].column(crossAxisAlignment: .start, spacing: AppSize.v10).expanded(),
     ].row(spacing: AppSize.v16).paddingAll(AppSize.v16);
   }
@@ -241,9 +246,9 @@ class _GradeBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return [
-      Icon(Icons.grade_rounded, size: AppSize.v14, color: color),
-      grade.text.semiBold.fontSize(AppSize.v14).color(color),
-    ]
+          Icon(Icons.grade_rounded, size: AppSize.v14, color: color),
+          grade.text.semiBold.fontSize(AppSize.v14).color(color),
+        ]
         .row(spacing: AppSize.v4)
         .paddingSymmetric(h: AppSize.v10, v: AppSize.v6)
         .container(
@@ -269,7 +274,9 @@ class _CreditBadge extends StatelessWidget {
         .container(
           color: AppColors.secondary.withValues(alpha: 0.1),
           borderRadius: AppSize.v20,
-          border: Border.all(color: AppColors.secondary.withValues(alpha: 0.35)),
+          border: Border.all(
+            color: AppColors.secondary.withValues(alpha: 0.35),
+          ),
         );
   }
 }

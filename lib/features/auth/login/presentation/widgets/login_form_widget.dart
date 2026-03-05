@@ -91,12 +91,13 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
   }
 
   void _onLogin() {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
+    // Boş alan kontrolü — boşsa Bloc event'i tetikleme.
+    if (email.isEmpty || password.isEmpty) return;
     FocusManager.instance.primaryFocus?.unfocus();
     context.read<LoginBloc>().add(
-      LoginRequested(
-        email: _emailController.text.trim(),
-        password: _passwordController.text,
-      ),
+      LoginRequested(email: email, password: password),
     );
   }
 }

@@ -16,10 +16,11 @@ class SharedPrefsService {
   }
 
   SharedPreferencesWithCache get _safePrefs {
-    assert(
-      _prefs != null,
-      'SharedPrefsService.init() çağrılmadan önce veri okunamaz/yazılamaz.',
-    );
+    if (_prefs == null) {
+      throw StateError(
+        'SharedPrefsService.init() çağrılmadan önce veri okunamaz/yazılamaz.',
+      );
+    }
     return _prefs!;
   }
 

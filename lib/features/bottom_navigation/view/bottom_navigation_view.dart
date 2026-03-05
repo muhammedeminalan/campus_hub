@@ -1,3 +1,4 @@
+import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:campus_hub/features/courses/presentation/view/courses_view.dart';
 import 'package:campus_hub/features/home/presentation/view/home_view.dart';
 import 'package:flutter/material.dart';
@@ -40,10 +41,10 @@ class BottomNavigationView extends StatelessWidget {
   Widget _buildQrFab(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
-        'QR kod tarama açıldı'.infoLog();
+        AppStrings.qrCodeScannerOpened.infoLog();
         CustomBottomSheet.show(
           context,
-          title: 'QR Kod Tarama',
+          title: AppStrings.qrCodeScanner,
           isDraggable: true,
           initialChildSize: 0.9,
           minChildSize: 0.5,

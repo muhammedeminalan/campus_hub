@@ -1,3 +1,4 @@
+import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
@@ -11,41 +12,47 @@ abstract final class QuickMenuNavigator {
   static Widget pageFor(QuickMenuRoute route) {
     return switch (route) {
       QuickMenuRoute.examResults => const _ComingSoonPage(
-        title: 'Sınav Sonuçları',
+        title: AppStrings.examResults,
       ),
       QuickMenuRoute.takenCourses => const _ComingSoonPage(
-        title: 'Alınan Dersler',
+        title: AppStrings.takenCourses,
       ),
-      QuickMenuRoute.attendance => const _ComingSoonPage(title: 'Yoklama'),
+      QuickMenuRoute.attendance => const _ComingSoonPage(
+        title: AppStrings.attendance,
+      ),
       QuickMenuRoute.examSchedule => const _ComingSoonPage(
-        title: 'Sınav Programı',
+        title: AppStrings.examSchedule,
       ),
       QuickMenuRoute.academicCalendar => const _ComingSoonPage(
-        title: 'Akademik Takvim',
+        title: AppStrings.academicCalendar,
       ),
       QuickMenuRoute.termAverages => const _ComingSoonPage(
-        title: 'Dönem Ortalamaları',
+        title: AppStrings.termAverages,
       ),
-      QuickMenuRoute.transcript => const _ComingSoonPage(title: 'Transkript'),
+      QuickMenuRoute.transcript => const _ComingSoonPage(
+        title: AppStrings.transcript,
+      ),
       QuickMenuRoute.courseSchedule => const _ComingSoonPage(
-        title: 'Ders Programı',
+        title: AppStrings.courseSchedule,
       ),
       QuickMenuRoute.tuitionInfo => const _ComingSoonPage(
-        title: 'Harç Bilgileri',
+        title: AppStrings.tuitionInfo,
       ),
       QuickMenuRoute.absenceStatus => const _ComingSoonPage(
-        title: 'Devamsızlık Durumu',
+        title: AppStrings.absenceStatus,
       ),
       QuickMenuRoute.academicStatus => const _ComingSoonPage(
-        title: 'Akademik Durum',
+        title: AppStrings.academicStatus,
       ),
-      QuickMenuRoute.curriculum => const _ComingSoonPage(title: 'Müfredat'),
-      QuickMenuRoute.todos => const _ComingSoonPage(title: 'Yapılacaklar'),
+      QuickMenuRoute.curriculum => const _ComingSoonPage(
+        title: AppStrings.curriculum,
+      ),
+      QuickMenuRoute.todos => const _ComingSoonPage(title: AppStrings.todos),
       QuickMenuRoute.academicAdvisor => const _ComingSoonPage(
-        title: 'Akademik Danışman',
+        title: AppStrings.academicAdvisor,
       ),
       QuickMenuRoute.preparatoryInfo => const _ComingSoonPage(
-        title: 'Hazırlık Bilgileri',
+        title: AppStrings.preparatoryInfo,
       ),
     };
   }

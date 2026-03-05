@@ -1,5 +1,6 @@
 import 'package:campus_hub/config/init/injection_container.dart';
 import 'package:campus_hub/config/theme/app_colors.dart';
+import 'package:campus_hub/core/ui/widgets/app_error_view.dart';
 import 'package:campus_hub/features/courses/presentation/cubit/courses_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,14 +20,28 @@ class CoursesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => sl<CoursesCubit>()..loadData(),
+      create: (_) => sl<CoursesCubit>(),
       child: const _CoursesBody(),
     );
   }
 }
 
-class _CoursesBody extends StatelessWidget {
+class _CoursesBody extends StatefulWidget {
   const _CoursesBody();
+
+  @override
+  State<_CoursesBody> createState() => _CoursesBodyState();
+}
+
+class _CoursesBodyState extends State<_CoursesBody> {
+  @override
+  void initState() {
+    super.initState();
+    // IndexedStack tüm sekmeleri baştan mount eder; loadData'yı
+    // initState'e taşıyarak yalnızca widget ağacına eklendiğinde
+    // veri çekimi başlatılır.
+    context.read<CoursesCubit>().loadData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +50,11 @@ class _CoursesBody extends StatelessWidget {
       body: BlocBuilder<CoursesCubit, CoursesState>(
         builder: (context, state) => switch (state) {
           CoursesInitial() || CoursesLoading() => _buildLoading(),
-          CoursesError(:final message) => _buildError(context, message),
+          CoursesError(:final message) => AppErrorView(
+            message: AppStrings.coursesLoadError,
+            subMessage: message ?? AppStrings.coursesLoadErrorSub,
+            onRetry: () => context.read<CoursesCubit>().loadData(),
+          ),
           CoursesLoaded() => _buildContent(context, state),
         },
       ),
@@ -46,35 +65,6 @@ class _CoursesBody extends StatelessWidget {
     return const CircularProgressIndicator().center;
   }
 
-  Widget _buildError(BuildContext context, String? message) {
-    return [
-      Icon(
-        Icons.error_outline,
-        size: AppSize.v64,
-        color: context.onSurfaceColor.withValues(alpha: 0.4),
-      ),
-      AppSize.v16.h,
-      AppStrings.coursesLoadError.text.titleMedium(context).center,
-      AppSize.v8.h,
-      if (message != null)
-        message.text
-            .bodySmall(context)
-            .color(context.onSurfaceColor.withValues(alpha: 0.5))
-            .center
-      else
-        AppStrings.coursesLoadErrorSub.text
-            .bodySmall(context)
-            .color(context.onSurfaceColor.withValues(alpha: 0.5))
-            .center,
-      AppSize.v24.h,
-      TextButton.icon(
-        onPressed: () => context.read<CoursesCubit>().loadData(),
-        icon: const Icon(Icons.refresh),
-        label: AppStrings.coursesRetry.text,
-      ),
-    ].column(mainAxisAlignment: .center).center;
-  }
-
   Widget _buildContent(BuildContext context, CoursesLoaded state) {
     return [
       _buildPeriodSelector(context, state).paddingAll(AppSize.v16),
@@ -83,12 +73,27 @@ class _CoursesBody extends StatelessWidget {
   }
 
   Widget _buildPeriodSelector(BuildContext context, CoursesLoaded state) {
-    return CustomTextField(
-      name: 'selectPeriod',
-      hint: state.selectedPeriod?.name ?? AppStrings.selectPeriod,
-      readOnly: true,
+    // CustomTextField'ın readOnly: true + onTap kombinasyonu semantik olarak
+    // hatalıdır. InkWell + InputDecorator kullanımı daha doğru erişilebilirlik
+    // davranışı ve semantik anlamı sağlar.
+    return InkWell(
       onTap: () => _showPeriodBottomSheet(context, state),
-      suffixIcon: Icon(Icons.filter_list_alt, color: context.primaryColor),
+      borderRadius: BorderRadius.circular(8),
+      child: InputDecorator(
+        decoration: InputDecoration(
+          hintText: AppStrings.selectPeriod,
+          suffixIcon: Icon(Icons.filter_list_alt, color: context.primaryColor),
+          border: const OutlineInputBorder(),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: AppSize.v16,
+            vertical: AppSize.v14,
+          ),
+        ),
+        child: Text(
+          state.selectedPeriod?.name ?? AppStrings.selectPeriod,
+          style: context.textTheme.bodyMedium,
+        ),
+      ),
     );
   }
 

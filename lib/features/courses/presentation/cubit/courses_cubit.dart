@@ -1,6 +1,6 @@
-import 'package:campus_hub/core/contracts/courses/i_course_service.dart';
 import 'package:campus_hub/core/models/course_model.dart';
 import 'package:campus_hub/core/models/period_model.dart';
+import 'package:campus_hub/features/courses/domain/i_course_service.dart';
 import 'package:campus_hub/features/courses/domain/usecases/filter_courses_by_period_use_case.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -24,12 +24,10 @@ class CoursesCubit extends Cubit<CoursesState> {
     emit(const CoursesLoading());
 
     try {
-      final results = await Future.wait([
+      final (periods, courses) = await (
         _service.getPeriods(),
         _service.getAll(),
-      ]);
-      final periods = results[0] as List<PeriodModel>;
-      final courses = results[1] as List<CourseModel>;
+      ).wait;
       emit(
         CoursesLoaded(
           periods: periods,

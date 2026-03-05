@@ -43,7 +43,11 @@ final class AppStrings {
   // ── Hatalar ──────────────────────────────────────────────────────────────────
   static const genericError = 'Bir hata oluştu';
   static const noInternet = 'İnternet bağlantısı yok';
+  static const loadError = 'Veriler yüklenemedi';
 
+  // ── QR ─────────────────────────────────────────────────────────────────────
+  static const qrCodeScanner = 'QR Kod Tarama';
+  static const qrCodeScannerOpened = 'QR kod tarama açıldı';
   // ── Form Alanları ─────────────────────────────────────────────────────────────
   static const name = 'Ad';
   static const surname = 'Soyad';
@@ -98,7 +102,12 @@ final class AppStrings {
   static const ano = 'ANO';
   static const agno = 'AGNO';
 
-  // ── Profil Kartı – Mock Veri ──────────────────────────────────────────────────
+  // ── Sınav Sonuçları Özet Kartı ──────────────────────────────────────────────
+  static const summaryTitle = 'Dönem Özeti';
+  static const summaryCourseCount = 'Toplam Ders';
+  static const summaryPassed = 'Geçti';
+  static const summaryFailed = 'Kaldı';
+  static const summaryAvgScore = 'Ort. Puan';
   static const studentCardName = 'Muhammed Emin Alan';
   static const studentCardNo = '2402131041';
   static const studentCardUniversity = 'Gümüşhane Üniversitesi';

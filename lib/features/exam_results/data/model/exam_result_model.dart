@@ -112,7 +112,7 @@ class ExamResultModel {
       id: '10',
       courseTitle: 'İşletim Sistemleri',
       examType: 'Final',
-      score: 35,
+      score: 30,
       letterGrade: 'FF',
       credit: 3,
       periodId: '5',

@@ -41,7 +41,7 @@ class BottomNavigationView extends StatelessWidget {
     return FloatingActionButton(
       onPressed: () {
         'QR kod tarama açıldı'.infoLog();
-        CostumBottomSheet.show(
+        CustomBottomSheet.show(
           context,
           title: 'QR Kod Tarama',
           isDraggable: true,

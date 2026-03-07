@@ -16,9 +16,6 @@ final class AcademicCalendarModel {
   });
 
   bool get isRange => endDate != null;
-
-  // UI formatlama: academic_calendar_display_x.dart extension'ına taşındı
-  // Mock veri:     core/mock/fixtures/academic_calendar_fixture.dart'a taşındı
 }
 
 enum AcademicCalendarCategory {
@@ -30,4 +27,3 @@ enum AcademicCalendarCategory {
   mezuniyet,
   diger,
 }
-

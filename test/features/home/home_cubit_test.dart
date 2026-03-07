@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:campus_hub/core/models/academic_calendar_model.dart';
 import 'package:campus_hub/features/home/data/model/student_card_model.dart';
-import 'package:campus_hub/features/home/domain/academic_calendar_model.dart';
 import 'package:campus_hub/features/home/domain/i_student_service.dart';
 import 'package:campus_hub/features/home/presentation/cubit/home_cubit.dart';
 import 'package:flutter_test/flutter_test.dart';

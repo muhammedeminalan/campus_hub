@@ -1,6 +1,6 @@
 import 'package:campus_hub/core/mock/fixtures/academic_calendar_fixture.dart';
+import 'package:campus_hub/core/models/academic_calendar_model.dart';
 import 'package:campus_hub/features/home/data/model/student_card_model.dart';
-import 'package:campus_hub/features/home/domain/academic_calendar_model.dart';
 import 'package:campus_hub/features/home/domain/i_student_service.dart';
 
 /// [IStudentService] mock implementasyonu.

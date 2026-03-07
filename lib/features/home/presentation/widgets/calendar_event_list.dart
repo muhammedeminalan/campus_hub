@@ -1,6 +1,6 @@
 import 'package:campus_hub/config/theme/app_colors.dart';
 import 'package:campus_hub/core/constants/app_sizes.dart';
-import 'package:campus_hub/features/home/domain/academic_calendar_model.dart';
+import 'package:campus_hub/core/models/academic_calendar_model.dart';
 import 'package:campus_hub/features/home/presentation/model/academic_calendar_display_x.dart';
 import 'package:flutter/material.dart';
 

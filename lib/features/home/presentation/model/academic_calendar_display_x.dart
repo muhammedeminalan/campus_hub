@@ -1,4 +1,4 @@
-import 'package:campus_hub/features/home/domain/academic_calendar_model.dart';
+import 'package:campus_hub/core/models/academic_calendar_model.dart';
 
 /// [AcademicCalendarModel] için UI'a özgü formatlama metodları.
 ///

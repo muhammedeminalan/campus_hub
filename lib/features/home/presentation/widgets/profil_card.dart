@@ -1,4 +1,5 @@
 import 'package:campus_hub/config/theme/app_colors.dart';
+import 'package:campus_hub/core/constants/app_assets.dart';
 import 'package:campus_hub/core/constants/app_sizes.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:campus_hub/features/home/data/model/student_card_model.dart';
@@ -275,10 +276,9 @@ class ProfilCard extends StatelessWidget {
   /// Sağ üstte küçük "CampusHub ✓" rozeti.
   Widget _headerBadge(BuildContext context) {
     return [
-          Icon(
-            Icons.verified_rounded,
-            size: AppSize.v12,
-            color: style.badgeIconColor,
+          AppAssets.appLogo.asAssetImage().sized(
+            width: AppSize.v24,
+            height: AppSize.v24,
           ),
           AppSize.v4.w,
           AppStrings.appName.text
@@ -448,10 +448,9 @@ class ProfilCard extends StatelessWidget {
         student.date.text.color(subtleColor).labelSmall(context),
       ].row(mainAxisSize: MainAxisSize.min),
       [
-        Icon(
-          Icons.hub_outlined,
-          size: style.footerIconSize,
-          color: subtleColor,
+        AppAssets.appLogo.asAssetImage().sized(
+          width: AppSize.v24,
+          height: AppSize.v24,
         ),
         AppSize.v4.w,
         AppStrings.appName.text.color(subtleColor).labelSmall(context),

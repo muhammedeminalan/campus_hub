@@ -12,15 +12,23 @@ class MenuitemCard extends StatelessWidget {
   });
   final String label;
   final IconData icon;
-  final void Function() onPressed;
+  final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
     return [
-          Icon(icon, size: AppSize.v28),
-          AppSize.v8.h,
+          Icon(icon, size: AppSize.v24, color: context.primaryColor)
+              .paddingAll(AppSize.v10)
+              .container(
+                shape: .circle,
+                color: context.primaryColor.withValues(alpha: 0.1),
+              ),
           label.text.alignCenter.labelMedium(context).fontSize(AppSize.v12),
         ]
-        .column(crossAxisAlignment: .center, mainAxisAlignment: .center)
+        .column(
+          crossAxisAlignment: .center,
+          mainAxisAlignment: .center,
+          spacing: AppSize.v8,
+        )
         .paddingAll(AppSize.v12)
         .asCard()
         .onTap(onPressed);

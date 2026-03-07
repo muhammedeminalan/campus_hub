@@ -2,12 +2,9 @@ import 'package:campus_hub/config/init/injection_container.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:campus_hub/core/ui/widgets/app_error_view.dart';
 import 'package:campus_hub/core/ui/widgets/app_list_view.dart';
-import 'package:campus_hub/core/ui/widgets/menu_item_card.dart';
 import 'package:campus_hub/features/home/domain/academic_calendar_model.dart';
 import 'package:campus_hub/features/home/presentation/cubit/home_cubit.dart';
 import 'package:campus_hub/features/home/presentation/model/academic_calendar_display_x.dart';
-import 'package:campus_hub/features/home/presentation/model/menu_item_model.dart';
-import 'package:campus_hub/features/quick_menu/navigation/quick_menu_navigator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +14,7 @@ import '../../../../core/constants/app_sizes.dart';
 import '../widgets/calendar_event_card.dart';
 import '../widgets/labeled_icon_row.dart';
 import '../widgets/profil_card.dart';
+import '../widgets/quick_menu_list.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -76,7 +74,7 @@ class _HomeBodyState extends State<_HomeBody> {
                   icon: Icons.dashboard_outlined,
                   onPressed: () {},
                 ),
-                _buildQuickMenuList(context).sized(height: AppSize.v128),
+                const QuickMenuList().sized(height: AppSize.v128),
                 LabeledIconRow(
                   label: AppStrings.academicCalendar,
                   icon: Icons.event_note,
@@ -108,21 +106,5 @@ class _HomeBodyState extends State<_HomeBody> {
         onPressed: () {},
       ).sized(width: context.width * 0.9),
     ).sized(height: AppSize.v96);
-  }
-
-  Widget _buildQuickMenuList(BuildContext context) {
-    return AppListView<MenuItemModel>(
-      items: MenuItemModel.quickMenuItems,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, item, index) => AspectRatio(
-        aspectRatio: 1.3,
-        child: MenuitemCard(
-          label: item.label,
-          icon: item.icon,
-          onPressed: () =>
-              context.pushPage(QuickMenuNavigator.pageFor(item.route)),
-        ),
-      ),
-    );
   }
 }

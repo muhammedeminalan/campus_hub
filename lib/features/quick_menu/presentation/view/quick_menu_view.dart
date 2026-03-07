@@ -127,7 +127,7 @@ class _QuickMenuViewState extends State<QuickMenuView>
       behavior: HitTestBehavior.opaque,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: const CustomAppBar(title: AppStrings.quickMenu),
+        appBar: Wonzy.appBar(title: AppStrings.quickMenu),
         body: CustomScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           slivers: [

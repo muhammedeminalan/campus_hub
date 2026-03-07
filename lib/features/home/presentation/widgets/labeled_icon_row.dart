@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wonzy_core_utils/core_utils.dart';
+import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 
@@ -17,7 +17,7 @@ class LabeledIconRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return [
           label.text.bold.alignLeft,
-          CustomIconButton(
+          Wonzy.button.icon(
             onPressed: onPressed,
             iconData: icon,
             size: AppSize.v24,

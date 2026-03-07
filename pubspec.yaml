@@ -40,7 +40,7 @@ dependencies:
   #image_picker: ^1.2.1
 
   # ──────────── Core Utils ────────────
-  wonzy_core_utils: ^0.3.0
+  wonzy_core_utils: ^2.0.0
 
 dev_dependencies:
   flutter_test:

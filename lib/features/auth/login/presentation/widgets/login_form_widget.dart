@@ -52,7 +52,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
     super.build(context);
     return ListView(
       children: [
-        CustomTextField(
+        Wonzy.textField(
           name: widget.emailFieldName,
           type: CustomFieldType.email,
           controller: _emailController,
@@ -60,7 +60,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
           keyboardType: widget.emailKeyboardType,
         ),
         AppSize.v24.height,
-        CustomTextField(
+        Wonzy.textField(
           name: '${widget.emailFieldName}_password',
           type: CustomFieldType.password,
           controller: _passwordController,
@@ -78,7 +78,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget>
       buildWhen: (prev, curr) =>
           (prev is LoginLoading) != (curr is LoginLoading),
       builder: (context, state) {
-        return CustomButton(
+        return Wonzy.button.standard(
           isLoading: state is LoginLoading,
           text: AppStrings.login,
           textStyle: context.textTheme.labelLarge?.copyWith(

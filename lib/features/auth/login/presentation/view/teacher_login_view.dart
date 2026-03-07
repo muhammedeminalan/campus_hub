@@ -32,7 +32,7 @@ class _TeacherLoginViewState extends State<TeacherLoginView>
     super.build(context);
     return ListView(
       children: [
-        CustomTextField(
+        Wonzy.textField(
           name: AppStrings.teacher,
           type: CustomFieldType.email,
           controller: _emailController,
@@ -40,7 +40,7 @@ class _TeacherLoginViewState extends State<TeacherLoginView>
           keyboardType: TextInputType.emailAddress,
         ),
         AppSize.v24.height,
-        CustomTextField(
+        Wonzy.textField(
           name: 'teacherPassword',
           type: CustomFieldType.password,
           controller: _passwordController,
@@ -55,7 +55,7 @@ class _TeacherLoginViewState extends State<TeacherLoginView>
   Widget _loginButton(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
-        return CustomButton(
+        return Wonzy.button.standard(
           text: AppStrings.login,
           textStyle: context.textTheme.labelLarge?.copyWith(fontWeight: .bold),
           isLoading: state is LoginLoading,

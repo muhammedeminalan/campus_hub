@@ -7,7 +7,7 @@ import 'package:campus_hub/shared/widgets/errors/app_error_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wonzy_core_utils/core_utils.dart';
+import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 import '../widgets/calendar_event_list.dart';
@@ -48,7 +48,7 @@ class _HomeBodyState extends State<_HomeBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: AppStrings.home),
+      appBar: Wonzy.appBar(title: AppStrings.home),
       body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) => switch (state) {
           HomeInitial() ||

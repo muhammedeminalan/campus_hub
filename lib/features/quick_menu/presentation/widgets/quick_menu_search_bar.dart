@@ -21,7 +21,7 @@ class QuickMenuSearchBar extends StatelessWidget {
         AppSize.v16,
         AppSize.v4,
       ),
-      child: CustomTextField(
+      child: Wonzy.textField(
         name: 'quick_menu_search',
         controller: controller,
         hint: AppStrings.searchHint,

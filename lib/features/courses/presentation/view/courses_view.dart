@@ -7,7 +7,7 @@ import 'package:campus_hub/shared/widgets/lists/app_list_view.dart';
 import 'package:campus_hub/shared/widgets/selectors/period_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wonzy_core_utils/core_utils.dart';
+import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
@@ -46,7 +46,7 @@ class _CoursesBodyState extends State<_CoursesBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: AppStrings.courses),
+      appBar: Wonzy.appBar(title: AppStrings.courses),
       body: BlocBuilder<CoursesCubit, CoursesState>(
         builder: (context, state) => switch (state) {
           CoursesInitial() || CoursesLoading() => _buildLoading(),
@@ -145,7 +145,7 @@ class _CoursesBodyState extends State<_CoursesBody> {
     // Cubit'i bottom sheet açılmadan önce yakala —
     // modal route kendi context'ini oluşturduğundan dışarıdan alınır.
     final cubit = context.read<CoursesCubit>();
-    return CustomBottomSheet.show(
+    return Wonzy.bottomSheet.show(
       context,
       title: AppStrings.selectPeriod,
       titleColor: context.primaryColor,

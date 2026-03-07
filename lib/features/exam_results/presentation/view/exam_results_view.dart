@@ -46,7 +46,7 @@ class _ExamResultsBodyState extends State<_ExamResultsBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: AppStrings.examResults),
+      appBar: Wonzy.appBar(title: AppStrings.examResults),
       body: BlocBuilder<ExamResultsCubit, ExamResultsState>(
         builder: (context, state) => switch (state) {
           ExamResultsInitial() || ExamResultsLoading() => _buildLoading(),
@@ -105,7 +105,7 @@ class _ExamResultsBodyState extends State<_ExamResultsBody> {
   void _showPeriodSheet(BuildContext context, ExamResultsLoaded state) {
     // Cubit'i modal açılmadan önce yakala — route kendi context'ini oluşturur.
     final cubit = context.read<ExamResultsCubit>();
-    CustomBottomSheet.show(
+    Wonzy.bottomSheet.show(
       context,
       title: AppStrings.selectPeriod,
       titleColor: context.primaryColor,

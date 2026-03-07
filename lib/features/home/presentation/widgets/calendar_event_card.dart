@@ -50,7 +50,12 @@ class CalendarEventCard extends StatelessWidget {
 
   Widget _buildContent(BuildContext context) {
     return [
-      title.text.titleMedium(context),
+      Text(
+        title,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        style: context.textTheme.titleMedium,
+      ),
       AppSize.v4.h,
       dateRange.text.bodyMedium(context),
     ].column(crossAxisAlignment: .start, mainAxisAlignment: .center);

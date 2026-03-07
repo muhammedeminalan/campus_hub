@@ -1,17 +1,14 @@
 import 'package:campus_hub/config/init/injection_container.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:campus_hub/core/ui/widgets/app_error_view.dart';
-import 'package:campus_hub/core/ui/widgets/app_list_view.dart';
-import 'package:campus_hub/features/home/domain/academic_calendar_model.dart';
 import 'package:campus_hub/features/home/presentation/cubit/home_cubit.dart';
-import 'package:campus_hub/features/home/presentation/model/academic_calendar_display_x.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wonzy_core_utils/core_utils.dart';
 
 import '../../../../core/constants/app_sizes.dart';
-import '../widgets/calendar_event_card.dart';
+import '../widgets/calendar_event_list.dart';
 import '../widgets/labeled_icon_row.dart';
 import '../widgets/profil_card.dart';
 import '../widgets/quick_menu_list.dart';
@@ -80,7 +77,7 @@ class _HomeBodyState extends State<_HomeBody> {
                   icon: Icons.event_note,
                   onPressed: () {},
                 ),
-                _buildCalendarEvents(context, state.calendarEvents),
+                CalendarEventList(events: state.calendarEvents),
               ]
               .column(
                 crossAxisAlignment: .start,
@@ -89,22 +86,5 @@ class _HomeBodyState extends State<_HomeBody> {
               )
               .paddingOnly(bottom: AppSize.v32),
     );
-  }
-
-  Widget _buildCalendarEvents(
-    BuildContext context,
-    List<AcademicCalendarModel> events,
-  ) {
-    return AppListView<AcademicCalendarModel>(
-      items: events,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, item, index) => CalendarEventCard(
-        day: item.day,
-        month: item.monthName,
-        title: item.title,
-        dateRange: item.dateRange,
-        onPressed: () {},
-      ).sized(width: context.width * 0.9),
-    ).sized(height: AppSize.v96);
   }
 }

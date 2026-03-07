@@ -63,10 +63,26 @@ class ExamResultCard extends StatefulWidget {
 class _ExamResultCardState extends State<ExamResultCard> with GradeColorMixin {
   late ExamResultModel _active;
 
+  /// [type] için gerçek veri varsa onu, yoksa score: -1 / grade: '--' placeholder döner.
+  ExamResultModel _examFor(ExamType type) {
+    return widget.exams.firstWhere(
+      (e) => ExamType.fromLabel(e.examType) == type,
+      orElse: () => ExamResultModel(
+        id: 'placeholder_${type.label}',
+        courseTitle: widget.courseTitle,
+        examType: type.label,
+        score: -1,
+        letterGrade: '--',
+        credit: widget.exams.first.credit,
+        periodId: widget.exams.first.periodId,
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
-    _active = widget.exams.first;
+    _active = _examFor(ExamType.vize);
   }
 
   Color get _gradeColor => gradeColor(_active.letterGrade);
@@ -130,12 +146,12 @@ class _ExamResultCardState extends State<ExamResultCard> with GradeColorMixin {
   }
 
   Widget _buildExamTabs(BuildContext context) {
-    return widget.exams
+    return ExamType.values
         .map(
-          (exam) => _ExamChip(
-            examType: ExamType.fromLabel(exam.examType),
-            isSelected: exam.examType == _active.examType,
-            onTap: () => setState(() => _active = exam),
+          (type) => _ExamChip(
+            examType: type,
+            isSelected: ExamType.fromLabel(_active.examType) == type,
+            onTap: () => setState(() => _active = _examFor(type)),
           ),
         )
         .toList()

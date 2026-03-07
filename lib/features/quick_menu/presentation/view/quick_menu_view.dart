@@ -35,31 +35,31 @@ class _QuickMenuViewState extends State<QuickMenuView>
   /// [QuickMenuCategory] modeli presentation/model/ altında tanımlıdır.
   static const List<QuickMenuCategory> _categories = [
     QuickMenuCategory(
-      title: 'Yoklama & Takvimler',
+      title: AppStrings.categoryAttendance,
       icon: Icons.calendar_today_outlined,
       indices: [0, 1, 2],
       accentColor: AppColors.primary,
     ),
     QuickMenuCategory(
-      title: 'Dersler & Sınavlar',
+      title: AppStrings.categoryCoursesExams,
       icon: Icons.menu_book_outlined,
       indices: [3, 4, 5],
       accentColor: AppColors.secondary,
     ),
     QuickMenuCategory(
-      title: 'Akademik Bilgiler',
+      title: AppStrings.categoryAcademic,
       icon: Icons.school_outlined,
       indices: [6, 7, 8],
       accentColor: AppColors.success,
     ),
     QuickMenuCategory(
-      title: 'Durum & Müfredat',
+      title: AppStrings.categoryStatus,
       icon: Icons.leaderboard_outlined,
       indices: [9, 10, 11],
       accentColor: AppColors.warning,
     ),
     QuickMenuCategory(
-      title: 'Diğer',
+      title: AppStrings.categoryOther,
       icon: Icons.apps_outlined,
       indices: [12, 13, 14],
       accentColor: AppColors.info,
@@ -198,7 +198,7 @@ class _QuickMenuViewState extends State<QuickMenuView>
             ),
             const SizedBox(height: AppSize.v12),
             Text(
-              'Sonuç bulunamadı',
+              AppStrings.searchNoResult,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: colorScheme.onSurface.withOpacity(0.45),
               ),

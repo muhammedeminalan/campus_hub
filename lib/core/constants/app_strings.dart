@@ -102,6 +102,33 @@ final class AppStrings {
   static const ano = 'ANO';
   static const agno = 'AGNO';
 
+  // ── Sınav türü etiketleri ────────────────────────────────────────────────────
+  static const examVize = 'Vize';
+  static const examFinal = 'Final';
+  static const examButunleme = 'Bütünleme';
+
+  // ── Sınav sonucu boş durum ───────────────────────────────────────────────────
+  static const examResultNotFound = 'Sınav Sonucu Bulunamadı';
+  static String examResultNotFoundSub(String period) =>
+      '$period dönemine ait sınav\nkaydı mevcut değil.';
+
+  // ── Arama ────────────────────────────────────────────────────────────────────
+  static const searchHint = 'Menüde ara…';
+  static const searchNoResult = 'Sonuç bulunamadı';
+
+  // ── Hızlı Menü Kategorileri ──────────────────────────────────────────────────
+  static const categoryAttendance = 'Yoklama & Takvimler';
+  static const categoryCoursesExams = 'Dersler & Sınavlar';
+  static const categoryAcademic = 'Akademik Bilgiler';
+  static const categoryStatus = 'Durum & Müfredat';
+  static const categoryOther = 'Diğer';
+
+  // ── Takvim ───────────────────────────────────────────────────────────────────
+  static String eventsCountLabel(int count) => '$count etkinlik';
+
+  // ── Navigasyon kısa etiketleri ───────────────────────────────────────────────
+  static const navCourses = 'Dersler';
+
   // ── Sınav Sonuçları Özet Kartı ──────────────────────────────────────────────
   static const summaryTitle = 'Dönem Özeti';
   static const summaryCourseCount = 'Toplam Ders';

@@ -1,4 +1,5 @@
 import 'package:campus_hub/core/constants/app_sizes.dart';
+import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
@@ -23,7 +24,7 @@ class QuickMenuSearchBar extends StatelessWidget {
       child: CustomTextField(
         name: 'quick_menu_search',
         controller: controller,
-        hint: 'Menüde ara…',
+        hint: AppStrings.searchHint,
         prefixIcon: const Icon(Icons.search_rounded, size: AppSize.v20),
         showClearButton: true,
         textInputAction: TextInputAction.search,

@@ -1,5 +1,6 @@
 import 'package:campus_hub/config/theme/app_colors.dart';
 import 'package:campus_hub/core/constants/app_sizes.dart';
+import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:campus_hub/core/models/exam_result_model.dart';
 import 'package:flutter/material.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
@@ -8,9 +9,9 @@ import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 // ExamType — Sınav türünü temsil eder; renk ve etiket bilgisini taşır.
 // ─────────────────────────────────────────────────────────────────────────────
 enum ExamType {
-  vize('Vize'),
-  finalExam('Final'),
-  butunleme('Bütünleme');
+  vize(AppStrings.examVize),
+  finalExam(AppStrings.examFinal),
+  butunleme(AppStrings.examButunleme);
 
   const ExamType(this.label);
 

@@ -102,9 +102,9 @@ class AcademicCalendarBottomSheet extends StatelessWidget {
             ),
         [
           AppStrings.academicCalendar.text.semiBold.fontSize(AppSize.v16),
-          '${events.length} etkinlik'.text
-              .fontSize(AppSize.v12)
-              .color(AppColors.textSecondary),
+          AppStrings.eventsCountLabel(
+            events.length,
+          ).text.fontSize(AppSize.v12).color(AppColors.textSecondary),
         ].column(crossAxisAlignment: .start, mainAxisSize: .min),
       ].row(spacing: AppSize.v12),
     );

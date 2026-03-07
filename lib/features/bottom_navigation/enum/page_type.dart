@@ -43,9 +43,9 @@ enum NavigationTab {
 
   /// Bottom nav bar için kısaltılmış etiket.
   String get navLabel => switch (this) {
-    NavigationTab.home => 'Ana Sayfa',
-    NavigationTab.courses => 'Dersler',
-    NavigationTab.examResults => 'Sınav Sonuçları',
-    NavigationTab.quickMenu => 'Hızlı Menü',
+    NavigationTab.home => AppStrings.home,
+    NavigationTab.courses => AppStrings.navCourses,
+    NavigationTab.examResults => AppStrings.examResults,
+    NavigationTab.quickMenu => AppStrings.quickMenu,
   };
 }

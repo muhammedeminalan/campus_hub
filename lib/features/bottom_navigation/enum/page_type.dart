@@ -40,4 +40,12 @@ enum NavigationTab {
   final IconData icon;
   final IconData activeIcon;
   final String label;
+
+  /// Bottom nav bar için kısaltılmış etiket.
+  String get navLabel => switch (this) {
+    NavigationTab.home => 'Ana Sayfa',
+    NavigationTab.courses => 'Dersler',
+    NavigationTab.examResults => 'Sınav Sonuçları',
+    NavigationTab.quickMenu => 'Hızlı Menü',
+  };
 }

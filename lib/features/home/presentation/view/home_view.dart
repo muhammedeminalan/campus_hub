@@ -1,6 +1,8 @@
 import 'package:campus_hub/config/init/injection_container.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:campus_hub/core/ui/widgets/app_error_view.dart';
+import 'package:campus_hub/features/bottom_navigation/cubit/navigation_cubit.dart';
+import 'package:campus_hub/features/bottom_navigation/enum/page_type.dart';
 import 'package:campus_hub/features/home/presentation/cubit/home_cubit.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ import '../widgets/calendar_event_list.dart';
 import '../widgets/labeled_icon_row.dart';
 import '../widgets/profil_card.dart';
 import '../widgets/quick_menu_list.dart';
+import 'academic_calendar_sheet.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -69,13 +72,18 @@ class _HomeBodyState extends State<_HomeBody> {
                 LabeledIconRow(
                   label: AppStrings.quickMenu,
                   icon: Icons.dashboard_outlined,
-                  onPressed: () {},
+                  onPressed: () => context.read<NavigationCubit>().updateTab(
+                    NavigationTab.quickMenu,
+                  ),
                 ),
                 const QuickMenuList().sized(height: AppSize.v128),
                 LabeledIconRow(
                   label: AppStrings.academicCalendar,
                   icon: Icons.event_note,
-                  onPressed: () {},
+                  onPressed: () => AcademicCalendarBottomSheet.show(
+                    context,
+                    state.calendarEvents,
+                  ),
                 ),
                 CalendarEventList(events: state.calendarEvents),
               ]

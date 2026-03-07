@@ -9,11 +9,9 @@ import '../enum/page_type.dart';
 class CustomBottomNav extends StatelessWidget {
   const CustomBottomNav({super.key});
 
-  /// Sol taraftaki tab listesi (FAB'ın solunda)
-  static const _leftTabs = [NavigationTab.home, NavigationTab.courses];
-
-  /// Sağ taraftaki tab listesi (FAB'ın sağında)
-  static const _rightTabs = [
+  static const _tabs = [
+    NavigationTab.home,
+    NavigationTab.courses,
     NavigationTab.examResults,
     NavigationTab.quickMenu,
   ];
@@ -29,40 +27,21 @@ class CustomBottomNav extends StatelessWidget {
     return BottomAppBar(
       color: context.surfaceColor,
       elevation: AppSize.v8,
-      notchMargin: AppSize.v8,
-      shape: const CircularNotchedRectangle(),
+      padding: EdgeInsets.zero,
       child: Row(
-        children: [
-          ..._buildItems(
-            context,
-            _leftTabs,
-            current,
-          ).map((e) => Expanded(child: e)),
-          const Spacer(),
-          ..._buildItems(
-            context,
-            _rightTabs,
-            current,
-          ).map((e) => Expanded(child: e)),
-        ],
+        children: _tabs
+            .map(
+              (tab) => Expanded(
+                child: _NavItem(
+                  tab: tab,
+                  isSelected: tab == current,
+                  onTap: () => context.read<NavigationCubit>().updateTab(tab),
+                ),
+              ),
+            )
+            .toList(),
       ),
     );
-  }
-
-  List<Widget> _buildItems(
-    BuildContext context,
-    List<NavigationTab> tabs,
-    NavigationTab current,
-  ) {
-    return tabs
-        .map(
-          (tab) => _NavItem(
-            tab: tab,
-            isSelected: tab == current,
-            onTap: () => context.read<NavigationCubit>().updateTab(tab),
-          ),
-        )
-        .toList();
   }
 }
 
@@ -86,9 +65,8 @@ class _NavItem extends StatelessWidget {
             color: color,
             size: AppSize.v24,
           ),
-          tab.label.text
+          tab.navLabel.text
               .style(TextStyle(fontSize: AppSize.v10, color: color))
-              .ellipsis
               .maxLine(1),
         ]
         .column(mainAxisSize: MainAxisSize.min, spacing: AppSize.v4)

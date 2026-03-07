@@ -32,16 +32,20 @@ class QuickMenuGridItem extends StatefulWidget {
 }
 
 class _QuickMenuGridItemState extends State<QuickMenuGridItem> {
-  /// Basılı tutma efekti için durum; küçülme ve renk geçişlerini tetikler.
-  bool _pressed = false;
+  /// Basılı tutma efekti için notifier; yalnızca iç Container rebuild olur.
+  /// FadeTransition + SlideTransition press olaylarından etkilenmez.
+  final ValueNotifier<bool> _pressed = ValueNotifier(false);
+
+  @override
+  void dispose() {
+    _pressed.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-    final accent = widget.accentColor;
-
     // Giriş animasyonu: fade + yukarı kayarak belirme.
+    // Bu wrapper'lar hiçbir zaman press nedeniyle rebuild olmaz.
     return FadeTransition(
       opacity: widget.animation,
       child: SlideTransition(
@@ -49,76 +53,80 @@ class _QuickMenuGridItemState extends State<QuickMenuGridItem> {
           begin: const Offset(0, 0.25),
           end: Offset.zero,
         ).animate(widget.animation),
-        child: AnimatedScale(
-          scale: _pressed ? 0.92 : 1.0,
-          duration: const Duration(milliseconds: 110),
-          curve: Curves.easeOut,
-          child: GestureDetector(
-            onTapDown: (_) => setState(() => _pressed = true),
-            onTapUp: (_) => setState(() => _pressed = false),
-            onTapCancel: () => setState(() => _pressed = false),
-            onTap: () {
-              HapticFeedback.lightImpact();
-              context.pushPage(QuickMenuNavigator.pageFor(widget.item.route));
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: colorScheme.surface,
-                borderRadius: BorderRadius.circular(AppSize.v16),
-                border: Border.all(
-                  // Basılıyken vurgu rengi, normalde soluk kenarlık.
-                  color: _pressed
-                      ? accent.withOpacity(0.4)
-                      : colorScheme.outline.withOpacity(0.18),
-                  width: 1.2,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: accent.withOpacity(_pressed ? 0.12 : 0.06),
-                    blurRadius: _pressed ? 10 : 6,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppSize.v8,
-                vertical: AppSize.v12,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // ── İkon alanı: basılıyken arka plan koyulaşır ──
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 150),
-                    padding: const EdgeInsets.all(AppSize.v10),
-                    decoration: BoxDecoration(
-                      color: _pressed
-                          ? accent.withOpacity(0.18)
-                          : accent.withOpacity(0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      widget.item.icon,
-                      size: AppSize.v20,
-                      color: accent,
-                    ),
-                  ),
-                  const SizedBox(height: AppSize.v8),
-                  // ── Etiket: maksimum 2 satır, taşarsa üç nokta ──
-                  Text(
-                    widget.item.label,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: textTheme.labelSmall?.copyWith(
-                      color: colorScheme.onSurface.withOpacity(0.85),
-                      fontWeight: FontWeight.w600,
-                      height: 1.3,
-                    ),
-                  ),
-                ],
-              ),
+        child: ValueListenableBuilder<bool>(
+          valueListenable: _pressed,
+          builder: (context, pressed, _) => _buildCard(context, pressed),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCard(BuildContext context, bool pressed) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+    final accent = widget.accentColor;
+
+    return AnimatedScale(
+      scale: pressed ? 0.92 : 1.0,
+      duration: const Duration(milliseconds: 110),
+      curve: Curves.easeOut,
+      child: GestureDetector(
+        onTapDown: (_) => _pressed.value = true,
+        onTapUp: (_) => _pressed.value = false,
+        onTapCancel: () => _pressed.value = false,
+        onTap: () {
+          HapticFeedback.lightImpact();
+          context.pushPage(QuickMenuNavigator.pageFor(widget.item.route));
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: colorScheme.surface,
+            borderRadius: BorderRadius.circular(AppSize.v16),
+            border: Border.all(
+              color: pressed
+                  ? accent.withOpacity(0.4)
+                  : colorScheme.outline.withOpacity(0.18),
+              width: 1.2,
             ),
+            boxShadow: [
+              BoxShadow(
+                color: accent.withOpacity(pressed ? 0.12 : 0.06),
+                blurRadius: pressed ? 10 : 6,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSize.v8,
+            vertical: AppSize.v12,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 150),
+                padding: const EdgeInsets.all(AppSize.v10),
+                decoration: BoxDecoration(
+                  color: pressed
+                      ? accent.withOpacity(0.18)
+                      : accent.withOpacity(0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(widget.item.icon, size: AppSize.v20, color: accent),
+              ),
+              const SizedBox(height: AppSize.v8),
+              Text(
+                widget.item.label,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: textTheme.labelSmall?.copyWith(
+                  color: colorScheme.onSurface.withOpacity(0.85),
+                  fontWeight: FontWeight.w600,
+                  height: 1.3,
+                ),
+              ),
+            ],
           ),
         ),
       ),

@@ -1,7 +1,10 @@
 import 'package:campus_hub/config/init/injection_container.dart';
 import 'package:campus_hub/config/theme/app_colors.dart';
-import 'package:campus_hub/core/ui/widgets/app_error_view.dart';
 import 'package:campus_hub/features/courses/presentation/cubit/courses_cubit.dart';
+import 'package:campus_hub/shared/widgets/cards/course_card.dart';
+import 'package:campus_hub/shared/widgets/errors/app_error_view.dart';
+import 'package:campus_hub/shared/widgets/lists/app_list_view.dart';
+import 'package:campus_hub/shared/widgets/selectors/period_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wonzy_core_utils/core_utils.dart';
@@ -10,9 +13,6 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/models/course_model.dart';
 import '../../../../core/models/period_model.dart';
-import '../../../../core/ui/widgets/app_list_view.dart';
-import '../../../../core/ui/widgets/course_card.dart';
-import '../widgets/period_list_tile.dart';
 
 class CoursesView extends StatelessWidget {
   const CoursesView({super.key});

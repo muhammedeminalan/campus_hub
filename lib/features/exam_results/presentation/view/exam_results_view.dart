@@ -2,10 +2,11 @@ import 'package:campus_hub/config/init/injection_container.dart';
 import 'package:campus_hub/config/theme/app_colors.dart';
 import 'package:campus_hub/core/constants/app_sizes.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
-import 'package:campus_hub/core/models/period_model.dart';
-import 'package:campus_hub/core/ui/widgets/app_error_view.dart';
 import 'package:campus_hub/features/exam_results/presentation/cubit/exam_results_cubit.dart';
 import 'package:campus_hub/features/exam_results/presentation/widgets/widgets.dart';
+import 'package:campus_hub/shared/widgets/errors/app_error_view.dart';
+import 'package:campus_hub/shared/widgets/selectors/period_list_tile.dart';
+import 'package:campus_hub/shared/widgets/selectors/period_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
@@ -127,29 +128,16 @@ class _ExamResultsBodyState extends State<_ExamResultsBody> {
         itemBuilder: (ctx, i) {
           final period = state.periods[i];
           final isSelected = period.id == state.selectedPeriod?.id;
-          return _buildPeriodTile(context, period, isSelected, cubit);
+          return PeriodListTile(
+            period: period.name,
+            isSelected: isSelected,
+            onTap: () {
+              cubit.selectPeriod(period);
+              context.pop();
+            },
+          );
         },
       ),
-    );
-  }
-
-  Widget _buildPeriodTile(
-    BuildContext context,
-    PeriodModel period,
-    bool isSelected,
-    ExamResultsCubit cubit,
-  ) {
-    return ListTile(
-      title: period.name.text.semiBold.color(
-        isSelected ? context.primaryColor : AppColors.textPrimary,
-      ),
-      trailing: isSelected
-          ? Icon(Icons.check_circle, color: context.primaryColor)
-          : null,
-      onTap: () {
-        cubit.selectPeriod(period);
-        context.pop();
-      },
     );
   }
 }

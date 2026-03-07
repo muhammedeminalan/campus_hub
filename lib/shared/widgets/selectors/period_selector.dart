@@ -4,8 +4,14 @@ import 'package:campus_hub/core/models/period_model.dart';
 import 'package:flutter/material.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
+/// Seçili dönemi başlık satırı olarak gösteren, tıklanınca dönem seçim
+/// sheet'ini açmak için kullanılan dokunulabilir widget.
 class PeriodSelector extends StatelessWidget {
-  const PeriodSelector({super.key, required this.selected, required this.onTap});
+  const PeriodSelector({
+    super.key,
+    required this.selected,
+    required this.onTap,
+  });
 
   final PeriodModel selected;
   final VoidCallback onTap;
@@ -13,10 +19,12 @@ class PeriodSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return [
-          Icon(Icons.calendar_month_outlined,
-              size: AppSize.v20, color: context.primaryColor),
-          selected.name.text
-              .semiBold
+          Icon(
+            Icons.calendar_month_outlined,
+            size: AppSize.v20,
+            color: context.primaryColor,
+          ),
+          selected.name.text.semiBold
               .fontSize(AppSize.v14)
               .color(AppColors.textPrimary)
               .expanded(),

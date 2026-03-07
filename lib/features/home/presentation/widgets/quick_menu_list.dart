@@ -1,7 +1,7 @@
 import 'package:campus_hub/core/constants/app_sizes.dart';
-import 'package:campus_hub/core/ui/widgets/menu_item_card.dart';
-import 'package:campus_hub/features/home/presentation/model/menu_item_model.dart';
 import 'package:campus_hub/features/quick_menu/navigation/quick_menu_navigator.dart';
+import 'package:campus_hub/shared/models/menu_item_model.dart';
+import 'package:campus_hub/shared/widgets/cards/menu_item_card.dart';
 import 'package:flutter/material.dart';
 import 'package:wonzy_core_utils/core_utils.dart';
 

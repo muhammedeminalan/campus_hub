@@ -1,7 +1,6 @@
+import 'package:campus_hub/core/constants/app_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:wonzy_core_utils/core_utils.dart';
-
-import '../../constants/app_sizes.dart';
 
 class MenuitemCard extends StatelessWidget {
   const MenuitemCard({

@@ -3,11 +3,11 @@
 import 'package:campus_hub/config/theme/app_colors.dart';
 import 'package:campus_hub/core/constants/app_sizes.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
-import 'package:campus_hub/features/home/presentation/model/menu_item_model.dart';
 import 'package:campus_hub/features/quick_menu/presentation/model/quick_menu_category.dart';
 import 'package:campus_hub/features/quick_menu/presentation/widgets/quick_menu_category_section.dart';
 import 'package:campus_hub/features/quick_menu/presentation/widgets/quick_menu_grid_item.dart';
 import 'package:campus_hub/features/quick_menu/presentation/widgets/quick_menu_search_bar.dart';
+import 'package:campus_hub/shared/models/menu_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 

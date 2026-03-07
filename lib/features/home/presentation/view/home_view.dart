@@ -1,9 +1,9 @@
 import 'package:campus_hub/config/init/injection_container.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
-import 'package:campus_hub/core/ui/widgets/app_error_view.dart';
 import 'package:campus_hub/features/bottom_navigation/cubit/navigation_cubit.dart';
 import 'package:campus_hub/features/bottom_navigation/enum/page_type.dart';
 import 'package:campus_hub/features/home/presentation/cubit/home_cubit.dart';
+import 'package:campus_hub/shared/widgets/errors/app_error_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

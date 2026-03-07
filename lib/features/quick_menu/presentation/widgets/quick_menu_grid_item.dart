@@ -1,8 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:campus_hub/core/constants/app_sizes.dart';
-import 'package:campus_hub/features/home/presentation/model/menu_item_model.dart';
 import 'package:campus_hub/features/quick_menu/navigation/quick_menu_navigator.dart';
+import 'package:campus_hub/shared/models/menu_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';

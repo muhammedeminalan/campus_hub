@@ -4,6 +4,7 @@ import 'package:campus_hub/core/contracts/auth/auth_base.dart';
 import 'package:campus_hub/features/auth/login/presentation/view/login_view.dart';
 import 'package:campus_hub/features/bottom_navigation/view/bottom_navigation_view.dart';
 import 'package:flutter/material.dart';
+import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
 /// Auth durumunu anlık dinler.
 /// Kullanıcı silinirse, çıkış yaparsa veya token geçersiz olursa
@@ -29,38 +30,32 @@ class _AuthGateState extends State<AuthGate> {
       stream: sl<AuthBase>().authStateChanges,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
+          return Scaffold(body: const CircularProgressIndicator().center);
         }
         if (snapshot.hasError) {
           return Scaffold(
-            body: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.error_outline, size: AppSize.v48),
-                  const SizedBox(height: AppSize.v16),
-                  const Text(
-                    'Bağlantı hatası oluştu.',
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: AppSize.v8),
-                  Text(
-                    snapshot.error.toString(),
-                    style: const TextStyle(fontSize: 12),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: AppSize.v24),
-                  TextButton.icon(
-                    onPressed: _retry,
-                    icon: const Icon(Icons.refresh),
-                    label: const Text('Yeniden Dene'),
-                  ),
-                ],
+            body: [
+              const Icon(Icons.error_outline, size: AppSize.v48),
+              AppSize.v16.h,
+
+              'Bağlantı hatası oluştu.'.text.align(.center),
+
+              AppSize.v8.h,
+
+              snapshot.error
+                  .toString()
+                  .text
+                  .fontSize(AppSize.v12)
+                  .align(.center),
+
+              AppSize.v24.h,
+              TextButton.icon(
+                onPressed: _retry,
+                icon: const Icon(Icons.refresh),
+                label: 'Yeniden Dene'.text,
               ),
-            ),
-          );
+            ].column(mainAxisSize: .min),
+          ).center;
         }
         final uid = snapshot.data;
         return uid != null ? const BottomNavigationView() : const LoginView();

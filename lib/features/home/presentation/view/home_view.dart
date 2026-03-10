@@ -3,6 +3,8 @@ import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:campus_hub/features/bottom_navigation/cubit/navigation_cubit.dart';
 import 'package:campus_hub/features/bottom_navigation/enum/page_type.dart';
 import 'package:campus_hub/features/home/presentation/cubit/home_cubit.dart';
+import 'package:campus_hub/features/notifications/presentation/view/notifications_view.dart';
+import 'package:campus_hub/shared/widgets/app_bar/core_app_bar.dart';
 import 'package:campus_hub/shared/widgets/errors/app_error_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +50,16 @@ class _HomeBodyState extends State<_HomeBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Wonzy.appBar(title: AppStrings.home),
+      appBar: CoreAppBar(
+        title: AppStrings.home,
+        actions: [
+          const Icon(Icons.notifications)
+              .onTap(() {
+                context.pushPage(NotificationsView());
+              })
+              .paddingOnly(right: AppSize.v16),
+        ],
+      ),
       body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) => switch (state) {
           HomeInitial() ||

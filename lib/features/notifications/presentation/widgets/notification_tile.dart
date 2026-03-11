@@ -2,6 +2,7 @@ import 'package:campus_hub/config/theme/app_colors.dart';
 import 'package:campus_hub/core/constants/app_sizes.dart';
 import 'package:campus_hub/features/notifications/domain/notification_item.dart';
 import 'package:flutter/material.dart';
+import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
 class NotificationTile extends StatelessWidget {
   const NotificationTile({
@@ -19,96 +20,68 @@ class NotificationTile extends StatelessWidget {
       key: ValueKey('${item.title}_${item.time}'),
       direction: DismissDirection.endToStart,
       onDismissed: (_) => onDismissed(),
-      background: Container(
-        margin: const EdgeInsets.symmetric(vertical: AppSize.v6),
-        decoration: BoxDecoration(
-          color: Colors.red.shade400,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        alignment: Alignment.centerRight,
-        padding: const EdgeInsets.only(right: AppSize.v20),
-        child: const Icon(Icons.delete_outline, color: Colors.white, size: 22),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: AppSize.v6),
-        child: Card(
-          elevation: item.isRead ? 1 : 3,
-          shadowColor: AppColors.primary.withOpacity(0.18),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          clipBehavior: Clip.antiAlias,
-          color: Colors.white,
-          margin: EdgeInsets.zero,
-          child: IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  width: 4,
-                  color: item.isRead ? Colors.transparent : AppColors.primary,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppSize.v16,
-                      vertical: AppSize.v14,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                item.title,
-                                style: Theme.of(context).textTheme.bodyMedium
-                                    ?.copyWith(
-                                      fontWeight: item.isRead
-                                          ? FontWeight.w500
-                                          : FontWeight.w700,
-                                      color: item.isRead
-                                          ? AppColors.textSecondary
-                                          : AppColors.textPrimary,
-                                    ),
-                              ),
-                            ),
-                            if (!item.isRead)
-                              Container(
-                                width: 8,
-                                height: 8,
-                                margin: const EdgeInsets.only(left: AppSize.v8),
-                                decoration: const BoxDecoration(
-                                  color: AppColors.primary,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                          ],
-                        ),
-                        const SizedBox(height: AppSize.v4),
-                        Text(
-                          item.body,
-                          style: Theme.of(context).textTheme.bodySmall
-                              ?.copyWith(color: AppColors.textSecondary),
-                        ),
-                        const SizedBox(height: AppSize.v8),
-                        Text(
-                          item.time,
-                          style: Theme.of(context).textTheme.bodySmall
-                              ?.copyWith(
-                                fontSize: 11,
-                                color: AppColors.textHint,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+      background: _buildDismissBackground(context),
+      child: _buildCard(context),
     );
+  }
+
+  Widget _buildDismissBackground(BuildContext context) {
+    return Icon(
+          Icons.delete_outline_rounded,
+          color: context.onPrimaryColor,
+          size: AppSize.v24,
+        )
+        .paddingOnly(right: AppSize.v24)
+        .alignRight
+        .container(color: context.errorColor, borderRadius: AppSize.v16);
+  }
+
+  Widget _buildCard(BuildContext context) {
+    return [
+          _buildIconBox(context),
+          AppSize.v12.w,
+          _buildContent(context).expanded(),
+        ]
+        .row(crossAxisAlignment: .start)
+        .paddingAll(AppSize.v16)
+        .container(
+          color: context.surfaceColor,
+          borderRadius: AppSize.v16,
+          border: Border.all(
+            color: context.surfaceColor.withValues(alpha: 0.6),
+          ),
+        )
+        .paddingSymmetric(v: AppSize.v6);
+  }
+
+  Widget _buildIconBox(BuildContext context) {
+    return Icon(
+          Icons.notifications_outlined,
+          color: context.primaryColor,
+          size: AppSize.v20,
+        ).center
+        .sized(width: AppSize.v44, height: AppSize.v44)
+        .container(
+          color: context.primaryColor.withAlpha(AppSize.v48.toInt()),
+          borderRadius: AppSize.v12,
+        );
+  }
+
+  Widget _buildContent(BuildContext context) {
+    return [
+      [
+        item.title.text.titleSmall(context).bold.expanded(),
+        AppSize.v8.w,
+        item.time.text.bodySmall(context),
+      ].row(crossAxisAlignment: .start),
+      AppSize.v4.h,
+      Text(
+        item.body,
+        style: context.textTheme.bodySmall?.copyWith(
+          color: AppColors.textSecondary,
+          height: 1.45,
+        ),
+      ),
+    ].column(crossAxisAlignment: .start);
   }
 }

@@ -19,7 +19,6 @@ abstract final class NotificationFixture {
       title: 'Burs Başvuruları Açıldı',
       body: 'KYK burs başvuruları 20 Mart\'a kadar.',
       time: '3 saat önce',
-      isRead: true,
     ),
     const NotificationItem(
       title: 'Kariyer Fuarı',
@@ -30,7 +29,36 @@ abstract final class NotificationFixture {
       title: 'Devamsızlık Uyarısı',
       body: 'İşletim Sistemleri dersinde sınıra yaklaştınız.',
       time: '2 gün önce',
-      isRead: true,
+    ),
+    const NotificationItem(
+      title: 'Kariyer Fuarı',
+      body: 'Yarın 10:00\'da Konferans Salonu\'nda.',
+      time: 'Dün',
+    ),
+    const NotificationItem(
+      title: 'Devamsızlık Uyarısı',
+      body: 'İşletim Sistemleri dersinde sınıra yaklaştınız.',
+      time: '2 gün önce',
+    ),
+    const NotificationItem(
+      title: 'Kariyer Fuarı',
+      body: 'Yarın 10:00\'da Konferans Salonu\'nda.',
+      time: 'Dün',
+    ),
+    const NotificationItem(
+      title: 'Devamsızlık Uyarısı',
+      body: 'İşletim Sistemleri dersinde sınıra yaklaştınız.',
+      time: '2 gün önce',
+    ),
+    const NotificationItem(
+      title: 'Kariyer Fuarı',
+      body: 'Yarın 10:00\'da Konferans Salonu\'nda.',
+      time: 'Dün',
+    ),
+    const NotificationItem(
+      title: 'Devamsızlık Uyarısı',
+      body: 'İşletim Sistemleri dersinde sınıra yaklaştınız.',
+      time: '2 gün önce',
     ),
   ];
 }

@@ -18,14 +18,10 @@ class QuickMenuCategorySection extends StatelessWidget {
     super.key,
     required this.category,
     required this.items,
-    required this.animations,
   });
 
   final QuickMenuCategory category;
   final List<MenuItemModel> items;
-
-  /// Her öğeye karşılık gelen animasyon dilimi; [items] ile aynı uzunlukta olmalı.
-  final List<Animation<double>> animations;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +82,6 @@ class QuickMenuCategorySection extends StatelessWidget {
             itemBuilder: (context, index) => QuickMenuGridItem(
               item: items[index],
               accentColor: category.accentColor,
-              animation: animations[index],
             ),
           ),
         ],

@@ -4,6 +4,7 @@ import 'package:campus_hub/core/constants/app_sizes.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:campus_hub/features/exam_results/presentation/cubit/exam_results_cubit.dart';
 import 'package:campus_hub/features/exam_results/presentation/widgets/widgets.dart';
+import 'package:campus_hub/shared/widgets/app_bar/core_app_bar.dart';
 import 'package:campus_hub/shared/widgets/errors/app_error_view.dart';
 import 'package:campus_hub/shared/widgets/selectors/period_list_tile.dart';
 import 'package:campus_hub/shared/widgets/selectors/period_selector.dart';
@@ -46,7 +47,7 @@ class _ExamResultsBodyState extends State<_ExamResultsBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Wonzy.appBar(title: AppStrings.examResults),
+      appBar: const CoreAppBar(title: AppStrings.examResults),
       body: BlocBuilder<ExamResultsCubit, ExamResultsState>(
         builder: (context, state) => switch (state) {
           ExamResultsInitial() || ExamResultsLoading() => _buildLoading(),

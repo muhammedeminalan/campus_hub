@@ -1,6 +1,7 @@
 import 'package:campus_hub/config/init/injection_container.dart';
 import 'package:campus_hub/config/theme/app_colors.dart';
 import 'package:campus_hub/features/courses/presentation/cubit/courses_cubit.dart';
+import 'package:campus_hub/shared/widgets/app_bar/core_app_bar.dart';
 import 'package:campus_hub/shared/widgets/cards/course_card.dart';
 import 'package:campus_hub/shared/widgets/errors/app_error_view.dart';
 import 'package:campus_hub/shared/widgets/lists/app_list_view.dart';
@@ -46,7 +47,7 @@ class _CoursesBodyState extends State<_CoursesBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Wonzy.appBar(title: AppStrings.courses),
+      appBar: const CoreAppBar(title: AppStrings.courses),
       body: BlocBuilder<CoursesCubit, CoursesState>(
         builder: (context, state) => switch (state) {
           CoursesInitial() || CoursesLoading() => _buildLoading(),

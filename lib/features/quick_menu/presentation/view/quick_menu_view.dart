@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:campus_hub/config/theme/app_colors.dart';
 import 'package:campus_hub/core/constants/app_sizes.dart';
 import 'package:campus_hub/core/constants/app_strings.dart';
@@ -8,6 +6,7 @@ import 'package:campus_hub/features/quick_menu/presentation/widgets/quick_menu_c
 import 'package:campus_hub/features/quick_menu/presentation/widgets/quick_menu_grid_item.dart';
 import 'package:campus_hub/features/quick_menu/presentation/widgets/quick_menu_search_bar.dart';
 import 'package:campus_hub/shared/models/menu_item_model.dart';
+import 'package:campus_hub/shared/widgets/app_bar/core_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
@@ -20,19 +19,13 @@ class QuickMenuView extends StatefulWidget {
   State<QuickMenuView> createState() => _QuickMenuViewState();
 }
 
-class _QuickMenuViewState extends State<QuickMenuView>
-    with SingleTickerProviderStateMixin {
-  /// Staggered giriş animasyonu; sayfa açılışında bir kez çalışır.
-  late final AnimationController _controller;
-
+class _QuickMenuViewState extends State<QuickMenuView> {
   /// Arama kutusu metin controller'ı.
   final TextEditingController _searchController = TextEditingController();
 
   /// Arama sorgusunu tutan notifier; rebuild'i yalnızca içerik sliverına izole eder.
   final ValueNotifier<String> _searchQuery = ValueNotifier('');
 
-  /// Menü kategorileri; her biri başlık, ikon, renk ve öğe indekslerini tanımlar.
-  /// [QuickMenuCategory] modeli presentation/model/ altında tanımlıdır.
   static const List<QuickMenuCategory> _categories = [
     QuickMenuCategory(
       title: AppStrings.categoryAttendance,
@@ -69,10 +62,6 @@ class _QuickMenuViewState extends State<QuickMenuView>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1000),
-    )..forward();
     _searchController.addListener(_onSearchChanged);
   }
 
@@ -84,23 +73,11 @@ class _QuickMenuViewState extends State<QuickMenuView>
 
   @override
   void dispose() {
-    _controller.dispose();
     _searchQuery.dispose();
     _searchController
       ..removeListener(_onSearchChanged)
       ..dispose();
     super.dispose();
-  }
-
-  /// [globalIndex] üzerinden staggered animasyon dilimi hesaplar.
-  /// Her öğe biraz daha gecikmeli başlar; [Interval] ile 0–1 arasına sıkıştırılır.
-  Animation<double> _itemAnim(int globalIndex) {
-    final start = (globalIndex * 0.04).clamp(0.0, 0.65);
-    final end = (start + 0.42).clamp(0.0, 1.0);
-    return CurvedAnimation(
-      parent: _controller,
-      curve: Interval(start, end, curve: Curves.easeOutCubic),
-    );
   }
 
   /// Arama sorgusuna göre tüm kategorilerdeki öğeleri filtreler.
@@ -127,7 +104,7 @@ class _QuickMenuViewState extends State<QuickMenuView>
       behavior: HitTestBehavior.opaque,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: Wonzy.appBar(title: AppStrings.quickMenu),
+        appBar: const CoreAppBar(title: AppStrings.quickMenu),
         body: CustomScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           slivers: [
@@ -147,9 +124,7 @@ class _QuickMenuViewState extends State<QuickMenuView>
 
             // Klavye açıkken alttaki içeriğin gizlenmemesi için boşluk.
             SliverToBoxAdapter(
-              child: SizedBox(
-                height: AppSize.v48 + MediaQuery.of(context).viewInsets.bottom,
-              ),
+              child: (AppSize.v48 + MediaQuery.of(context).viewInsets.bottom).h,
             ),
           ],
         ),
@@ -172,7 +147,6 @@ class _QuickMenuViewState extends State<QuickMenuView>
           return QuickMenuCategorySection(
             category: cat,
             items: cat.indices.map((i) => allItems[i]).toList(),
-            animations: cat.indices.map(_itemAnim).toList(),
           );
         },
       ),
@@ -182,29 +156,22 @@ class _QuickMenuViewState extends State<QuickMenuView>
   /// Arama sonuçlarını 3 sütunlu grid olarak render eder.
   /// Sonuç yoksa boş durum gösterimi (ikon + mesaj) yapar.
   Widget _buildSearchResults(BuildContext context, String query) {
-    final colorScheme = Theme.of(context).colorScheme;
     final results = _filtered(query);
 
     if (results.isEmpty) {
       // ── Boş durum ──
       return SliverFillRemaining(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.search_off_rounded,
-              size: AppSize.v64,
-              color: colorScheme.onSurface.withOpacity(0.25),
-            ),
-            const SizedBox(height: AppSize.v12),
-            Text(
-              AppStrings.searchNoResult,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onSurface.withOpacity(0.45),
-              ),
-            ),
-          ],
-        ),
+        child: [
+          Icon(
+            Icons.search_off_rounded,
+            size: AppSize.v64,
+            color: context.onSurfaceColor.withValues(alpha: 0.25),
+          ),
+          AppSize.v12.h,
+          AppStrings.searchNoResult.text
+              .bodyMedium(context)
+              .color(context.onSurfaceColor.withValues(alpha: 0.45)),
+        ].column(mainAxisAlignment: .center).center,
       );
     }
 
@@ -224,11 +191,7 @@ class _QuickMenuViewState extends State<QuickMenuView>
         itemCount: results.length,
         itemBuilder: (context, i) {
           final r = results[i];
-          return QuickMenuGridItem(
-            item: r.item,
-            accentColor: r.accent,
-            animation: _itemAnim(r.globalIndex),
-          );
+          return QuickMenuGridItem(item: r.item, accentColor: r.accent);
         },
       ),
     );

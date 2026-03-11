@@ -9,7 +9,6 @@ import 'package:wonzy_core_utils/wonzy_core_utils.dart';
 
 /// Hızlı menü grid kartı widget'ı.
 ///
-/// [animation] ile staggered fade + slide giriş animasyonu oynatır.
 /// Karta basıldığında [AnimatedScale] ile %92'ye küçülür;
 /// kenarlık ve gölge rengi [_pressed] durumuna göre animasyonlu geçiş yapar.
 /// [setState] sadece bu küçük widget'ı etkiler — üst ağaca sıçramaz.
@@ -18,14 +17,10 @@ class QuickMenuGridItem extends StatefulWidget {
     super.key,
     required this.item,
     required this.accentColor,
-    required this.animation,
   });
 
   final MenuItemModel item;
   final Color accentColor;
-
-  /// [AnimationController]'dan kesilmiş staggered dilim.
-  final Animation<double> animation;
 
   @override
   State<QuickMenuGridItem> createState() => _QuickMenuGridItemState();
@@ -44,20 +39,9 @@ class _QuickMenuGridItemState extends State<QuickMenuGridItem> {
 
   @override
   Widget build(BuildContext context) {
-    // Giriş animasyonu: fade + yukarı kayarak belirme.
-    // Bu wrapper'lar hiçbir zaman press nedeniyle rebuild olmaz.
-    return FadeTransition(
-      opacity: widget.animation,
-      child: SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(0, 0.25),
-          end: Offset.zero,
-        ).animate(widget.animation),
-        child: ValueListenableBuilder<bool>(
-          valueListenable: _pressed,
-          builder: (context, pressed, _) => _buildCard(context, pressed),
-        ),
-      ),
+    return ValueListenableBuilder<bool>(
+      valueListenable: _pressed,
+      builder: (context, pressed, _) => _buildCard(context, pressed),
     );
   }
 

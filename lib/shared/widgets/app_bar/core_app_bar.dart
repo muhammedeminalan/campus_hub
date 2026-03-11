@@ -12,6 +12,14 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wonzy.appBar(title: title, actions: actions, leading: leading);
+    return Wonzy.appBar(
+      title: title,
+      actions: actions,
+      leading: leading,
+      titleStyle: context.titleMedium.copyWith(
+        fontWeight: FontWeight.w600,
+        color: context.onPrimaryColor,
+      ),
+    );
   }
 }

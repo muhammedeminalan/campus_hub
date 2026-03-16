@@ -59,7 +59,7 @@ class _CoursesBodyState extends State<_CoursesBody> {
           CoursesLoaded() => _buildContent(context, state),
         },
       ),
-    ).safeArea(top: false);
+    );
   }
 
   Widget _buildLoading() {

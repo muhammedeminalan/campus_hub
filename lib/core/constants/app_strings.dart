@@ -112,6 +112,12 @@ final class AppStrings {
   static String examResultNotFoundSub(String period) =>
       '$period dönemine ait sınav\nkaydı mevcut değil.';
 
+  // ── Akademik Danışman ────────────────────────────────────────────────────────
+  static const academicAdvisorLoadError = 'Danışman bilgisi yüklenemedi';
+  static const academicAdvisorLoadErrorSub = 'Lütfen tekrar deneyin.';
+  static const contactInfo = 'İletişim Bilgileri';
+  static const officeHoursLabel = 'Görüşme Saatleri';
+
   // ── Arama ────────────────────────────────────────────────────────────────────
   static const searchHint = 'Menüde ara…';
   static const searchNoResult = 'Sonuç bulunamadı';

@@ -3,12 +3,15 @@ import 'package:campus_hub/core/cache/shared_prefs_service.dart';
 import 'package:campus_hub/core/contracts/auth/auth_base.dart';
 import 'package:campus_hub/core/contracts/auth/i_token_provider.dart';
 import 'package:campus_hub/core/contracts/storage/i_secure_storage.dart';
+import 'package:campus_hub/core/mock/services/mock_academic_advisor_service.dart';
 import 'package:campus_hub/core/mock/services/mock_course_service.dart';
 import 'package:campus_hub/core/mock/services/mock_exam_result_service.dart';
 import 'package:campus_hub/core/mock/services/mock_student_service.dart';
 import 'package:campus_hub/core/services/auth/firebase_auth_service.dart';
 import 'package:campus_hub/core/services/network/dio_service.dart';
 import 'package:campus_hub/core/services/storage/secure_storage_service.dart';
+import 'package:campus_hub/features/academic_advisor/domain/i_academic_advisor_service.dart';
+import 'package:campus_hub/features/academic_advisor/presentation/cubit/academic_advisor_cubit.dart';
 import 'package:campus_hub/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:campus_hub/features/auth/domain/usecases/sign_out_use_case.dart';
 import 'package:campus_hub/features/auth/login/presentation/bloc/login_bloc.dart';
@@ -85,6 +88,15 @@ Future<void> initializeDependencies() async {
       service: sl<IExamResultService>(),
       groupUseCase: sl<GroupExamResultsByCourseUseCase>(),
     ),
+  );
+
+  // --- Academic Advisor ---
+  // Firebase'e geçince: MockAcademicAdvisorService() → FirebaseAcademicAdvisorService()
+  sl.registerLazySingleton<IAcademicAdvisorService>(
+    () => MockAcademicAdvisorService(),
+  );
+  sl.registerFactory<AcademicAdvisorCubit>(
+    () => AcademicAdvisorCubit(service: sl<IAcademicAdvisorService>()),
   );
 
   // --- Student ---

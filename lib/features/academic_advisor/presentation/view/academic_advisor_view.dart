@@ -63,15 +63,6 @@ class _AcademicAdvisorBodyState extends State<_AcademicAdvisorBody> {
         AdvisorHeaderCard(advisor: state.advisor),
         AdvisorContactCard(advisor: state.advisor),
         AdvisorOfficeHoursCard(advisor: state.advisor),
-        const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Deneme",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
       ].column(spacing: AppSize.v16),
     );
   }

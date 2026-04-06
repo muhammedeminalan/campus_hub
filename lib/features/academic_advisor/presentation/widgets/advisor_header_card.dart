@@ -1,4 +1,5 @@
 import 'package:campus_hub/config/theme/app_colors.dart';
+import 'package:campus_hub/core/constants/app_assets.dart';
 import 'package:campus_hub/core/constants/app_sizes.dart';
 import 'package:campus_hub/features/academic_advisor/data/model/advisor_model.dart';
 import 'package:flutter/material.dart';
@@ -32,10 +33,7 @@ class AdvisorHeaderCard extends StatelessWidget {
 
   // ── Gradient üst bölüm: avatar + isim + unvan ─────────────────────────────
   Widget _buildGradientHeader(BuildContext context) {
-    return [
-      _buildAvatar(context),
-      _buildNameSection(context).expanded(),
-    ]
+    return [_buildAvatar(context), _buildNameSection(context).expanded()]
         .row(
           spacing: AppSize.v16,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,15 +50,7 @@ class AdvisorHeaderCard extends StatelessWidget {
 
   // ── Yuvarlak avatar: kişi ikonu ───────────────────────────────────────────
   Widget _buildAvatar(BuildContext context) {
-    return CircleAvatar(
-      radius: AppSize.v32,
-      backgroundColor: context.onPrimaryColor.withValues(alpha: 0.2),
-      child: Icon(
-        Icons.person_rounded,
-        size: AppSize.v40,
-        color: context.onPrimaryColor,
-      ),
-    );
+    return AppAssets.avatar.asAssetImage().circleAvatar(size: AppSize.v56);
   }
 
   // ── İsim ve unvan sütunu ──────────────────────────────────────────────────
@@ -88,8 +78,6 @@ class AdvisorHeaderCard extends StatelessWidget {
           .fontSize(AppSize.v14)
           .color(AppColors.textSecondary)
           .expanded(),
-    ]
-        .row(spacing: AppSize.v8)
-        .paddingSymmetric(h: AppSize.v20, v: AppSize.v12);
+    ].row(spacing: AppSize.v8).paddingSymmetric(h: AppSize.v20, v: AppSize.v12);
   }
 }

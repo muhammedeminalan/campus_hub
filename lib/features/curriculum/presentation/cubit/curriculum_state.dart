@@ -16,6 +16,8 @@ final class CurriculumLoading extends CurriculumState {
 }
 
 final class CurriculumLoaded extends CurriculumState {
+  static const _noChange = Object();
+
   final List<int> classLevels;
   final List<int> semesters;
   final List<CurriculumModel> allCurriculums;
@@ -35,16 +37,20 @@ final class CurriculumLoaded extends CurriculumState {
   CurriculumLoaded copyWith({
     List<int>? semesters,
     List<CurriculumModel>? filteredCurriculums,
-    int? selectedClassLevel,
-    int? selectedSemester,
+    Object? selectedClassLevel = _noChange,
+    Object? selectedSemester = _noChange,
   }) {
     return CurriculumLoaded(
       classLevels: classLevels,
       semesters: semesters ?? this.semesters,
       allCurriculums: allCurriculums,
       filteredCurriculums: filteredCurriculums ?? this.filteredCurriculums,
-      selectedClassLevel: selectedClassLevel ?? this.selectedClassLevel,
-      selectedSemester: selectedSemester ?? this.selectedSemester,
+      selectedClassLevel: selectedClassLevel == _noChange
+          ? this.selectedClassLevel
+          : selectedClassLevel as int?,
+      selectedSemester: selectedSemester == _noChange
+          ? this.selectedSemester
+          : selectedSemester as int?,
     );
   }
 

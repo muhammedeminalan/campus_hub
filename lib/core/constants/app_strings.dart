@@ -92,6 +92,7 @@ final class AppStrings {
   static const curriculumLoadErrorSub = 'Lütfen tekrar deneyin.';
   static const curriculumClassFilterTitle = 'Sınıf';
   static const curriculumSemesterFilterTitle = 'Dönem';
+  static const curriculumFilterSheetTitle = 'Müfredat Filtreleri';
   static const curriculumFilterHelper =
       'Önce sınıfı, sonra dönemi seçerek müfredatı daraltın.';
   static const curriculumSelectedTitle = 'Seçili Müfredat';
@@ -102,6 +103,7 @@ final class AppStrings {
   static const curriculumTotalCredit = 'Toplam Kredi';
   static const curriculumTotalAkts = 'Toplam AKTS';
   static const curriculumResetFilters = 'Filtreleri Sıfırla';
+  static const curriculumApplyFilters = 'Uygula';
   static const curriculumNotFound = 'Müfredat Bulunamadı';
   static const curriculumCompulsory = 'Zorunlu';
   static const curriculumElective = 'Seçmeli';

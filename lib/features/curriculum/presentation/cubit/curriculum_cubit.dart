@@ -72,24 +72,23 @@ class CurriculumCubit extends Cubit<CurriculumState> {
       classLevel,
     );
 
+    if (semesters.isEmpty) {
+      emit(
+        current.copyWith(
+          selectedClassLevel: classLevel,
+          semesters: const [],
+          selectedSemester: null,
+          filteredCurriculums: const [],
+        ),
+      );
+      return;
+    }
+
     final selectedSemester = semesters.contains(current.selectedSemester)
-        ? current.selectedSemester
-        : (semesters.isNotEmpty ? semesters.first : null);
+        ? current.selectedSemester!
+        : semesters.first;
 
-    final filteredCurriculums = _filterUseCase(
-      current.allCurriculums,
-      classLevel: classLevel,
-      semester: selectedSemester,
-    );
-
-    emit(
-      current.copyWith(
-        selectedClassLevel: classLevel,
-        semesters: semesters,
-        selectedSemester: selectedSemester,
-        filteredCurriculums: filteredCurriculums,
-      ),
-    );
+    applyFilters(classLevel: classLevel, semester: selectedSemester);
   }
 
   /// Seçili dönemi günceller ve müfredat listesini yeniden filtreler.
@@ -97,15 +96,49 @@ class CurriculumCubit extends Cubit<CurriculumState> {
     final current = state;
     if (current is! CurriculumLoaded) return;
 
+    final classLevel = current.selectedClassLevel;
+    if (classLevel == null) return;
+
+    applyFilters(classLevel: classLevel, semester: semester);
+  }
+
+  /// Sınıf + dönem filtrelerini tek adımda güvenli şekilde uygular.
+  void applyFilters({required int classLevel, required int semester}) {
+    final current = state;
+    if (current is! CurriculumLoaded) return;
+
+    final semesters = _resolveSemestersByClass(
+      current.allCurriculums,
+      classLevel,
+    );
+
+    if (semesters.isEmpty) {
+      emit(
+        current.copyWith(
+          selectedClassLevel: classLevel,
+          semesters: const [],
+          selectedSemester: null,
+          filteredCurriculums: const [],
+        ),
+      );
+      return;
+    }
+
+    final safeSemester = semesters.contains(semester)
+        ? semester
+        : semesters.first;
+
     final filteredCurriculums = _filterUseCase(
       current.allCurriculums,
-      classLevel: current.selectedClassLevel,
-      semester: semester,
+      classLevel: classLevel,
+      semester: safeSemester,
     );
 
     emit(
       current.copyWith(
-        selectedSemester: semester,
+        selectedClassLevel: classLevel,
+        semesters: semesters,
+        selectedSemester: safeSemester,
         filteredCurriculums: filteredCurriculums,
       ),
     );
@@ -117,26 +150,37 @@ class CurriculumCubit extends Cubit<CurriculumState> {
     if (current is! CurriculumLoaded) return;
 
     final selectedClassLevel = _resolveDefaultClassLevel(current.classLevels);
+    if (selectedClassLevel == null) {
+      emit(
+        current.copyWith(
+          selectedClassLevel: null,
+          semesters: const [],
+          selectedSemester: null,
+          filteredCurriculums: const [],
+        ),
+      );
+      return;
+    }
+
     final semesters = _resolveSemestersByClass(
       current.allCurriculums,
       selectedClassLevel,
     );
     final selectedSemester = _resolveDefaultSemester(semesters);
 
-    final filteredCurriculums = _filterUseCase(
-      current.allCurriculums,
-      classLevel: selectedClassLevel,
-      semester: selectedSemester,
-    );
+    if (selectedSemester == null) {
+      emit(
+        current.copyWith(
+          selectedClassLevel: selectedClassLevel,
+          semesters: semesters,
+          selectedSemester: null,
+          filteredCurriculums: const [],
+        ),
+      );
+      return;
+    }
 
-    emit(
-      current.copyWith(
-        selectedClassLevel: selectedClassLevel,
-        semesters: semesters,
-        selectedSemester: selectedSemester,
-        filteredCurriculums: filteredCurriculums,
-      ),
-    );
+    applyFilters(classLevel: selectedClassLevel, semester: selectedSemester);
   }
 
   List<int> _normalizeClassLevels(

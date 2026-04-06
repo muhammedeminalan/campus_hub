@@ -1,6 +1,7 @@
 import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:campus_hub/features/academic_advisor/presentation/view/academic_advisor_view.dart';
 import 'package:campus_hub/features/courses/presentation/view/courses_view.dart';
+import 'package:campus_hub/features/curriculum/view/curriculum_view.dart';
 import 'package:campus_hub/features/exam_results/presentation/view/exam_results_view.dart';
 import 'package:flutter/material.dart';
 import 'package:wonzy_core_utils/wonzy_core_utils.dart';
@@ -43,9 +44,7 @@ abstract final class QuickMenuNavigator {
       QuickMenuRoute.academicStatus => const _ComingSoonPage(
         title: AppStrings.academicStatus,
       ),
-      QuickMenuRoute.curriculum => const _ComingSoonPage(
-        title: AppStrings.curriculum,
-      ),
+      QuickMenuRoute.curriculum => const CurriculumView(),
       QuickMenuRoute.todos => const _ComingSoonPage(title: AppStrings.todos),
       QuickMenuRoute.academicAdvisor => const AcademicAdvisorView(),
       QuickMenuRoute.preparatoryInfo => const _ComingSoonPage(

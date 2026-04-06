@@ -5,6 +5,7 @@ import 'package:campus_hub/core/contracts/auth/i_token_provider.dart';
 import 'package:campus_hub/core/contracts/storage/i_secure_storage.dart';
 import 'package:campus_hub/core/mock/services/mock_academic_advisor_service.dart';
 import 'package:campus_hub/core/mock/services/mock_course_service.dart';
+import 'package:campus_hub/core/mock/services/mock_curriculum_service.dart';
 import 'package:campus_hub/core/mock/services/mock_exam_result_service.dart';
 import 'package:campus_hub/core/mock/services/mock_student_service.dart';
 import 'package:campus_hub/core/services/auth/firebase_auth_service.dart';
@@ -19,6 +20,9 @@ import 'package:campus_hub/features/bottom_navigation/cubit/navigation_cubit.dar
 import 'package:campus_hub/features/courses/domain/i_course_service.dart';
 import 'package:campus_hub/features/courses/domain/usecases/filter_courses_by_period_use_case.dart';
 import 'package:campus_hub/features/courses/presentation/cubit/courses_cubit.dart';
+import 'package:campus_hub/features/curriculum/domain/i_curriculum_service.dart';
+import 'package:campus_hub/features/curriculum/domain/usecases/filter_curriculum_by_category_use_case.dart';
+import 'package:campus_hub/features/curriculum/presentation/cubit/curriculum_cubit.dart';
 import 'package:campus_hub/features/exam_results/domain/i_exam_result_service.dart';
 import 'package:campus_hub/features/exam_results/domain/usecases/group_exam_results_by_course_use_case.dart';
 import 'package:campus_hub/features/exam_results/presentation/cubit/exam_results_cubit.dart';
@@ -74,6 +78,19 @@ Future<void> initializeDependencies() async {
     () => CoursesCubit(
       service: sl<ICourseService>(),
       filterUseCase: sl<FilterCoursesByPeriodUseCase>(),
+    ),
+  );
+
+  // --- Curriculum ---
+  // Firebase'e geçince: MockCurriculumService() → FirebaseCurriculumService()
+  sl.registerLazySingleton<ICurriculumService>(() => MockCurriculumService());
+  sl.registerLazySingleton<FilterCurriculumByCategoryUseCase>(
+    () => const FilterCurriculumByCategoryUseCase(),
+  );
+  sl.registerFactory<CurriculumCubit>(
+    () => CurriculumCubit(
+      service: sl<ICurriculumService>(),
+      filterUseCase: sl<FilterCurriculumByCategoryUseCase>(),
     ),
   );
 

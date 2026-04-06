@@ -87,6 +87,42 @@ final class AppStrings {
   static const academicAdvisor = 'Akademik Danışman';
   static const preparatoryInfo = 'Hazırlık Bilgileri';
 
+  // ── Müfredat ────────────────────────────────────────────────────────────────
+  static const curriculumLoadError = 'Müfredat yüklenemedi';
+  static const curriculumLoadErrorSub = 'Lütfen tekrar deneyin.';
+  static const curriculumClassFilterTitle = 'Sınıf';
+  static const curriculumSemesterFilterTitle = 'Dönem';
+  static const curriculumFilterHelper =
+      'Önce sınıfı, sonra dönemi seçerek müfredatı daraltın.';
+  static const curriculumSelectedTitle = 'Seçili Müfredat';
+  static const curriculumSelectedSub =
+      'Filtrelerinize göre güncel ders planı listeleniyor.';
+  static const curriculumListTitle = 'Ders Planı';
+  static const curriculumSelectedCourseCount = 'Ders';
+  static const curriculumTotalCredit = 'Toplam Kredi';
+  static const curriculumTotalAkts = 'Toplam AKTS';
+  static const curriculumResetFilters = 'Filtreleri Sıfırla';
+  static const curriculumNotFound = 'Müfredat Bulunamadı';
+  static const curriculumCompulsory = 'Zorunlu';
+  static const curriculumElective = 'Seçmeli';
+  static const curriculumCredit = 'Kredi';
+  static const curriculumAkts = 'AKTS';
+
+  static String curriculumClassLabel(int classLevel) => '$classLevel. Sınıf';
+
+  static String curriculumSemesterLabel(int semester) => '$semester. Dönem';
+
+  static String curriculumNotFoundSub({
+    required int? classLevel,
+    required int? semester,
+  }) {
+    if (classLevel == null || semester == null) {
+      return 'Seçili kategoriye ait müfredat kaydı mevcut değil.';
+    }
+
+    return '$classLevel. sınıf $semester. dönem için müfredat henüz eklenmedi.';
+  }
+
   // ── Dersler ─────────────────────────────────────────────────────────────────
   static const selectPeriod = 'Dönem Seçiniz';
   static const coursesLoadError = 'Veriler yüklenemedi';

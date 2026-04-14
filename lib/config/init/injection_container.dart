@@ -7,6 +7,7 @@ import 'package:campus_hub/core/mock/services/mock_academic_advisor_service.dart
 import 'package:campus_hub/core/mock/services/mock_course_service.dart';
 import 'package:campus_hub/core/mock/services/mock_curriculum_service.dart';
 import 'package:campus_hub/core/mock/services/mock_exam_result_service.dart';
+import 'package:campus_hub/core/mock/services/mock_preparatory_info_service.dart';
 import 'package:campus_hub/core/mock/services/mock_student_service.dart';
 import 'package:campus_hub/core/mock/services/mock_todo_service.dart';
 import 'package:campus_hub/core/services/auth/firebase_auth_service.dart';
@@ -29,6 +30,9 @@ import 'package:campus_hub/features/exam_results/domain/usecases/group_exam_resu
 import 'package:campus_hub/features/exam_results/presentation/cubit/exam_results_cubit.dart';
 import 'package:campus_hub/features/home/domain/i_student_service.dart';
 import 'package:campus_hub/features/home/presentation/cubit/home_cubit.dart';
+import 'package:campus_hub/features/preparatory_info/domain/i_preparatory_info_service.dart';
+import 'package:campus_hub/features/preparatory_info/domain/usecases/calculate_preparatory_progress_use_case.dart';
+import 'package:campus_hub/features/preparatory_info/presentation/cubit/preparatory_info_cubit.dart';
 import 'package:campus_hub/features/todos/domain/i_todo_service.dart';
 import 'package:campus_hub/features/todos/domain/usecases/filter_todos_use_case.dart';
 import 'package:campus_hub/features/todos/presentation/cubit/todos_cubit.dart';
@@ -137,6 +141,21 @@ Future<void> initializeDependencies() async {
     () => TodosCubit(
       service: sl<ITodoService>(),
       filterUseCase: sl<FilterTodosUseCase>(),
+    ),
+  );
+
+  // --- Preparatory Info ---
+  // Firebase'e geçince: MockPreparatoryInfoService() → FirebasePreparatoryInfoService()
+  sl.registerLazySingleton<IPreparatoryInfoService>(
+    () => MockPreparatoryInfoService(),
+  );
+  sl.registerLazySingleton<CalculatePreparatoryProgressUseCase>(
+    () => const CalculatePreparatoryProgressUseCase(),
+  );
+  sl.registerFactory<PreparatoryInfoCubit>(
+    () => PreparatoryInfoCubit(
+      service: sl<IPreparatoryInfoService>(),
+      calculateUseCase: sl<CalculatePreparatoryProgressUseCase>(),
     ),
   );
 

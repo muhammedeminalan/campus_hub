@@ -185,6 +185,26 @@ final class AppStrings {
 
   static String todoOverdueByDays(int dayCount) => '$dayCount gün gecikti';
 
+  // ── Hazırlık Bilgileri ─────────────────────────────────────────────────────
+  static const preparatoryLoadError = 'Hazırlık bilgileri yüklenemedi';
+  static const preparatoryLoadErrorSub = 'Lütfen tekrar deneyin.';
+  static const preparatorySummaryTitle = 'Hazırlık Durum Özeti';
+  static const preparatoryLevel = 'Seviye';
+  static const preparatoryClass = 'Sınıf';
+  static const preparatoryAdvisor = 'Danışman';
+  static const preparatoryExemptionStatus = 'Muafiyet Durumu';
+  static const preparatoryAbsence = 'Devamsızlık';
+  static const preparatoryCompletedModules = 'Tamamlanan Modül';
+  static const preparatoryPassedExams = 'Geçilen Sınav';
+  static const preparatoryProgressLabel = 'Genel Modül İlerlemesi';
+  static const preparatoryModulesTitle = 'Modüller';
+  static const preparatoryExamsTitle = 'Sınav Sonuçları';
+  static const preparatoryModuleAttendance = 'Devam';
+  static const preparatoryModuleCompleted = 'Tamamlandı';
+  static const preparatoryModuleInProgress = 'Devam Ediyor';
+  static const preparatoryExamPassed = 'Geçti';
+  static const preparatoryExamFailed = 'Kaldı';
+
   // ── Arama ────────────────────────────────────────────────────────────────────
   static const searchHint = 'Menüde ara…';
   static const searchNoResult = 'Sonuç bulunamadı';

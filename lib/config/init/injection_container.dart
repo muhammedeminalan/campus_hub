@@ -8,6 +8,7 @@ import 'package:campus_hub/core/mock/services/mock_course_service.dart';
 import 'package:campus_hub/core/mock/services/mock_curriculum_service.dart';
 import 'package:campus_hub/core/mock/services/mock_exam_result_service.dart';
 import 'package:campus_hub/core/mock/services/mock_student_service.dart';
+import 'package:campus_hub/core/mock/services/mock_todo_service.dart';
 import 'package:campus_hub/core/services/auth/firebase_auth_service.dart';
 import 'package:campus_hub/core/services/network/dio_service.dart';
 import 'package:campus_hub/core/services/storage/secure_storage_service.dart';
@@ -28,6 +29,9 @@ import 'package:campus_hub/features/exam_results/domain/usecases/group_exam_resu
 import 'package:campus_hub/features/exam_results/presentation/cubit/exam_results_cubit.dart';
 import 'package:campus_hub/features/home/domain/i_student_service.dart';
 import 'package:campus_hub/features/home/presentation/cubit/home_cubit.dart';
+import 'package:campus_hub/features/todos/domain/i_todo_service.dart';
+import 'package:campus_hub/features/todos/domain/usecases/filter_todos_use_case.dart';
+import 'package:campus_hub/features/todos/presentation/cubit/todos_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -121,6 +125,19 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<IStudentService>(() => MockStudentService());
   sl.registerFactory<HomeCubit>(
     () => HomeCubit(service: sl<IStudentService>()),
+  );
+
+  // --- Todos ---
+  // Firebase'e geçince: MockTodoService() → FirebaseTodoService()
+  sl.registerLazySingleton<ITodoService>(() => MockTodoService());
+  sl.registerLazySingleton<FilterTodosUseCase>(
+    () => const FilterTodosUseCase(),
+  );
+  sl.registerFactory<TodosCubit>(
+    () => TodosCubit(
+      service: sl<ITodoService>(),
+      filterUseCase: sl<FilterTodosUseCase>(),
+    ),
   );
 
   // --- Bloc ---

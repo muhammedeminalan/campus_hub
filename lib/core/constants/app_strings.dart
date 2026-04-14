@@ -156,6 +156,35 @@ final class AppStrings {
   static const contactInfo = 'İletişim Bilgileri';
   static const officeHoursLabel = 'Görüşme Saatleri';
 
+  // ── Yapılacaklar ───────────────────────────────────────────────────────────
+  static const todosLoadError = 'Yapılacaklar yüklenemedi';
+  static const todosLoadErrorSub = 'Lütfen tekrar deneyin.';
+  static const todoSummaryTitle = 'Bugünkü Yapılacaklar';
+  static const todoTotal = 'Toplam';
+  static const todoPending = 'Bekleyen';
+  static const todoCompleted = 'Tamamlanan';
+  static const todoOverdue = 'Geciken';
+  static const todoFilterTitle = 'Durum Filtresi';
+  static const todoFilterAll = 'Tümü';
+  static const todoFilterPending = 'Bekleyen';
+  static const todoFilterCompleted = 'Tamamlanan';
+  static const todoFilterOverdue = 'Geciken';
+  static const todoEmptyTitle = 'Gösterilecek görev bulunamadı';
+  static const todoEmptySubTitle =
+      'Seçili filtreye uygun görev yok. Farklı filtre deneyebilirsin.';
+  static const todoPriorityLow = 'Düşük';
+  static const todoPriorityMedium = 'Orta';
+  static const todoPriorityHigh = 'Yüksek';
+  static const todoNoDueDate = 'Tarih yok';
+  static const todoDueToday = 'Bugün';
+  static const todoDueTomorrow = 'Yarın';
+  static const todoMarkAsCompleted = 'Tamamlandı işaretle';
+  static const todoMarkAsPending = 'Bekleyen yap';
+
+  static String todoDueInDays(int dayCount) => '$dayCount gün kaldı';
+
+  static String todoOverdueByDays(int dayCount) => '$dayCount gün gecikti';
+
   // ── Arama ────────────────────────────────────────────────────────────────────
   static const searchHint = 'Menüde ara…';
   static const searchNoResult = 'Sonuç bulunamadı';

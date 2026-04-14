@@ -1,5 +1,6 @@
 import 'package:campus_hub/core/constants/app_strings.dart';
 import 'package:campus_hub/features/academic_advisor/presentation/view/academic_advisor_view.dart';
+import 'package:campus_hub/features/academic_status/presentation/view/academic_status_view.dart';
 import 'package:campus_hub/features/absence_status/presentation/view/absence_status_view.dart';
 import 'package:campus_hub/features/courses/presentation/view/courses_view.dart';
 import 'package:campus_hub/features/curriculum/presentation/view/curriculum_view.dart';
@@ -42,9 +43,7 @@ abstract final class QuickMenuNavigator {
         title: AppStrings.tuitionInfo,
       ),
       QuickMenuRoute.absenceStatus => const AbsenceStatusView(),
-      QuickMenuRoute.academicStatus => const _ComingSoonPage(
-        title: AppStrings.academicStatus,
-      ),
+      QuickMenuRoute.academicStatus => const AcademicStatusView(),
       QuickMenuRoute.curriculum => const CurriculumView(),
       QuickMenuRoute.todos => const TodosView(),
       QuickMenuRoute.academicAdvisor => const AcademicAdvisorView(),

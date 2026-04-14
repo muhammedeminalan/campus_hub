@@ -4,6 +4,7 @@ import 'package:campus_hub/core/contracts/auth/auth_base.dart';
 import 'package:campus_hub/core/contracts/auth/i_token_provider.dart';
 import 'package:campus_hub/core/contracts/storage/i_secure_storage.dart';
 import 'package:campus_hub/core/mock/services/mock_academic_advisor_service.dart';
+import 'package:campus_hub/core/mock/services/mock_academic_status_service.dart';
 import 'package:campus_hub/core/mock/services/mock_absence_service.dart';
 import 'package:campus_hub/core/mock/services/mock_course_service.dart';
 import 'package:campus_hub/core/mock/services/mock_curriculum_service.dart';
@@ -16,6 +17,9 @@ import 'package:campus_hub/core/services/network/dio_service.dart';
 import 'package:campus_hub/core/services/storage/secure_storage_service.dart';
 import 'package:campus_hub/features/academic_advisor/domain/i_academic_advisor_service.dart';
 import 'package:campus_hub/features/academic_advisor/presentation/cubit/academic_advisor_cubit.dart';
+import 'package:campus_hub/features/academic_status/domain/i_academic_status_service.dart';
+import 'package:campus_hub/features/academic_status/domain/usecases/calculate_academic_status_summary_use_case.dart';
+import 'package:campus_hub/features/academic_status/presentation/cubit/academic_status_cubit.dart';
 import 'package:campus_hub/features/absence_status/domain/i_absence_service.dart';
 import 'package:campus_hub/features/absence_status/domain/usecases/calculate_absence_summary_use_case.dart';
 import 'package:campus_hub/features/absence_status/presentation/cubit/absence_status_cubit.dart';
@@ -145,6 +149,21 @@ Future<void> initializeDependencies() async {
     () => AbsenceStatusCubit(
       service: sl<IAbsenceService>(),
       summaryUseCase: sl<CalculateAbsenceSummaryUseCase>(),
+    ),
+  );
+
+  // --- Academic Status ---
+  // Firebase'e geçince: MockAcademicStatusService() → FirebaseAcademicStatusService()
+  sl.registerLazySingleton<IAcademicStatusService>(
+    () => MockAcademicStatusService(),
+  );
+  sl.registerLazySingleton<CalculateAcademicStatusSummaryUseCase>(
+    () => const CalculateAcademicStatusSummaryUseCase(),
+  );
+  sl.registerFactory<AcademicStatusCubit>(
+    () => AcademicStatusCubit(
+      service: sl<IAcademicStatusService>(),
+      calculateUseCase: sl<CalculateAcademicStatusSummaryUseCase>(),
     ),
   );
 

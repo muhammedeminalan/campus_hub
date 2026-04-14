@@ -227,6 +227,34 @@ final class AppStrings {
   static const absenceEmptySubTitle =
       'Ders devamsızlık kayıtları hazır olduğunda burada görünecek.';
 
+  // ── Akademik Durum ───────────────────────────────────────────────────────
+  static const academicStatusLoadError = 'Akademik durum bilgileri yüklenemedi';
+  static const academicStatusLoadErrorSub = 'Lütfen tekrar deneyin.';
+  static const academicStatusSummaryTitle = 'Akademik Durum Özeti';
+  static const academicStatusClassLabel = 'Sınıf';
+  static const academicStatusAdvisorLabel = 'Danışman';
+  static const academicStatusTargetCredit = 'Mezuniyet Kredisi';
+  static const academicStatusCompletedCredit = 'Tamamlanan Kredi';
+  static const academicStatusRemainingCredit = 'Kalan Kredi';
+  static const academicStatusPassedCourses = 'Başarılı';
+  static const academicStatusFailedCourses = 'Başarısız';
+  static const academicStatusRiskyCourses = 'Sınırda';
+  static const academicStatusSuccessRate = 'Başarı Oranı';
+  static const academicStatusStandingGood = 'İyi Durum';
+  static const academicStatusStandingWarning = 'Takip Gerekli';
+  static const academicStatusStandingProbation = 'Koşullu';
+  static const academicStatusCourseListTitle = 'Ders Bazlı Akademik Durum';
+  static const academicStatusCreditUnit = 'Kredi';
+  static const academicStatusCourseAverage = 'Ortalama';
+  static const academicStatusCoursePoint = 'Not Puanı';
+  static const academicStatusCourseWeightedPoint = 'Ağırlıklı Puan';
+  static const academicStatusCoursePassed = 'Başarılı';
+  static const academicStatusCourseRisk = 'Sınırda';
+  static const academicStatusCourseFailed = 'Başarısız';
+  static const academicStatusEmptyTitle = 'Akademik kayıt bulunamadı';
+  static const academicStatusEmptySubTitle =
+      'Ders ve not kayıtları hazır olduğunda burada listelenecek.';
+
   // ── Arama ────────────────────────────────────────────────────────────────────
   static const searchHint = 'Menüde ara…';
   static const searchNoResult = 'Sonuç bulunamadı';

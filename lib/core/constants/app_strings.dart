@@ -205,6 +205,28 @@ final class AppStrings {
   static const preparatoryExamPassed = 'Geçti';
   static const preparatoryExamFailed = 'Kaldı';
 
+  // ── Devamsızlık Durumu ─────────────────────────────────────────────────────
+  static const absenceLoadError = 'Devamsızlık bilgileri yüklenemedi';
+  static const absenceLoadErrorSub = 'Lütfen tekrar deneyin.';
+  static const absenceSummaryTitle = 'Genel Devamsızlık Özeti';
+  static const absenceTotalHours = 'Toplam Saat';
+  static const absenceUsedHours = 'Yapılan';
+  static const absenceRemainingHours = 'Kalan';
+  static const absenceRiskyCourseCount = 'Sınırdaki Ders';
+  static const absenceExceededCourseCount = 'Limit Aşan Ders';
+  static const absenceListTitle = 'Ders Bazlı Durum';
+  static const absenceCourseTotal = 'Ders Toplamı';
+  static const absenceCourseUsed = 'Yapılan Devamsızlık';
+  static const absenceCourseAllowed = 'Yapılabilir Üst Sınır';
+  static const absenceCourseRemaining = 'Kalan Hak';
+  static const absenceStatusExceeded = 'Limit Aşıldı';
+  static const absenceStatusRisk = 'Sınırda';
+  static const absenceStatusSafe = 'Güvenli';
+  static const absenceHour = 'saat';
+  static const absenceEmptyTitle = 'Devamsızlık verisi bulunamadı';
+  static const absenceEmptySubTitle =
+      'Ders devamsızlık kayıtları hazır olduğunda burada görünecek.';
+
   // ── Arama ────────────────────────────────────────────────────────────────────
   static const searchHint = 'Menüde ara…';
   static const searchNoResult = 'Sonuç bulunamadı';
